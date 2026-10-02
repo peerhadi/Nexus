@@ -1,4 +1,4 @@
-import { Conversation } from "./types";
+import type { Conversation } from "@/lib/inbox/inbox-types";
 
 export function ChatHeader({ conversation }: { conversation: Conversation }) {
   return (

@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarDays, FolderKanban, MessageCircle, Zap } from "lucide-react";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 const statStyles = [
   {

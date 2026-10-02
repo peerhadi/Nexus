@@ -11,8 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useAlert } from "@/lib/alert";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function LoginForm() {
   const router = useRouter();

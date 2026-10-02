@@ -8,28 +8,8 @@ import { ArchiveHeader } from "@/components/admin/inbox/archive/ArchiveHeader";
 import { ArchiveList } from "@/components/admin/inbox/archive/ArchiveList";
 import { ArchiveStats } from "@/components/admin/inbox/archive/ArchiveStats";
 import type { ArchiveFilter } from "@/lib/inbox/archive-types";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
-
-type Conversation = {
-  id: string;
-  clientId: string;
-  subject: string | null;
-  status: "OPEN" | "CLOSED";
-  createdAt: string;
-  updatedAt: string;
-  client?: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  messages?: {
-    id: string;
-    content: string;
-    senderType: "CLIENT" | "ADMIN";
-    createdAt: string;
-  }[];
-};
+import type { Conversation } from "@/lib/inbox/inbox-types";
+import { API_URL } from "@/lib/api";
 
 export default function ArchivePage() {
   const [items, setItems] = useState<Conversation[]>([]);
@@ -66,7 +46,7 @@ export default function ArchivePage() {
           : (data.conversations ?? []);
 
         const archived = conversations.filter(
-          (conversation) => conversation.status === "CLOSED",
+          (conversation: Conversation) => conversation.status === "CLOSED",
         );
 
         if (!cancelled) {

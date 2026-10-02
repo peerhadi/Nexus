@@ -10,8 +10,7 @@ import IdentityStep from "./identity-step";
 import LocationStep from "./location-step";
 import ThemeStep from "./theme-step";
 import FinishStep from "./finish-step";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function SignupForm() {
   const router = useRouter();

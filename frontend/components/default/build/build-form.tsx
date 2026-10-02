@@ -14,8 +14,7 @@ import {
 import BuildField from "./build-field";
 import { budgets, projectTypes } from "./build-types";
 import { useAlert } from "@/lib/alert";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function BuildForm() {
   const [step, setStep] = useState(0);

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import ProjectCard from "@/components/user/dashboard/projects/project-card";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 type Project = {
   id: string;

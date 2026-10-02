@@ -4,7 +4,6 @@ import Background from "@/components/default/login/background";
 import LoginFooter from "@/components/default/login/login-footer";
 import LoginForm from "@/components/default/login/login-form";
 import LoginHeader from "@/components/default/login/login-header";
-import LoginLogo from "@/components/default/login/login-logo";
 
 export default function LoginPage() {
   return (

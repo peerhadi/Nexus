@@ -6,8 +6,7 @@ import { ChatHeader } from "@/components/user/dashboard/messages/chat-header";
 import MessageList from "@/components/user/dashboard/messages/message-list";
 import Composer from "@/components/user/dashboard/messages/composer";
 import type { Conversation } from "@/lib/inbox/inbox-types";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function MessagesPage() {
   const [conversations, setConversations] = useState<Conversation[]>([]);

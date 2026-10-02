@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/app/(default)/components/Navbar";
 import Footer from "@/app/(default)/components/Footer";
 import { useAlert } from "@/lib/alert";
+import { API_URL } from "@/lib/api";
 
 type User = {
   id: string;
@@ -46,8 +47,6 @@ type Stats = {
   requests: number;
   averageProgress: number;
 };
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
 
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null);

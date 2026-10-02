@@ -6,8 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import NotificationPopover from "./notification-popover";
 import { useAlert } from "@/lib/alert";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 type User = {
   id: string;

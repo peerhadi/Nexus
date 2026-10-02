@@ -7,8 +7,7 @@ import { ClientDetail } from "@/components/admin/inbox/clients/ClientDetail";
 import { ClientList } from "@/components/admin/inbox/clients/ClientList";
 import { ClientStats } from "@/components/admin/inbox/clients/ClientStats";
 import type { Client, ClientFilter } from "@/lib/inbox/client-types";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function ClientsPage() {
   const [clients, setClients] = useState<Client[]>([]);

@@ -6,8 +6,7 @@ import type { Project, ProjectFilter } from "@/lib/inbox/progress-types";
 import Summary from "@/components/admin/inbox/progress/summary";
 import ProjectList from "@/components/admin/inbox/progress/project-list";
 import ProjectDetail from "@/components/admin/inbox/progress/project-detail";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 const statusOptions: ProjectFilter[] = [
   "All",

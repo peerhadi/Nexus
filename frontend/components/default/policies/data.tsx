@@ -30,7 +30,9 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
-export const accessibilitySections = [
+import type { PolicySectionData } from "./policy-page";
+
+export const accessibilitySections: PolicySectionData[] = [
   {
     icon: Accessibility,
     title: "Our accessibility approach",
@@ -87,7 +89,7 @@ export const accessibilitySections = [
   },
 ];
 
-export const cookieSections = [
+export const cookieSections: PolicySectionData[] = [
   {
     icon: Cookie,
     title: "What are cookies?",
@@ -144,7 +146,7 @@ export const cookieSections = [
   },
 ];
 
-export const privacySections = [
+export const privacySections: PolicySectionData[] = [
   {
     id: "information",
     icon: UserRound,
@@ -352,7 +354,7 @@ export const privacySections = [
   },
 ];
 
-export const termsSections = [
+export const termsSections: PolicySectionData[] = [
   {
     id: "agreement",
     icon: Handshake,

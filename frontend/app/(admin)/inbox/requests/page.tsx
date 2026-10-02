@@ -13,8 +13,7 @@ import type {
 import { RequestDetail } from "@/components/admin/inbox/requests/request-detail";
 import { RequestList } from "@/components/admin/inbox/requests/request-list";
 import { Stat } from "@/components/admin/inbox/requests/stat";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 const statusOptions: RequestFilter[] = [
   "All",

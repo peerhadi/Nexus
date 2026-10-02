@@ -6,8 +6,7 @@ import { Archive, Clock3 } from "lucide-react";
 import ConversationList from "@/components/admin/inbox/inbox-page/conversation-list";
 import ConversationDetail from "@/components/admin/inbox/inbox-page/conversation-detail";
 import type { Conversation, ConversationStatus } from "@/lib/inbox/inbox-types";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001/api";
+import { API_URL } from "@/lib/api";
 
 export default function InboxPage() {
   const [conversations, setConversations] = useState<Conversation[]>([]);

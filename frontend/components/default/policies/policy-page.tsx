@@ -1,46 +1,35 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PolicySection } from "./policy-section";
 
-type TextSection = {
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-  title: string;
-  text: string;
-  color:
-    | "violet"
-    | "cyan"
-    | "emerald"
-    | "pink"
-    | "orange"
-    | "blue"
-    | "fuchsia"
-    | "yellow";
-};
+export type PolicyColor =
+  | "violet"
+  | "cyan"
+  | "emerald"
+  | "pink"
+  | "orange"
+  | "blue"
+  | "fuchsia"
+  | "yellow";
 
-type ContentSection = {
-  id: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+export type PolicySectionData = {
+  id?: string;
+  icon: LucideIcon;
   title: string;
-  color:
-    | "violet"
-    | "cyan"
-    | "emerald"
-    | "pink"
-    | "orange"
-    | "blue"
-    | "fuchsia"
-    | "yellow";
-  content: React.ReactNode;
+  color: PolicyColor;
+  text?: string;
+  content?: React.ReactNode;
 };
 
 type PolicyPageProps = {
   badge: string;
-  badgeIcon: React.ComponentType<{ size?: number; className?: string }>;
+  badgeIcon: LucideIcon;
   title: React.ReactNode;
   description: string;
-  sections: TextSection[] | ContentSection[];
+  sections: PolicySectionData[];
   summary?: {
-    icon: React.ComponentType<{ size?: number; className?: string }>;
+    icon: LucideIcon;
     title: string;
     text: string;
   };
@@ -112,12 +101,12 @@ export function PolicyPage({
           {sections.map((section) => (
             <PolicySection
               key={section.title}
-              id={"id" in section ? section.id : undefined}
+              id={section.id}
               icon={section.icon}
               title={section.title}
               color={section.color}
-              text={"text" in section ? section.text : undefined}
-              content={"content" in section ? section.content : undefined}
+              text={section.text}
+              content={section.content}
             />
           ))}
         </div>

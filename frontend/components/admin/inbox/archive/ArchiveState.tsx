@@ -8,6 +8,10 @@ type ArchiveStateProps = {
 
 export function ArchiveState({ status }: ArchiveStateProps) {
   const content = {
+    OPEN: {
+      icon: <Archive size={13} />,
+      title: "Conversation open",
+    },
     CLOSED: {
       icon: <Archive size={13} />,
       title: "Conversation closed",
