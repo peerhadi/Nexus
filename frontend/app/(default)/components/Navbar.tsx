@@ -1,0 +1,391 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  X,
+  ChevronRight,
+  LayoutDashboard,
+  Briefcase,
+  BarChart3,
+  FileText,
+  Settings,
+  Inbox,
+} from "lucide-react";
+
+type UserRole = "CLIENT" | "ADMIN";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+};
+
+const menuLinks = [
+  {
+    name: "Build",
+    href: "/build",
+    desc: "Start something new",
+    icon: FileText,
+    requiresAuth: false,
+  },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    desc: "Manage your Nexus workspace",
+    icon: LayoutDashboard,
+    requiresAuth: true,
+  },
+  {
+    name: "Projects",
+    href: "/dashboard/projects",
+    desc: "View and manage your projects",
+    icon: Briefcase,
+    requiresAuth: true,
+  },
+  {
+    name: "Messages",
+    href: "/dashboard/messages",
+    desc: "Check new messages from admins",
+    icon: BarChart3,
+    requiresAuth: true,
+  },
+  {
+    name: "Settings",
+    href: "/settings",
+    desc: "Configure your workspace",
+    icon: Settings,
+    requiresAuth: true,
+  },
+  {
+    name: "About",
+    href: "/about",
+    desc: "Learn more about Nexus",
+    icon: FileText,
+    requiresAuth: false,
+  },
+  {
+    name: "Work",
+    href: "/work",
+    desc: "Explore our latest projects and work",
+    icon: Briefcase,
+    requiresAuth: false,
+  },
+  {
+    name: "Services",
+    href: "/services",
+    desc: "Digital products, tools and solutions",
+    icon: LayoutDashboard,
+    requiresAuth: false,
+  },
+  {
+    name: "Inbox",
+    href: "/inbox",
+    desc: "Manage incoming client messages",
+    icon: Inbox,
+    requiresAuth: true,
+    adminOnly: true,
+  },
+];
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [userRole, setUserRole] = useState<UserRole | null>(null);
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem("nexus_token") ??
+      sessionStorage.getItem("nexus_token");
+
+    if (!token) {
+      setIsLoggedIn(false);
+      setUserRole(null);
+      setAuthChecked(true);
+      return;
+    }
+
+    setIsLoggedIn(true);
+
+    const storedUser =
+      localStorage.getItem("nexus_user") ??
+      sessionStorage.getItem("nexus_user");
+
+    if (!storedUser) {
+      setUserRole(null);
+      setAuthChecked(true);
+      return;
+    }
+
+    try {
+      const user: User = JSON.parse(storedUser);
+
+      setUserRole(user.role ?? null);
+    } catch {
+      setUserRole(null);
+    }
+
+    setAuthChecked(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const isAdmin = userRole === "ADMIN";
+
+  const visibleMenuLinks = menuLinks.filter((item) => {
+    if (!item.requiresAuth) {
+      return true;
+    }
+
+    if (!isLoggedIn) {
+      return false;
+    }
+
+    if (item.adminOnly && !isAdmin) {
+      return false;
+    }
+
+    return true;
+  });
+
+  const desktopLinks = visibleMenuLinks.slice(0, 3);
+
+  return (
+    <>
+      {/* NAVBAR */}
+      <header
+        className={`fixed inset-x-0 top-0 z-50 px-5 pt-5 transition-all duration-500 ${
+          scrolled ? "pt-3" : "pt-5"
+        }`}
+      >
+        <nav
+          className={`relative mx-auto flex h-[68px] max-w-6xl items-center justify-between rounded-[20px] border px-4 transition-all duration-500 ${
+            scrolled
+              ? "border-black/[0.08] bg-white/85 shadow-[0_12px_40px_rgba(0,0,0,0.07)] backdrop-blur-2xl"
+              : "border-black/[0.06] bg-white/70 backdrop-blur-xl"
+          }`}
+        >
+          <span className="absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full bg-white opacity-80 transition-transform duration-500 hover:scale-150" />
+
+          {/* EVERYTHING INSIDE WAITS FOR AUTH */}
+          <div
+            className={`flex w-full items-center justify-between transition-opacity duration-300 ${
+              authChecked ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {/* LEFT */}
+            <div className="flex items-center gap-3">
+              {/* MENU BUTTON */}
+              <button
+                type="button"
+                aria-label="Open menu"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen(true)}
+                disabled={!authChecked}
+                className="group flex h-11 w-11 items-center justify-center rounded-xl border border-black/[0.08] bg-white transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-50"
+              >
+                <span className="flex flex-col gap-[5px]">
+                  <span className="h-[2px] w-[18px] rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.65)] transition-all duration-300 group-hover:w-[21px]" />
+
+                  <span className="h-[2px] w-[14px] rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.65)] transition-all duration-300 group-hover:w-[18px]" />
+
+                  <span className="h-[2px] w-[18px] rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.65)] transition-all duration-300 group-hover:w-[21px]" />
+                </span>
+              </button>
+
+              {/* LOGO */}
+              <Link
+                href="/home"
+                className="group flex items-center justify-center"
+              >
+                <span className="flex h-12 w-30 items-center justify-center rounded-[11px] transition-all duration-300 group-hover:-rotate-6 group-hover:scale-105">
+                  <img src="/logo.png" alt="Nexus" />
+                </span>
+              </Link>
+            </div>
+
+            {/* DESKTOP LINKS */}
+            <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+              {desktopLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group relative rounded-xl px-4 py-2 text-[14px] font-medium text-black/55 transition-all duration-300 hover:-translate-y-0.5 hover:text-black"
+                >
+                  <span>{item.name}</span>
+
+                  <span className="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-black opacity-0 transition-all duration-300 group-hover:w-4 group-hover:opacity-100" />
+                </Link>
+              ))}
+            </div>
+
+            {/* RIGHT SIDE */}
+            <div className="ml-auto">
+              {isLoggedIn ? (
+                <Link
+                  href="/dashboard"
+                  className="group ml-auto hidden items-center justify-center gap-2 rounded-xl bg-[#111] px-5 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#a78bfa] md:flex"
+                >
+                  <span>Dashboard</span>
+
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </Link>
+              ) : (
+                <div className="ml-auto hidden items-center justify-end gap-2 md:flex">
+                  <Link
+                    href="/signup"
+                    className="rounded-xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 px-5 py-3 text-[13px] font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#111]"
+                  >
+                    Sign up
+                  </Link>
+
+                  <Link
+                    href="/login"
+                    className="rounded-xl border border-black/10 bg-white px-5 py-3 text-[13px] font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[4px_4px_0_#a78bfa]"
+                  >
+                    Sign in
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      {/* SIDEBAR */}
+      <aside
+        className={`
+          fixed left-0 top-0 z-[100]
+          h-screen w-full max-w-[360px]
+          overflow-hidden
+          border-r border-black/[0.08]
+          bg-white/95
+          shadow-[20px_0_60px_rgba(0,0,0,0.08)]
+          backdrop-blur-2xl
+          transition-all duration-500
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          ${
+            menuOpen
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-full opacity-0"
+          }
+        `}
+      >
+        {/* BACKGROUND EFFECTS */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-0 top-0 h-[280px] w-[280px] rounded-full bg-cyan-400/10 blur-[110px]" />
+
+          <div className="absolute bottom-0 right-0 h-[240px] w-[240px] rounded-full bg-violet-400/10 blur-[110px]" />
+
+          <div className="absolute inset-0 opacity-[0.035]">
+            <div className="h-full w-full bg-[linear-gradient(#000_1px,transparent_1px),linear-gradient(90deg,#000_1px,transparent_1px)] bg-[size:50px_50px]" />
+          </div>
+        </div>
+
+        {/* HEADER */}
+        <div className="absolute left-7 right-5 top-5 z-20 flex items-center justify-between">
+          <span className="text-[30px] font-black uppercase tracking-[0.28em] text-black/35">
+            Nexus
+          </span>
+
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+            className="group flex h-10 w-10 items-center justify-center rounded-xl border border-black/[0.08] bg-white transition-all duration-300 hover:border-cyan-300 hover:bg-cyan-50"
+          >
+            <X className="h-4 w-4 text-black/40 transition-colors duration-300 group-hover:text-cyan-500" />
+          </button>
+        </div>
+
+        {/* MENU */}
+        <nav
+          className={`
+            relative z-10
+            flex h-full flex-col
+            overflow-y-auto
+            px-4 pb-6 pt-20
+            transition-all duration-500
+            ${
+              menuOpen ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
+            }
+          `}
+        >
+          {authChecked &&
+            visibleMenuLinks.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="group flex items-center justify-between rounded-2xl border border-transparent px-4 py-4 transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50/60"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black/[0.035] transition-all duration-300 group-hover:bg-cyan-100">
+                      <Icon className="h-4 w-4 text-black/35 transition-colors duration-300 group-hover:text-cyan-500" />
+                    </div>
+
+                    <div>
+                      <h3 className="text-[12px] font-black uppercase tracking-[0.14em] text-black/70 transition-colors duration-300 group-hover:text-cyan-500">
+                        {item.name}
+                      </h3>
+
+                      <p className="mt-1 text-[10px] text-black/30">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  <ChevronRight className="h-4 w-4 shrink-0 text-black/15 transition-all duration-300 group-hover:translate-x-1 group-hover:text-cyan-500" />
+                </Link>
+              );
+            })}
+        </nav>
+      </aside>
+
+      {/* BACKDROP */}
+      <div
+        onClick={() => setMenuOpen(false)}
+        className={`
+          fixed inset-0 z-[90]
+          bg-black/15
+          backdrop-blur-[3px]
+          transition-all duration-500
+          ${
+            menuOpen
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
+          }
+        `}
+      />
+    </>
+  );
+}
