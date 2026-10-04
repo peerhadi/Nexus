@@ -273,11 +273,11 @@ export default function RequestsPage() {
 
   if (error && !selectedRequest) {
     return (
-      <main className="flex h-dvh w-full items-center justify-center bg-[#f7f7f5] px-5 text-[#111]">
-        <div className="w-full max-w-md rounded-2xl border border-black/[0.08] bg-white px-6 py-7 text-center shadow-sm sm:px-8">
+      <main className="flex h-dvh w-full items-center justify-center bg-[var(--surface-secondary)] px-5 text-[var(--text-primary)]">
+        <div className="w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-7 text-center shadow-sm sm:px-8">
           <div className="text-sm font-bold">Failed to load requests</div>
 
-          <div className="mt-2 break-words text-[10px] text-black/40">
+          <div className="mt-2 break-words text-[10px] text-[var(--text-tertiary)]">
             {error}
           </div>
         </div>
@@ -286,17 +286,17 @@ export default function RequestsPage() {
   }
 
   return (
-    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[#f7f7f5] text-[#111]">
+    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[var(--surface-secondary)] text-[var(--text-primary)]">
       <div className="flex h-full min-h-0 flex-col">
         {/* HEADER */}
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white/85 px-4 backdrop-blur-xl sm:px-8"
+          className="flex h-[74px] shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 backdrop-blur-xl sm:px-8"
         >
           <div className="min-w-0">
-            <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-black/30">
+            <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Communication
             </div>
 
@@ -310,18 +310,18 @@ export default function RequestsPage() {
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2, delay: 0.05 }}
-              className="hidden items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-3 py-2 sm:flex"
+              className="hidden items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2 sm:flex"
             >
-              <Mail size={14} className="text-black/30" />
+              <Mail size={14} className="text-[var(--text-muted)]" />
 
-              <span className="text-[11px] font-semibold text-black/55">
+              <span className="text-[11px] font-semibold text-[var(--text-secondary)]">
                 {requests.length} requests
               </span>
             </motion.div>
 
             <Link
               href="/inbox"
-              className="flex items-center gap-2 rounded-xl bg-[#111] px-3 py-2 text-[10px] font-bold text-white transition-colors hover:bg-black/80"
+              className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-3 py-2 text-[10px] font-bold text-white transition-colors hover:bg-[var(--accent)]/80"
             >
               <Archive size={13} />
               <span className="hidden xs:inline">Inbox</span>
@@ -394,7 +394,7 @@ export default function RequestsPage() {
                   animate={{ opacity: 1, height: "auto", y: 0 }}
                   exit={{ opacity: 0, height: 0, y: -4 }}
                   transition={{ duration: 0.18 }}
-                  className="mt-3 overflow-hidden rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-semibold text-black/55 sm:mt-4"
+                  className="mt-3 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[10px] font-semibold text-[var(--text-secondary)] sm:mt-4"
                 >
                   Project created successfully.
                 </motion.div>
@@ -410,7 +410,7 @@ export default function RequestsPage() {
                 delay: 0.08,
                 ease: "easeOut",
               }}
-              className="relative mt-3 flex min-h-[600px] overflow-hidden rounded-2xl border border-black/[0.08] bg-white sm:mt-5"
+              className="relative mt-3 flex min-h-[600px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] sm:mt-5"
             >
               {selectedRequest ? (
                 <>
@@ -449,7 +449,7 @@ export default function RequestsPage() {
                         <motion.button
                           type="button"
                           aria-label="Close request menu"
-                          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                          className="fixed inset-0 z-40 bg-[var(--overlay)] backdrop-blur-[2px] lg:hidden"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -468,16 +468,16 @@ export default function RequestsPage() {
                             damping: 32,
                             mass: 0.8,
                           }}
-                          className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                          className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-[var(--border)] bg-[var(--surface)] shadow-2xl lg:hidden"
                         >
                           {/* Drawer header */}
-                          <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                          <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-[var(--border)] px-4">
                             <div>
-                              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+                              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                                 Requests
                               </p>
 
-                              <p className="text-sm font-semibold text-black/75">
+                              <p className="text-sm font-semibold text-[var(--text-secondary)]">
                                 {filteredRequests.length} request
                                 {filteredRequests.length === 1 ? "" : "s"}
                               </p>
@@ -487,7 +487,7 @@ export default function RequestsPage() {
                               type="button"
                               aria-label="Close request menu"
                               onClick={() => setMobileDrawerOpen(false)}
-                              className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                              className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                             >
                               <X className="h-4 w-4" />
                             </button>
@@ -527,27 +527,27 @@ export default function RequestsPage() {
                       className="flex min-w-0 flex-1 flex-col"
                     >
                       {/* Mobile toolbar */}
-                      <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                      <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-[var(--border)] bg-[var(--surface)] px-4 lg:hidden">
                         <button
                           type="button"
                           aria-label="Open request menu"
                           onClick={() => setMobileDrawerOpen(true)}
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                         >
                           <Menu className="h-4 w-4" />
                         </button>
 
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-semibold text-black/80">
+                          <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
                             {selectedRequest.subject || "Client request"}
                           </p>
 
-                          <p className="truncate text-[11px] text-black/35">
+                          <p className="truncate text-[11px] text-[var(--text-muted)]">
                             {selectedRequest.name} · {selectedRequest.email}
                           </p>
                         </div>
 
-                        <span className="hidden shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40 xs:inline">
+                        <span className="hidden shrink-0 rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--text-tertiary)] xs:inline">
                           {selectedRequest.status.replace("_", " ")}
                         </span>
                       </div>
@@ -576,7 +576,7 @@ export default function RequestsPage() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.16 }}
-                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
+                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[10px] font-bold text-[var(--text-secondary)] shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
                       >
                         Updating request...
                       </motion.div>
@@ -588,7 +588,7 @@ export default function RequestsPage() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.16 }}
-                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
+                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[10px] font-bold text-[var(--text-secondary)] shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
                       >
                         Creating project...
                       </motion.div>
@@ -603,13 +603,13 @@ export default function RequestsPage() {
                   className="flex min-h-[600px] flex-1 items-center justify-center px-6 text-center"
                 >
                   <div>
-                    <Mail size={22} className="mx-auto text-black/20" />
+                    <Mail size={22} className="mx-auto text-[var(--text-disabled)]" />
 
                     <div className="mt-3 text-[12px] font-bold">
                       No requests yet
                     </div>
 
-                    <div className="mt-1 text-[10px] text-black/35">
+                    <div className="mt-1 text-[10px] text-[var(--text-muted)]">
                       Requests submitted by clients will appear here.
                     </div>
                   </div>

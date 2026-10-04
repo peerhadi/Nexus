@@ -40,16 +40,16 @@ export default function ProjectHeader({
   const clientEmail = project.client?.email ?? "";
 
   return (
-    <div className="flex min-h-[74px] shrink-0 items-center justify-between gap-4 border-b border-black/[0.08] bg-white px-5 py-3 sm:px-7">
+    <div className="flex min-h-[74px] shrink-0 items-center justify-between gap-4 border-b border-[var(--border)] bg-[var(--surface)] px-5 py-3 sm:px-7">
       <div className="flex min-w-0 items-center gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-black text-[10px] font-bold text-white">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[10px] font-bold text-[var(--accent-contrast)]">
           {getInitials(clientName)}
         </div>
 
         <div className="min-w-0">
           <div className="truncate text-[12px] font-bold">{clientName}</div>
 
-          <div className="mt-0.5 truncate text-[9px] text-black/30">
+          <div className="mt-0.5 truncate text-[9px] text-[var(--text-muted)]">
             {clientEmail}
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function ProjectHeader({
             onChange={(event) =>
               onStatusChange(event.target.value as Project["status"])
             }
-            className="h-8 appearance-none rounded-lg border border-black/[0.07] bg-[#f7f7f5] px-3 pr-7 text-[8px] font-bold uppercase outline-none"
+            className="h-8 appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] px-3 pr-7 text-[8px] font-bold uppercase outline-none"
           >
             {statuses.map((status) => (
               <option key={status} value={status}>
@@ -73,12 +73,12 @@ export default function ProjectHeader({
 
           <ChevronDown
             size={10}
-            className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-black/30"
+            className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
           />
         </div>
 
-        <label className="flex h-8 items-center gap-1.5 rounded-lg border border-black/[0.07] bg-[#f7f7f5] px-2.5">
-          <CalendarDays size={10} className="text-black/30" />
+        <label className="flex h-8 items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] px-2.5">
+          <CalendarDays size={10} className="text-[var(--text-muted)]" />
 
           <input
             type="date"
@@ -94,7 +94,7 @@ export default function ProjectHeader({
           />
         </label>
 
-        <span className="hidden rounded-lg border border-black/[0.07] bg-[#f7f7f5] px-2.5 py-1.5 text-[8px] font-bold text-black/35 lg:block">
+        <span className="hidden rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] px-2.5 py-1.5 text-[8px] font-bold text-[var(--text-muted)] lg:block">
           {project.id}
         </span>
       </div>

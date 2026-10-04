@@ -358,19 +358,19 @@ export default function NotesPage() {
   };
 
   return (
-    <main className="flex h-[calc(100vh-70px)] min-h-0 overflow-hidden bg-[#fafafa] text-slate-800">
+    <main className="flex h-[calc(100vh-70px)] min-h-0 overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       {/* Desktop sidebar */}
-      <aside className="hidden w-[280px] shrink-0 flex-col border-r border-black/[0.05] bg-white/80 md:flex">
+      <aside className="hidden w-[280px] shrink-0 flex-col border-r border-[var(--border-subtle)] bg-[var(--surface)] md:flex">
         {/* Header */}
-        <div className="border-b border-black/[0.05] p-4">
+        <div className="border-b border-[var(--border-subtle)] p-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
                 <FileText size={12} />
                 Workspace
               </div>
 
-              <h1 className="mt-1 text-xl font-black tracking-[-0.04em] text-slate-800">
+              <h1 className="mt-1 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
                 Notes
               </h1>
             </div>
@@ -379,7 +379,7 @@ export default function NotesPage() {
               type="button"
               onClick={createNote}
               disabled={creating}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 text-white shadow-sm transition hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)] shadow-[var(--shadow-sm)] transition hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {creating ? (
                 <Loader2 size={15} className="animate-spin" />
@@ -390,24 +390,30 @@ export default function NotesPage() {
           </div>
 
           {/* Search */}
-          <div className="mt-4 flex items-center gap-2 rounded-xl border border-black/[0.06] bg-slate-50 px-3">
-            <Search size={13} className="shrink-0 text-slate-300" />
+          <div className="mt-4 flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--input)] px-3">
+            <Search
+              size={13}
+              className="shrink-0 text-[var(--text-disabled)]"
+            />
 
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search notes..."
-              className="h-9 min-w-0 flex-1 bg-transparent text-[9px] font-medium text-slate-600 outline-none placeholder:text-slate-300"
+              className="h-9 min-w-0 flex-1 bg-transparent text-[9px] font-medium text-[var(--text-secondary)] outline-none placeholder:text-[var(--input-placeholder)]"
             />
 
             {loading && (
-              <Loader2 size={12} className="animate-spin text-cyan-400" />
+              <Loader2
+                size={12}
+                className="animate-spin text-[var(--accent)]"
+              />
             )}
           </div>
         </div>
 
         {/* Categories */}
-        <div className="border-b border-black/[0.05] p-3">
+        <div className="border-b border-[var(--border-subtle)] p-3">
           <div className="space-y-1">
             {categories.map((category) => (
               <button
@@ -416,8 +422,8 @@ export default function NotesPage() {
                 onClick={() => setActiveCategory(category)}
                 className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-[9px] font-black transition-colors ${
                   activeCategory === category
-                    ? "bg-cyan-50 text-cyan-500"
-                    : "text-slate-400 hover:bg-black/[0.025] hover:text-slate-600"
+                    ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                    : "text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-secondary)]"
                 }`}
               >
                 {category === "All" ? (
@@ -429,7 +435,7 @@ export default function NotesPage() {
                 {category}
 
                 {category === "All" && (
-                  <span className="ml-auto text-[8px] text-slate-300">
+                  <span className="ml-auto text-[8px] text-[var(--text-disabled)]">
                     {notes.length}
                   </span>
                 )}
@@ -440,7 +446,7 @@ export default function NotesPage() {
 
         {/* Error */}
         {error && (
-          <div className="border-b border-red-100 bg-red-50 px-4 py-2.5 text-[8px] font-bold leading-4 text-red-500">
+          <div className="border-b border-[var(--danger)] bg-[var(--danger-soft)] px-4 py-2.5 text-[8px] font-bold leading-4 text-[var(--danger)]">
             {error}
           </div>
         )}
@@ -449,7 +455,10 @@ export default function NotesPage() {
         <div className="min-h-0 flex-1 overflow-y-auto p-3">
           {loading && notes.length === 0 ? (
             <div className="flex items-center justify-center py-10">
-              <Loader2 size={18} className="animate-spin text-cyan-400" />
+              <Loader2
+                size={18}
+                className="animate-spin text-[var(--accent)]"
+              />
             </div>
           ) : (
             <div className="space-y-1">
@@ -460,8 +469,8 @@ export default function NotesPage() {
                   onClick={() => selectNote(note)}
                   className={`group w-full rounded-xl p-3 text-left transition ${
                     selectedId === note.id
-                      ? "bg-cyan-50"
-                      : "hover:bg-black/[0.025]"
+                      ? "bg-[var(--accent-soft)]"
+                      : "hover:bg-[var(--surface-hover)]"
                   }`}
                 >
                   <div className="flex items-start gap-2">
@@ -469,14 +478,14 @@ export default function NotesPage() {
                       <div
                         className={`truncate text-[10px] font-black ${
                           selectedId === note.id
-                            ? "text-cyan-600"
-                            : "text-slate-700"
+                            ? "text-[var(--accent)]"
+                            : "text-[var(--text-secondary)]"
                         }`}
                       >
                         {note.title || "Untitled"}
                       </div>
 
-                      <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-slate-400">
+                      <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-[var(--text-muted)]">
                         {note.content || "No content yet..."}
                       </div>
                     </div>
@@ -484,12 +493,12 @@ export default function NotesPage() {
                     {note.starred && (
                       <Star
                         size={11}
-                        className="mt-0.5 shrink-0 fill-yellow-400 text-yellow-400"
+                        className="mt-0.5 shrink-0 fill-[var(--warning)] text-[var(--warning)]"
                       />
                     )}
                   </div>
 
-                  <div className="mt-2 text-[7px] font-bold uppercase tracking-[0.1em] text-slate-300">
+                  <div className="mt-2 text-[7px] font-bold uppercase tracking-[0.1em] text-[var(--text-disabled)]">
                     {formatDate(note.updatedAt)}
                   </div>
                 </button>
@@ -497,16 +506,19 @@ export default function NotesPage() {
 
               {notes.length === 0 && (
                 <div className="px-3 py-8 text-center">
-                  <FileText size={18} className="mx-auto text-slate-200" />
+                  <FileText
+                    size={18}
+                    className="mx-auto text-[var(--text-disabled)]"
+                  />
 
-                  <p className="mt-3 text-[9px] font-black text-slate-400">
+                  <p className="mt-3 text-[9px] font-black text-[var(--text-muted)]">
                     No notes found
                   </p>
 
                   <button
                     type="button"
                     onClick={createNote}
-                    className="mt-3 text-[8px] font-black uppercase tracking-[0.1em] text-cyan-500 hover:text-cyan-600"
+                    className="mt-3 text-[8px] font-black uppercase tracking-[0.1em] text-[var(--accent)] hover:text-[var(--accent-hover)]"
                   >
                     Create one
                   </button>
@@ -516,7 +528,6 @@ export default function NotesPage() {
           )}
         </div>
       </aside>
-
       {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
@@ -533,7 +544,7 @@ export default function NotesPage() {
                 duration: 0.2,
                 ease: "easeOut",
               }}
-              className="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px]"
+              className="absolute inset-0 bg-[var(--accent)]/20 backdrop-blur-[2px]"
             />
 
             {/* Drawer */}
@@ -547,18 +558,18 @@ export default function NotesPage() {
                 damping: 34,
                 mass: 0.8,
               }}
-              className="absolute inset-y-0 left-0 flex w-[88%] max-w-[360px] flex-col overflow-hidden border-r border-black/[0.05] bg-white shadow-[20px_0_60px_rgba(15,23,42,0.14)]"
+              className="absolute inset-y-0 left-0 flex w-[88%] max-w-[360px] flex-col overflow-hidden border-r border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-xl)]"
             >
               {/* Drawer header */}
-              <div className="shrink-0 border-b border-black/[0.05] p-4">
+              <div className="shrink-0 border-b border-[var(--border-subtle)] p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400">
+                    <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
                       <FileText size={12} />
                       Workspace
                     </div>
 
-                    <h2 className="mt-1 text-xl font-black tracking-[-0.04em] text-slate-800">
+                    <h2 className="mt-1 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
                       Notes
                     </h2>
                   </div>
@@ -569,7 +580,7 @@ export default function NotesPage() {
                       onClick={createNote}
                       disabled={creating}
                       aria-label="Create note"
-                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 text-white transition-colors hover:bg-cyan-500 disabled:opacity-50"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-50"
                     >
                       {creating ? (
                         <Loader2 size={14} className="animate-spin" />
@@ -582,7 +593,7 @@ export default function NotesPage() {
                       type="button"
                       onClick={() => setMenuOpen(false)}
                       aria-label="Close notes"
-                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 active:scale-[0.97]"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-secondary)] active:scale-[0.97]"
                     >
                       <X size={15} strokeWidth={2.5} />
                     </button>
@@ -590,24 +601,30 @@ export default function NotesPage() {
                 </div>
 
                 {/* Search */}
-                <div className="mt-4 flex items-center gap-2 rounded-xl border border-black/[0.06] bg-slate-50 px-3">
-                  <Search size={13} className="shrink-0 text-slate-300" />
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--input)] px-3">
+                  <Search
+                    size={13}
+                    className="shrink-0 text-[var(--text-disabled)]"
+                  />
 
                   <input
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
                     placeholder="Search notes..."
-                    className="h-9 min-w-0 flex-1 bg-transparent text-[9px] font-medium text-slate-600 outline-none placeholder:text-slate-300"
+                    className="h-9 min-w-0 flex-1 bg-transparent text-[9px] font-medium text-[var(--text-secondary)] outline-none placeholder:text-[var(--input-placeholder)]"
                   />
 
                   {loading && (
-                    <Loader2 size={12} className="animate-spin text-cyan-400" />
+                    <Loader2
+                      size={12}
+                      className="animate-spin text-[var(--accent)]"
+                    />
                   )}
                 </div>
               </div>
 
               {/* Categories */}
-              <div className="shrink-0 border-b border-black/[0.05] p-3">
+              <div className="shrink-0 border-b border-[var(--border-subtle)] p-3">
                 <div className="grid grid-cols-2 gap-1">
                   {categories.map((category) => (
                     <button
@@ -616,8 +633,8 @@ export default function NotesPage() {
                       onClick={() => setActiveCategory(category)}
                       className={`flex items-center gap-2 rounded-xl px-3 py-2.5 text-left text-[9px] font-black transition-colors ${
                         activeCategory === category
-                          ? "bg-cyan-50 text-cyan-500"
-                          : "text-slate-400 hover:bg-black/[0.025] hover:text-slate-600"
+                          ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                          : "text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-secondary)]"
                       }`}
                     >
                       {category === "All" ? (
@@ -629,7 +646,7 @@ export default function NotesPage() {
                       {category}
 
                       {category === "All" && (
-                        <span className="ml-auto text-[8px] text-slate-300">
+                        <span className="ml-auto text-[8px] text-[var(--text-disabled)]">
                           {notes.length}
                         </span>
                       )}
@@ -640,7 +657,7 @@ export default function NotesPage() {
 
               {/* Error */}
               {error && (
-                <div className="shrink-0 border-b border-red-100 bg-red-50 px-4 py-2.5 text-[8px] font-bold leading-4 text-red-500">
+                <div className="shrink-0 border-b border-[var(--border)] bg-[var(--danger-soft)] px-4 py-2.5 text-[8px] font-bold leading-4 text-[var(--danger)]">
                   {error}
                 </div>
               )}
@@ -649,7 +666,10 @@ export default function NotesPage() {
               <div className="min-h-0 flex-1 overflow-y-auto p-3">
                 {loading && notes.length === 0 ? (
                   <div className="flex items-center justify-center py-10">
-                    <Loader2 size={18} className="animate-spin text-cyan-400" />
+                    <Loader2
+                      size={18}
+                      className="animate-spin text-[var(--accent)]"
+                    />
                   </div>
                 ) : (
                   <div className="space-y-1">
@@ -660,8 +680,8 @@ export default function NotesPage() {
                         onClick={() => selectNote(note)}
                         className={`w-full rounded-xl p-3 text-left transition ${
                           selectedId === note.id
-                            ? "bg-cyan-50"
-                            : "hover:bg-black/[0.025]"
+                            ? "bg-[var(--accent-soft)]"
+                            : "hover:bg-[var(--surface-hover)]"
                         }`}
                       >
                         <div className="flex items-start gap-2">
@@ -669,14 +689,14 @@ export default function NotesPage() {
                             <div
                               className={`truncate text-[10px] font-black ${
                                 selectedId === note.id
-                                  ? "text-cyan-600"
-                                  : "text-slate-700"
+                                  ? "text-[var(--accent)]"
+                                  : "text-[var(--text-secondary)]"
                               }`}
                             >
                               {note.title || "Untitled"}
                             </div>
 
-                            <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-slate-400">
+                            <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-[var(--text-muted)]">
                               {note.content || "No content yet..."}
                             </div>
                           </div>
@@ -684,12 +704,12 @@ export default function NotesPage() {
                           {note.starred && (
                             <Star
                               size={11}
-                              className="mt-0.5 shrink-0 fill-yellow-400 text-yellow-400"
+                              className="mt-0.5 shrink-0 fill-[var(--warning)] text-[var(--warning)]"
                             />
                           )}
                         </div>
 
-                        <div className="mt-2 text-[7px] font-bold uppercase tracking-[0.1em] text-slate-300">
+                        <div className="mt-2 text-[7px] font-bold uppercase tracking-[0.1em] text-[var(--text-disabled)]">
                           {formatDate(note.updatedAt)}
                         </div>
                       </button>
@@ -699,17 +719,17 @@ export default function NotesPage() {
                       <div className="px-3 py-8 text-center">
                         <FileText
                           size={18}
-                          className="mx-auto text-slate-200"
+                          className="mx-auto text-[var(--text-disabled)]"
                         />
 
-                        <p className="mt-3 text-[9px] font-black text-slate-400">
+                        <p className="mt-3 text-[9px] font-black text-[var(--text-muted)]">
                           No notes found
                         </p>
 
                         <button
                           type="button"
                           onClick={createNote}
-                          className="mt-3 text-[8px] font-black uppercase tracking-[0.1em] text-cyan-500"
+                          className="mt-3 text-[8px] font-black uppercase tracking-[0.1em] text-[var(--accent)]"
                         >
                           Create one
                         </button>
@@ -724,46 +744,46 @@ export default function NotesPage() {
       </AnimatePresence>
 
       {/* Editor */}
-      <section className="flex min-w-0 flex-1 flex-col bg-white">
+      <section className="flex min-w-0 flex-1 flex-col bg-[var(--surface)]">
         {selectedNote ? (
           <>
             {/* Mobile toolbar */}
-            <header className="flex shrink-0 items-center justify-between border-b border-black/[0.05] px-3 py-3 sm:px-5 md:hidden">
+            <header className="flex shrink-0 items-center justify-between border-b border-[var(--border-subtle)] px-3 py-3 sm:px-5 md:hidden">
               <div className="flex min-w-0 items-center gap-3">
                 <motion.button
                   type="button"
                   onClick={() => setMenuOpen(true)}
                   aria-label="Open notes"
                   whileTap={{ scale: 0.94 }}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-100 bg-cyan-50 text-cyan-500 transition-colors hover:bg-cyan-100"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--accent-soft-strong)] bg-[var(--accent-soft)] text-[var(--accent)] transition-colors hover:bg-[var(--accent-soft-strong)]"
                 >
                   <Menu size={16} strokeWidth={2.5} />
                 </motion.button>
 
                 <div className="min-w-0">
-                  <div className="truncate text-[10px] font-black text-slate-700">
+                  <div className="truncate text-[10px] font-black text-[var(--text-secondary)]">
                     {selectedNote.title || "Untitled"}
                   </div>
 
                   <div className="mt-0.5 flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--success)]" />
 
-                    <span className="text-[8px] font-bold text-slate-400">
+                    <span className="text-[8px] font-bold text-[var(--text-muted)]">
                       {saving ? "Saving..." : "Saved"}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="ml-3 shrink-0 rounded-full bg-cyan-50 px-2.5 py-1 text-[7px] font-black uppercase tracking-[0.12em] text-cyan-500">
+              <div className="ml-3 shrink-0 rounded-full bg-[var(--accent-soft)] px-2.5 py-1 text-[7px] font-black uppercase tracking-[0.12em] text-[var(--accent)]">
                 Notes
               </div>
             </header>
 
             {/* Desktop editor header */}
-            <header className="hidden h-[68px] shrink-0 items-center justify-between border-b border-black/[0.05] px-5 sm:px-8 md:flex">
+            <header className="hidden h-[68px] shrink-0 items-center justify-between border-b border-[var(--border-subtle)] px-5 sm:px-8 md:flex">
               <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-500">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
                   <FileText size={15} />
                 </div>
 
@@ -771,25 +791,25 @@ export default function NotesPage() {
                   <select
                     value={selectedNote.category}
                     onChange={(event) => changeCategory(event.target.value)}
-                    className="max-w-[150px] cursor-pointer truncate bg-transparent text-[10px] font-black uppercase tracking-[0.15em] text-slate-300 outline-none"
+                    className="max-w-[150px] cursor-pointer truncate bg-transparent text-[10px] font-black uppercase tracking-[0.15em] text-[var(--text-disabled)] outline-none"
                   >
                     <option value="General">General</option>
                     <option value="Projects">Projects</option>
                     <option value="Ideas">Ideas</option>
                   </select>
 
-                  <div className="mt-0.5 flex items-center gap-1.5 text-[8px] font-medium text-slate-400">
+                  <div className="mt-0.5 flex items-center gap-1.5 text-[8px] font-medium text-[var(--text-muted)]">
                     {saving ? (
                       <>
                         <Loader2
                           size={9}
-                          className="animate-spin text-cyan-400"
+                          className="animate-spin text-[var(--accent)]"
                         />
                         Saving...
                       </>
                     ) : (
                       <>
-                        <Check size={9} className="text-emerald-400" />
+                        <Check size={9} className="text-[var(--success)]" />
                         Saved
                       </>
                     )}
@@ -808,11 +828,11 @@ export default function NotesPage() {
             </header>
 
             {/* Mobile actions */}
-            <div className="flex shrink-0 items-center justify-between border-b border-black/[0.04] px-3 py-2 md:hidden">
+            <div className="flex shrink-0 items-center justify-between border-b border-[var(--border-subtle)] px-3 py-2 md:hidden">
               <select
                 value={selectedNote.category}
                 onChange={(event) => changeCategory(event.target.value)}
-                className="max-w-[110px] truncate bg-transparent text-[8px] font-black uppercase tracking-[0.12em] text-slate-300 outline-none"
+                className="max-w-[110px] truncate bg-transparent text-[8px] font-black uppercase tracking-[0.12em] text-[var(--text-disabled)] outline-none"
               >
                 <option value="General">General</option>
                 <option value="Projects">Projects</option>
@@ -820,14 +840,14 @@ export default function NotesPage() {
               </select>
 
               <div className="flex items-center gap-1">
-                <div className="flex rounded-xl border border-black/[0.05] bg-slate-50 p-0.5">
+                <div className="flex rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-secondary)] p-0.5">
                   <button
                     type="button"
                     onClick={() => setEditorMode("write")}
                     className={`flex h-8 items-center gap-1 rounded-lg px-2 text-[7px] font-black uppercase tracking-[0.05em] transition ${
                       editorMode === "write"
-                        ? "bg-white text-slate-700 shadow-sm"
-                        : "text-slate-300"
+                        ? "bg-[var(--surface)] text-[var(--text-secondary)] shadow-[var(--shadow-sm)]"
+                        : "text-[var(--text-disabled)]"
                     }`}
                   >
                     <Pencil size={9} />
@@ -839,8 +859,8 @@ export default function NotesPage() {
                     onClick={() => setEditorMode("preview")}
                     className={`flex h-8 items-center gap-1 rounded-lg px-2 text-[7px] font-black uppercase tracking-[0.05em] transition ${
                       editorMode === "preview"
-                        ? "bg-white text-cyan-500 shadow-sm"
-                        : "text-slate-300"
+                        ? "bg-[var(--surface)] text-[var(--accent)] shadow-[var(--shadow-sm)]"
+                        : "text-[var(--text-disabled)]"
                     }`}
                   >
                     <Eye size={9} />
@@ -852,12 +872,16 @@ export default function NotesPage() {
                   type="button"
                   onClick={() => toggleStar(selectedNote.id)}
                   className={`flex h-8 w-8 items-center justify-center rounded-xl ${
-                    selectedNote.starred ? "text-yellow-400" : "text-slate-300"
+                    selectedNote.starred
+                      ? "text-[var(--warning)]"
+                      : "text-[var(--text-disabled)]"
                   }`}
                 >
                   <Star
                     size={14}
-                    className={selectedNote.starred ? "fill-yellow-400" : ""}
+                    className={
+                      selectedNote.starred ? "fill-[var(--warning)]" : ""
+                    }
                   />
                 </button>
 
@@ -865,7 +889,7 @@ export default function NotesPage() {
                   type="button"
                   onClick={() => deleteNote(selectedNote.id)}
                   disabled={deleting}
-                  className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
+                  className="flex h-8 w-8 items-center justify-center rounded-xl text-[var(--text-disabled)] transition-colors hover:bg-[var(--danger-soft)] hover:text-[var(--danger)] disabled:opacity-50"
                 >
                   {deleting ? (
                     <Loader2 size={13} className="animate-spin" />
@@ -885,19 +909,19 @@ export default function NotesPage() {
                     updateSelectedNote("title", event.target.value)
                   }
                   placeholder="Untitled"
-                  className="w-full bg-transparent text-3xl font-black tracking-[-0.055em] text-slate-800 outline-none placeholder:text-slate-200 sm:text-5xl"
+                  className="w-full bg-transparent text-3xl font-black tracking-[-0.055em] text-[var(--text-primary)] outline-none placeholder:text-[var(--text-disabled)] sm:text-5xl"
                 />
 
-                <div className="mt-4 h-px w-12 bg-cyan-400" />
+                <div className="mt-4 h-px w-12 bg-[var(--accent)]" />
 
                 {editorMode === "write" ? (
                   <div className="mt-7 sm:mt-8">
                     <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-[8px] font-black uppercase tracking-[0.15em] text-slate-300">
+                      <span className="text-[8px] font-black uppercase tracking-[0.15em] text-[var(--text-disabled)]">
                         Markdown supported
                       </span>
 
-                      <span className="text-[7px] font-medium text-slate-300 sm:text-[8px]">
+                      <span className="text-[7px] font-medium text-[var(--text-disabled)] sm:text-[8px]">
                         **bold** · *italic* · # headings · - lists
                       </span>
                     </div>
@@ -912,7 +936,7 @@ export default function NotesPage() {
 # Example heading
 
 Write **bold**, *italic*, lists, links, code, and more.`}
-                      className="min-h-[55vh] w-full resize-none bg-transparent text-[13px] font-medium leading-7 text-slate-600 outline-none placeholder:text-slate-300"
+                      className="min-h-[55vh] w-full resize-none bg-transparent text-[13px] font-medium leading-7 text-[var(--text-secondary)] outline-none placeholder:text-[var(--text-disabled)]"
                     />
                   </div>
                 ) : (
@@ -922,40 +946,42 @@ Write **bold**, *italic*, lists, links, code, and more.`}
                         remarkPlugins={[remarkGfm]}
                         components={{
                           h1: ({ children }) => (
-                            <h1 className="mb-4 mt-8 text-2xl font-black tracking-[-0.03em] text-slate-800 first:mt-0">
+                            <h1 className="mb-4 mt-8 text-2xl font-black tracking-[-0.03em] text-[var(--text-primary)] first:mt-0">
                               {children}
                             </h1>
                           ),
                           h2: ({ children }) => (
-                            <h2 className="mb-3 mt-7 text-xl font-black tracking-[-0.02em] text-slate-800">
+                            <h2 className="mb-3 mt-7 text-xl font-black tracking-[-0.02em] text-[var(--text-primary)]">
                               {children}
                             </h2>
                           ),
                           h3: ({ children }) => (
-                            <h3 className="mb-2 mt-6 text-lg font-black text-slate-800">
+                            <h3 className="mb-2 mt-6 text-lg font-black text-[var(--text-primary)]">
                               {children}
                             </h3>
                           ),
                           p: ({ children }) => (
-                            <p className="mb-4 text-[13px] font-medium leading-7 text-slate-600">
+                            <p className="mb-4 text-[13px] font-medium leading-7 text-[var(--text-secondary)]">
                               {children}
                             </p>
                           ),
                           strong: ({ children }) => (
-                            <strong className="font-bold text-slate-800">
+                            <strong className="font-bold text-[var(--text-primary)]">
                               {children}
                             </strong>
                           ),
                           em: ({ children }) => (
-                            <em className="text-slate-700">{children}</em>
+                            <em className="text-[var(--text-secondary)]">
+                              {children}
+                            </em>
                           ),
                           ul: ({ children }) => (
-                            <ul className="mb-4 ml-5 list-disc space-y-1.5 text-slate-600">
+                            <ul className="mb-4 ml-5 list-disc space-y-1.5 text-[var(--text-secondary)]">
                               {children}
                             </ul>
                           ),
                           ol: ({ children }) => (
-                            <ol className="mb-4 ml-5 list-decimal space-y-1.5 text-slate-600">
+                            <ol className="mb-4 ml-5 list-decimal space-y-1.5 text-[var(--text-secondary)]">
                               {children}
                             </ol>
                           ),
@@ -963,17 +989,17 @@ Write **bold**, *italic*, lists, links, code, and more.`}
                             <li className="pl-1">{children}</li>
                           ),
                           blockquote: ({ children }) => (
-                            <blockquote className="my-5 border-l-2 border-cyan-400 pl-4 italic text-slate-500">
+                            <blockquote className="my-5 border-l-2 border-[var(--accent)] pl-4 italic text-[var(--text-tertiary)]">
                               {children}
                             </blockquote>
                           ),
                           code: ({ children }) => (
-                            <code className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[12px] text-cyan-700">
+                            <code className="rounded-md bg-[var(--surface-secondary)] px-1.5 py-0.5 font-mono text-[12px] text-[var(--accent)]">
                               {children}
                             </code>
                           ),
                           pre: ({ children }) => (
-                            <pre className="my-5 overflow-x-auto rounded-2xl border border-black/[0.05] bg-slate-50 p-4 font-mono text-[12px] leading-6 text-slate-700">
+                            <pre className="my-5 overflow-x-auto rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-secondary)] p-4 font-mono text-[12px] leading-6 text-[var(--text-secondary)]">
                               {children}
                             </pre>
                           ),
@@ -982,26 +1008,28 @@ Write **bold**, *italic*, lists, links, code, and more.`}
                               href={href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-semibold text-cyan-500 underline decoration-cyan-200 underline-offset-2 hover:text-cyan-600"
+                              className="font-semibold text-[var(--accent)] underline decoration-[var(--accent-soft-strong)] underline-offset-2 hover:text-[var(--accent-hover)]"
                             >
                               {children}
                             </a>
                           ),
-                          hr: () => <hr className="my-7 border-black/[0.06]" />,
+                          hr: () => (
+                            <hr className="my-7 border-[var(--border-subtle)]" />
+                          ),
                           table: ({ children }) => (
-                            <div className="my-5 overflow-x-auto rounded-xl border border-black/[0.06]">
+                            <div className="my-5 overflow-x-auto rounded-xl border border-[var(--border-subtle)]">
                               <table className="w-full text-left text-[12px]">
                                 {children}
                               </table>
                             </div>
                           ),
                           th: ({ children }) => (
-                            <th className="border-b border-black/[0.06] bg-slate-50 px-4 py-3 font-black text-slate-700">
+                            <th className="border-b border-[var(--border-subtle)] bg-[var(--surface-secondary)] px-4 py-3 font-black text-[var(--text-secondary)]">
                               {children}
                             </th>
                           ),
                           td: ({ children }) => (
-                            <td className="border-b border-black/[0.04] px-4 py-3 text-slate-600">
+                            <td className="border-b border-[var(--border-subtle)] px-4 py-3 text-[var(--text-secondary)]">
                               {children}
                             </td>
                           ),
@@ -1010,17 +1038,20 @@ Write **bold**, *italic*, lists, links, code, and more.`}
                         {selectedNote.content}
                       </ReactMarkdown>
                     ) : (
-                      <div className="rounded-2xl border border-dashed border-black/[0.07] px-6 py-10 text-center">
-                        <Eye size={18} className="mx-auto text-slate-200" />
+                      <div className="rounded-2xl border border-dashed border-[var(--border)] px-6 py-10 text-center">
+                        <Eye
+                          size={18}
+                          className="mx-auto text-[var(--text-disabled)]"
+                        />
 
-                        <p className="mt-3 text-[10px] font-black text-slate-400">
+                        <p className="mt-3 text-[10px] font-black text-[var(--text-muted)]">
                           Nothing to preview yet
                         </p>
 
                         <button
                           type="button"
                           onClick={() => setEditorMode("write")}
-                          className="mt-3 text-[9px] font-black uppercase tracking-[0.1em] text-cyan-500"
+                          className="mt-3 text-[9px] font-black uppercase tracking-[0.1em] text-[var(--accent)]"
                         >
                           Start writing
                         </button>
@@ -1032,7 +1063,7 @@ Write **bold**, *italic*, lists, links, code, and more.`}
             </div>
 
             {/* Footer */}
-            <footer className="flex min-h-10 shrink-0 flex-wrap items-center justify-between gap-2 border-t border-black/[0.04] px-4 py-2 text-[7px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-8 sm:text-[8px]">
+            <footer className="flex min-h-10 shrink-0 flex-wrap items-center justify-between gap-2 border-t border-[var(--border-subtle)] px-4 py-2 text-[7px] font-bold uppercase tracking-[0.12em] text-[var(--text-disabled)] sm:px-8 sm:text-[8px]">
               <div className="flex items-center gap-3">
                 <span>{selectedNote.content.length} characters</span>
 
@@ -1044,7 +1075,11 @@ Write **bold**, *italic*, lists, links, code, and more.`}
                 </span>
               </div>
 
-              <span className={saving ? "text-cyan-400" : "text-emerald-400"}>
+              <span
+                className={
+                  saving ? "text-[var(--accent)]" : "text-[var(--success)]"
+                }
+              >
                 {saving ? "Saving..." : "Saved to Nexus"}
               </span>
             </footer>
@@ -1052,22 +1087,22 @@ Write **bold**, *italic*, lists, links, code, and more.`}
         ) : (
           <div className="flex flex-1 items-center justify-center px-6">
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-300">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-secondary)] text-[var(--text-disabled)]">
                 <FileText size={20} />
               </div>
 
-              <h2 className="mt-4 text-sm font-black text-slate-600">
+              <h2 className="mt-4 text-sm font-black text-[var(--text-secondary)]">
                 No note selected
               </h2>
 
-              <p className="mt-1 text-[9px] font-medium text-slate-400">
+              <p className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
                 Create a note to start writing.
               </p>
 
               <button
                 type="button"
                 onClick={createNote}
-                className="mt-4 rounded-xl bg-slate-800 px-4 py-2.5 text-[9px] font-black uppercase tracking-[0.12em] text-white transition hover:bg-cyan-500"
+                className="mt-4 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-[9px] font-black uppercase tracking-[0.12em] text-[var(--text-inverse)] transition hover:bg-[var(--accent-hover)]"
               >
                 Create a note
               </button>
@@ -1097,14 +1132,14 @@ function EditorActions({
   return (
     <div className="flex items-center gap-1">
       {/* Write / Preview */}
-      <div className="mr-2 flex rounded-xl border border-black/[0.05] bg-slate-50 p-0.5">
+      <div className="mr-2 flex rounded-xl border border-[var(--border-subtle)] bg-slate-50 p-0.5">
         <button
           type="button"
           onClick={() => setEditorMode("write")}
           className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
             editorMode === "write"
-              ? "bg-white text-slate-700 shadow-sm"
-              : "text-slate-300 hover:text-slate-500"
+              ? "bg-[var(--surface)] text-[var(--text-secondary)] shadow-sm"
+              : "text-[var(--text-disabled)] hover:text-[var(--text-tertiary)]"
           }`}
         >
           <Pencil size={10} />
@@ -1116,8 +1151,8 @@ function EditorActions({
           onClick={() => setEditorMode("preview")}
           className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
             editorMode === "preview"
-              ? "bg-white text-cyan-500 shadow-sm"
-              : "text-slate-300 hover:text-slate-500"
+              ? "bg-[var(--surface)] text-cyan-500 shadow-sm"
+              : "text-[var(--text-disabled)] hover:text-[var(--text-tertiary)]"
           }`}
         >
           <Eye size={10} />
@@ -1131,7 +1166,7 @@ function EditorActions({
         className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors hover:bg-yellow-50 ${
           selectedNote.starred
             ? "text-yellow-400"
-            : "text-slate-300 hover:text-yellow-400"
+            : "text-[var(--text-disabled)] hover:text-yellow-400"
         }`}
       >
         <Star
@@ -1142,7 +1177,7 @@ function EditorActions({
 
       <button
         type="button"
-        className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-black/[0.03] hover:text-slate-500"
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-[var(--text-disabled)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text-tertiary)]"
       >
         <MoreHorizontal size={16} />
       </button>
@@ -1151,7 +1186,7 @@ function EditorActions({
         type="button"
         onClick={() => deleteNote(selectedNote.id)}
         disabled={deleting}
-        className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-[var(--text-disabled)] transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
       >
         {deleting ? (
           <Loader2 size={14} className="animate-spin" />

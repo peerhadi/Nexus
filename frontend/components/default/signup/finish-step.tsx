@@ -15,7 +15,7 @@ export default function FinishStep({ email, name, theme }: FinishStepProps) {
       <div className="relative mx-auto mb-8 flex h-24 w-24 items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#ff00cc,#00e5ff,#a8ff00,#ffe600,#ff4d00,#ff00cc)] opacity-30 blur-xl animate-[spin_4s_linear_infinite]" />
 
-        <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-black text-white shadow-[0_0_50px_rgba(0,229,255,0.2)]">
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-contrast)] shadow-[0_0_50px_rgba(0,229,255,0.2)]">
           <Sparkles size={28} />
         </div>
       </div>
@@ -24,7 +24,7 @@ export default function FinishStep({ email, name, theme }: FinishStepProps) {
         You&apos;re ready.
       </h2>
 
-      <p className="mx-auto mt-3 max-w-[430px] text-[11px] leading-5 text-black/40">
+      <p className="mx-auto mt-3 max-w-[430px] text-[11px] leading-5 text-[var(--text-tertiary)]">
         Your Nexus account is configured. Hit the button below and let&apos;s
         get this thing moving.
       </p>
@@ -37,9 +37,9 @@ export default function FinishStep({ email, name, theme }: FinishStepProps) {
         ].map(([label, value]) => (
           <div
             key={label}
-            className="rounded-xl border border-black/[0.06] bg-[#fafaf9] px-3 py-3 text-left"
+            className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-secondary)] px-3 py-3 text-left"
           >
-            <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-black/30">
+            <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
               {label}
             </p>
 

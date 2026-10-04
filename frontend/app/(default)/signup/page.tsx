@@ -7,7 +7,7 @@ import SignupHeader from "@/components/default/signup/signup-header";
 
 export default function SignupPage() {
   return (
-    <main className="relative mt-10 flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[#fbfbfa] px-5 py-10 text-[#111] selection:bg-black selection:text-white">
+    <main className="relative mt-10 flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[var(--background)] px-5 py-10 text-[var(--text-primary)] selection:bg-[var(--accent)] selection:text-[var(--accent-contrast)]">
       <Background />
 
       <div className="pointer-events-none absolute left-[22%] top-[25%] h-1.5 w-1.5 rounded-full bg-fuchsia-500 animate-[ping_2.5s_ease-in-out_infinite]" />

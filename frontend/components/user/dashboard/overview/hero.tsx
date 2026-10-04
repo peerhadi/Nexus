@@ -40,9 +40,7 @@ export default function OverviewHero() {
           setUser(JSON.parse(storedUser));
         }
 
-        if (!token) {
-          return;
-        }
+        if (!token) return;
 
         const response = await fetch(`${API_URL}/projects`, {
           headers: {
@@ -50,9 +48,7 @@ export default function OverviewHero() {
           },
         });
 
-        if (!response.ok) {
-          return;
-        }
+        if (!response.ok) return;
 
         const data = await response.json();
 
@@ -67,8 +63,7 @@ export default function OverviewHero() {
     void loadDashboard();
   }, []);
 
-  const firstName = user?.name.split(" ")[0];
-
+  const firstName = user?.name.split(" ")[0] ?? "there";
   const projectCount = projects.length;
 
   const projectText = loading
@@ -83,49 +78,74 @@ export default function OverviewHero() {
     <motion.section
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-[30px] border border-white bg-gradient-to-br from-violet-500 via-fuchsia-400 to-pink-400 px-6 py-9 text-white shadow-[0_20px_60px_rgba(168,85,247,0.18)] lg:px-10 lg:py-11"
+      className="
+    relative
+    overflow-hidden
+    rounded-[30px]
+    border
+    border-white/20
+    px-6
+    py-9
+    text-white
+    shadow-[var(--shadow-xl)]
+    lg:px-10
+    lg:py-11
+  "
+      style={{
+        background: "var(--gradient-hero)",
+      }}
     >
+      {/* Subtle light orb */}
       <motion.div
         animate={{
-          x: [0, 100, -40, 0],
-          y: [0, -40, 30, 0],
-          scale: [1, 1.2, 0.9, 1],
+          x: [0, 60, -30, 0],
+          y: [0, -30, 20, 0],
+          scale: [1, 1.15, 0.95, 1],
         }}
         transition={{
           duration: 15,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -right-24 -top-32 h-[360px] w-[360px] rounded-full bg-cyan-300/35 blur-[80px]"
+        className="
+          pointer-events-none
+          absolute
+          -right-24
+          -top-32
+          h-[360px]
+          w-[360px]
+          rounded-full
+          bg-white/10
+          blur-[90px]
+        "
       />
 
+      {/* Secondary light orb */}
       <motion.div
         animate={{
-          x: [0, -80, 30, 0],
-          y: [0, 30, -20, 0],
-          scale: [1, 0.8, 1.15, 1],
+          x: [0, -50, 25, 0],
+          y: [0, 25, -15, 0],
+          scale: [1, 0.9, 1.1, 1],
         }}
         transition={{
           duration: 18,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[-180px] left-[25%] h-[380px] w-[380px] rounded-full bg-orange-300/35 blur-[90px]"
+        className="
+          pointer-events-none
+          absolute
+          -bottom-44
+          left-[25%]
+          h-[380px]
+          w-[380px]
+          rounded-full
+          bg-white/10
+          blur-[100px]
+        "
       />
 
-      <motion.div
-        animate={{
-          x: [0, 50, -40, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
-        transition={{
-          duration: 13,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute right-[30%] top-[-180px] h-[300px] w-[300px] rounded-full bg-pink-200/25 blur-[80px]"
-      />
-
+      {/* Floating particles */}
       {[...Array(12)].map((_, index) => (
         <motion.div
           key={index}
@@ -138,7 +158,7 @@ export default function OverviewHero() {
             repeat: Infinity,
             delay: index * 0.15,
           }}
-          className="absolute h-1.5 w-1.5 rounded-full bg-white/50"
+          className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-white/40"
           style={{
             left: `${8 + ((index * 17) % 88)}%`,
             top: `${15 + ((index * 23) % 70)}%`,
@@ -161,7 +181,7 @@ export default function OverviewHero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="text-4xl font-black leading-[1.08] tracking-[-0.045em] sm:text-5xl"
+          className="text-4xl font-black leading-[1.08] tracking-[-0.045em] text-white sm:text-5xl"
         >
           Good evening,
           <br />
@@ -185,7 +205,23 @@ export default function OverviewHero() {
         >
           <Link
             href="/dashboard/projects"
-            className="group flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-[11px] font-black text-violet-600 shadow-lg shadow-violet-900/10 transition hover:-translate-y-1 hover:shadow-xl"
+            className="
+              group
+              flex
+              items-center
+              gap-2
+              rounded-xl
+              bg-white
+              px-4
+              py-3
+              text-[11px]
+              font-black!
+              text-black!
+              shadow-[var(--shadow-md)]
+              transition
+              hover:-translate-y-1
+              hover:shadow-[var(--shadow-lg)]
+            "
           >
             View projects
             <ArrowUpRight
@@ -196,7 +232,23 @@ export default function OverviewHero() {
 
           <Link
             href="/dashboard/messages"
-            className="flex items-center gap-2 rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-[11px] font-black text-white backdrop-blur-xl transition hover:bg-white/25"
+            className="
+              flex
+              items-center
+              gap-2
+              rounded-xl
+              border
+              border-white/25
+              bg-white/10
+              px-4
+              py-3
+              text-[11px]
+              font-black
+              text-white
+              backdrop-blur-sm
+              transition
+              hover:bg-white/20
+            "
           >
             <MessageCircle size={14} />
             Message us

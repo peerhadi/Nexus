@@ -115,14 +115,14 @@ export default function ArchivePage() {
 
   if (!selectedItem) {
     return (
-      <main className="flex h-dvh w-full items-center justify-center bg-white px-6 text-[#111]">
+      <main className="flex h-dvh w-full items-center justify-center bg-[var(--surface)] px-6 text-[var(--text-primary)]">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-2 text-sm font-semibold text-black/40">
+          <div className="mb-2 text-sm font-semibold text-[var(--text-tertiary)]">
             No archived conversations.
           </div>
 
           {!loading && (
-            <div className="text-xs text-black/25">
+            <div className="text-xs text-[var(--text-muted)]">
               Closed conversations will appear here.
             </div>
           )}
@@ -162,7 +162,7 @@ export default function ArchivePage() {
   );
 
   return (
-    <main className="flex h-dvh w-full min-w-0 overflow-hidden bg-white text-[#111]">
+    <main className="flex h-dvh w-full min-w-0 overflow-hidden bg-[var(--surface)] text-[var(--text-primary)]">
       <div className="flex h-full w-full min-w-0 flex-1 flex-col overflow-hidden">
         {/* Header */}
         <motion.div
@@ -200,7 +200,7 @@ export default function ArchivePage() {
               delay: 0.08,
               ease: "easeOut",
             }}
-            className="hidden w-[360px] shrink-0 flex-col border-r border-black/[0.08] bg-white lg:flex"
+            className="hidden w-[360px] shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)] lg:flex"
           >
             {archiveList}
           </motion.aside>
@@ -215,7 +215,7 @@ export default function ArchivePage() {
                 <motion.button
                   type="button"
                   aria-label="Close archive menu"
-                  className="fixed inset-x-0 bottom-0 top-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                  className="fixed inset-x-0 bottom-0 top-0 z-40 bg-[var(--overlay)] backdrop-blur-[2px] lg:hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -234,16 +234,16 @@ export default function ArchivePage() {
                     damping: 32,
                     mass: 0.8,
                   }}
-                  className="fixed bottom-0 left-0 top-0 z-50 flex w-[min(88vw,360px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                  className="fixed bottom-0 left-0 top-0 z-50 flex w-[min(88vw,360px)] flex-col border-r border-[var(--border)] bg-[var(--surface)] shadow-2xl lg:hidden"
                 >
                   {/* Drawer header */}
-                  <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                  <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-[var(--border)] px-4">
                     <div>
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-black/35">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                         Archive
                       </p>
 
-                      <p className="text-sm font-semibold text-black/75">
+                      <p className="text-sm font-semibold text-[var(--text-secondary)]">
                         {filteredItems.length} conversation
                         {filteredItems.length === 1 ? "" : "s"}
                       </p>
@@ -253,7 +253,7 @@ export default function ArchivePage() {
                       type="button"
                       aria-label="Close archive menu"
                       onClick={() => setMobileDrawerOpen(false)}
-                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -284,29 +284,29 @@ export default function ArchivePage() {
               className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
             >
               {/* Mobile toolbar */}
-              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-[var(--border)] bg-[var(--surface)] px-4 lg:hidden">
                 <button
                   type="button"
                   aria-label="Open archive menu"
                   onClick={() => setMobileDrawerOpen(true)}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                 >
                   <Menu className="h-4 w-4" />
                 </button>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-black/80">
+                  <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
                     {selectedItem.subject || "Archived conversation"}
                   </p>
 
-                  <p className="truncate text-[11px] text-black/35">
+                  <p className="truncate text-[11px] text-[var(--text-muted)]">
                     {selectedItem.client?.name ||
                       selectedItem.client?.email ||
                       "Archived"}
                   </p>
                 </div>
 
-                <span className="shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40">
+                <span className="shrink-0 rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--text-tertiary)]">
                   Closed
                 </span>
               </div>

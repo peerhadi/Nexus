@@ -144,18 +144,20 @@ export default function TopBar() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-[66px] items-center border-b border-black/[0.05] bg-white/80 px-4 backdrop-blur-2xl sm:px-5 lg:px-7">
+      <header className="sticky top-0 z-30 flex h-[66px] items-center border-b border-[var(--border-subtle)] bg-[var(--surface)] px-4 backdrop-blur-2xl sm:px-5 lg:px-7">
         {/* Mobile menu */}
         <button
           type="button"
           onClick={openSidebar}
           aria-label="Open navigation"
-          className="group flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.06] bg-white transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50"
+          className="group flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--surface)] transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50"
         >
           <span className="flex flex-col gap-[4px]">
-            <span className="h-[2px] w-[17px] rounded-full bg-cyan-400 shadow-[0_0_7px_rgba(34,211,238,0.55)] transition-all duration-300 group-hover:w-[20px]" />
-            <span className="h-[2px] w-[12px] rounded-full bg-cyan-400 shadow-[0_0_7px_rgba(34,211,238,0.55)] transition-all duration-300 group-hover:w-[16px]" />
-            <span className="h-[2px] w-[17px] rounded-full bg-cyan-400 shadow-[0_0_7px_rgba(34,211,238,0.55)] transition-all duration-300 group-hover:w-[20px]" />
+            <span className="h-[2px] w-[18px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[21px]" />
+
+            <span className="h-[2px] w-[14px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[18px]" />
+
+            <span className="h-[2px] w-[18px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[21px]" />
           </span>
         </button>
 
@@ -164,7 +166,7 @@ export default function TopBar() {
           href="/dashboard"
           className="ml-3 flex items-center gap-2.5 lg:hidden"
         >
-          <span className="text-[12px] font-black tracking-[-0.02em] text-slate-800">
+          <span className="text-[12px] font-black tracking-[-0.02em] text-[var(--text-primary)]">
             NEXUS
           </span>
         </Link>
@@ -173,19 +175,19 @@ export default function TopBar() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link href="/dashboard" className="flex items-center gap-2.5">
             <div className="px-2 ml-2">
-              <div className="text-[12px] font-black tracking-[-0.02em] text-slate-800">
+              <div className="text-[12px] font-black tracking-[-0.02em] text-[var(--text-primary)]">
                 NEXUS
               </div>
 
-              <div className="text-[7px] font-black uppercase tracking-[0.18em] text-slate-300">
+              <div className="text-[7px] font-black uppercase tracking-[0.18em] text-[var(--text-disabled)]">
                 Client space
               </div>
             </div>
           </Link>
 
-          <div className="ml-2 h-5 w-px bg-black/[0.06]" />
+          <div className="ml-2 h-5 w-px bg-[var(--surface-hover)]" />
 
-          <div className="text-[8px] font-black uppercase tracking-[0.18em] text-slate-300">
+          <div className="text-[8px] font-black uppercase tracking-[0.18em] text-[var(--text-disabled)]">
             Dashboard
           </div>
         </div>
@@ -199,7 +201,7 @@ export default function TopBar() {
             className={`relative flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${
               notifications
                 ? "border-cyan-200 bg-cyan-50 text-cyan-500"
-                : "border-black/[0.06] bg-white text-slate-400 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500"
+                : "border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-muted)] hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500"
             }`}
             aria-label="Notifications"
             aria-expanded={notifications}
@@ -212,17 +214,17 @@ export default function TopBar() {
           </button>
 
           {/* User */}
-          <div className="flex items-center gap-2 rounded-xl border border-black/[0.06] bg-white py-1 pl-1 pr-2.5">
+          <div className="flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] py-1 pl-1 pr-2.5">
             <div className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-400 via-violet-400 to-cyan-400 text-[9px] font-black text-white">
               {initials}
             </div>
 
             <div className="hidden sm:block">
-              <div className="text-[9px] font-black leading-none text-slate-700">
+              <div className="text-[9px] font-black leading-none text-[var(--text-secondary)]">
                 {displayName}
               </div>
 
-              <div className="mt-1 text-[7px] font-bold uppercase tracking-[0.12em] text-slate-300">
+              <div className="mt-1 text-[7px] font-bold uppercase tracking-[0.12em] text-[var(--text-disabled)]">
                 {user?.role ?? "Client"}
               </div>
             </div>
@@ -232,7 +234,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={handleLogout}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.06] bg-white text-slate-300 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-400"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-disabled)] transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-400"
             aria-label="Log out"
             title="Log out"
           >

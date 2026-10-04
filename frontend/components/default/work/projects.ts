@@ -6,8 +6,8 @@ export const projects = [
     description:
       "A high-speed information system built to turn enormous amounts of noise into clear, usable signal.",
     tags: ["Intelligence", "Automation", "Data"],
-    gradient: "from-violet-400 via-fuchsia-300 to-orange-200",
-    background: "bg-[#f0eaff]",
+    gradient: "var(--gradient-violet-pink)",
+    background: "bg-[var(--surface-secondary)]",
   },
   {
     number: "02",
@@ -16,8 +16,8 @@ export const projects = [
     description:
       "An interactive platform where games, experiments, and digital experiences collide in one ridiculously polished playground.",
     tags: ["Web", "Games", "TypeScript"],
-    gradient: "from-blue-400 via-cyan-300 to-emerald-200",
-    background: "bg-[#eaf8ff]",
+    gradient: "var(--gradient-cyan-violet)",
+    background: "bg-[var(--surface-secondary)]",
   },
   {
     number: "03",
@@ -26,8 +26,8 @@ export const projects = [
     description:
       "A programming language built around readable code, explicit behavior, and an almost unreasonable obsession with simplicity.",
     tags: ["Language", "Compiler", "Developer Tools"],
-    gradient: "from-orange-300 via-pink-300 to-violet-300",
-    background: "bg-[#fff1eb]",
+    gradient: "var(--gradient-orange-pink)",
+    background: "bg-[var(--surface-secondary)]",
   },
   {
     number: "04",
@@ -36,8 +36,8 @@ export const projects = [
     description:
       "A command center designed to transform scattered digital work into systems that move with almost mechanical precision.",
     tags: ["AI", "Workflows", "Operations"],
-    gradient: "from-emerald-300 via-cyan-300 to-blue-400",
-    background: "bg-[#eafcf6]",
+    gradient: "var(--gradient-emerald-cyan)",
+    background: "bg-[var(--surface-secondary)]",
   },
 ];
 

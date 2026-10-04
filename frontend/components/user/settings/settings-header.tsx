@@ -11,11 +11,11 @@ export default function SettingsHeader() {
         Preferences
       </div>
 
-      <h1 className="mt-2 text-4xl font-black tracking-[-0.05em] text-slate-800">
+      <h1 className="mt-2 text-4xl font-black tracking-[-0.05em] text-[var(--text-primary)]">
         Settings
       </h1>
 
-      <p className="mt-2 text-[11px] font-medium text-slate-400">
+      <p className="mt-2 text-[11px] font-medium text-[var(--text-muted)]">
         Manage your Nexus account and customize your experience.
       </p>
     </motion.div>

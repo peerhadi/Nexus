@@ -51,7 +51,7 @@ function getStatusClasses(status: Project["status"]) {
 
     case "PLANNING":
     default:
-      return "bg-black/[0.05] text-black/40";
+      return "bg-[var(--surface-hover)] text-[var(--text-tertiary)]";
   }
 }
 
@@ -65,14 +65,14 @@ export default function ProjectList({
   getStatusLabel,
 }: ProjectListProps) {
   return (
-    <aside className="flex min-h-0 w-[360px] shrink-0 flex-col border-r border-black/[0.08] bg-white">
-      <div className="shrink-0 border-b border-black/[0.07] p-3">
+    <aside className="flex min-h-0 w-[360px] shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
+      <div className="shrink-0 border-b border-[var(--border)] p-3">
         <div className="mb-3 flex items-center justify-between px-1">
-          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-black/30">
+          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
             Projects
           </div>
 
-          <div className="text-[8px] font-bold text-black/25">
+          <div className="text-[8px] font-bold text-[var(--text-muted)]">
             {projects.length}
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function ProjectList({
             onChange={(event) =>
               onFilterChange(event.target.value as ProjectFilter)
             }
-            className="h-9 w-full appearance-none rounded-xl border border-black/[0.08] bg-[#f7f7f5] px-3 text-[9px] font-bold outline-none transition-colors focus:bg-white"
+            className="h-9 w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 text-[9px] font-bold outline-none transition-colors focus:bg-[var(--surface)]"
           >
             {statusOptions.map((option) => (
               <option key={option} value={option}>
@@ -94,7 +94,7 @@ export default function ProjectList({
 
           <ChevronDown
             size={11}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/30"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
           />
         </div>
       </div>
@@ -105,7 +105,7 @@ export default function ProjectList({
             <div>
               <div className="text-[11px] font-bold">No projects</div>
 
-              <div className="mt-1 text-[9px] text-black/35">
+              <div className="mt-1 text-[9px] text-[var(--text-muted)]">
                 No projects match this filter.
               </div>
             </div>
@@ -119,14 +119,14 @@ export default function ProjectList({
                 key={project.id}
                 type="button"
                 onClick={() => onSelect(project)}
-                className={`group relative w-full border-b border-black/[0.06] px-4 py-4 text-left transition-colors ${
+                className={`group relative w-full border-b border-[var(--border-subtle)] px-4 py-4 text-left transition-colors ${
                   active
-                    ? "bg-[#f7f7f5] shadow-[inset_3px_0_0_#111]"
-                    : "bg-white hover:bg-[#fafaf8]"
+                    ? "bg-[var(--surface-secondary)] shadow-[inset_3px_0_0_#111]"
+                    : "bg-[var(--surface)] hover:bg-[var(--background)]"
                 }`}
               >
                 <div className="flex gap-3">
-                  <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-black text-[10px] font-bold text-white">
+                  <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[10px] font-bold text-[var(--accent-contrast)]">
                     {getInitials(project.name)}
                   </div>
 
@@ -145,13 +145,13 @@ export default function ProjectList({
                       </span>
                     </div>
 
-                    <div className="mt-1 truncate text-[9px] font-medium text-black/40">
+                    <div className="mt-1 truncate text-[9px] font-medium text-[var(--text-tertiary)]">
                       {project.client?.name ?? "Client"}
                     </div>
 
-                    <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black/[0.06]">
+                    <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[var(--surface-hover)]">
                       <div
-                        className="h-full rounded-full bg-black transition-all duration-500"
+                        className="h-full rounded-full bg-[var(--accent)] transition-all duration-500"
                         style={{
                           width: `${Math.max(
                             0,
@@ -162,11 +162,11 @@ export default function ProjectList({
                     </div>
 
                     <div className="mt-2 flex items-center justify-between">
-                      <span className="text-[7px] font-bold uppercase tracking-[0.08em] text-black/25">
+                      <span className="text-[7px] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)]">
                         {project.progress}% complete
                       </span>
 
-                      <span className="flex items-center gap-1 text-[7px] text-black/25">
+                      <span className="flex items-center gap-1 text-[7px] text-[var(--text-muted)]">
                         <Clock3 size={9} />
                         {formatDeadline(project.deadline)}
                       </span>

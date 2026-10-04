@@ -175,7 +175,7 @@ export const privacySections: PolicySectionData[] = [
                 className="mt-0.5 shrink-0 text-violet-500"
               />
 
-              <span className="text-sm font-medium text-slate-600">{item}</span>
+              <span className="text-sm font-medium text-[var(--text-secondary)]">{item}</span>
             </div>
           ))}
         </div>
@@ -204,7 +204,7 @@ export const privacySections: PolicySectionData[] = [
           ].map((item) => (
             <li
               key={item}
-              className="flex gap-3 text-sm leading-6 text-slate-600"
+              className="flex gap-3 text-sm leading-6 text-[var(--text-secondary)]"
             >
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
               {item}
@@ -235,11 +235,11 @@ export const privacySections: PolicySectionData[] = [
             </div>
 
             <div>
-              <h3 className="text-sm font-black text-slate-800">
+              <h3 className="text-sm font-black text-[var(--text-primary)]">
                 The simple version
               </h3>
 
-              <p className="mt-1 text-sm leading-6 text-slate-500">
+              <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">
                 Your information is used to help Nexus provide the service you
                 asked for — not to sell your personal information.
               </p>
@@ -323,7 +323,7 @@ export const privacySections: PolicySectionData[] = [
           ].map((item) => (
             <li
               key={item}
-              className="flex gap-3 text-sm leading-6 text-slate-600"
+              className="flex gap-3 text-sm leading-6 text-[var(--text-secondary)]"
             >
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-fuchsia-400" />
               {item}
@@ -406,7 +406,7 @@ export const termsSections: PolicySectionData[] = [
               className="flex items-center gap-3 rounded-2xl border border-cyan-100 bg-cyan-50/60 p-4"
             >
               <CheckCircle2 size={16} className="shrink-0 text-cyan-500" />
-              <span className="text-sm font-medium text-slate-600">{item}</span>
+              <span className="text-sm font-medium text-[var(--text-secondary)]">{item}</span>
             </div>
           ))}
         </div>
@@ -452,11 +452,11 @@ export const termsSections: PolicySectionData[] = [
             </div>
 
             <div>
-              <h3 className="text-sm font-black text-slate-800">
+              <h3 className="text-sm font-black text-[var(--text-primary)]">
                 Typical project structure
               </h3>
 
-              <p className="mt-1 text-sm leading-6 text-slate-500">
+              <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">
                 Unless a different arrangement is agreed upon, projects may use
                 an initial payment to begin work followed by the remaining
                 balance before final handoff or deployment.
@@ -608,7 +608,7 @@ export const termsSections: PolicySectionData[] = [
 
         <Link
           href="/build"
-          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 px-5 py-3 text-xs font-black text-white shadow-lg shadow-violet-200 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--gradient-primary)] px-5 py-3 text-xs font-black text-white shadow-lg shadow-violet-200 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
         >
           Build Nexus
           <ArrowUpRight

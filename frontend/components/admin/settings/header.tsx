@@ -16,14 +16,14 @@ export default function SettingsHeader({
   const section = sections.find((item) => item.id === active);
 
   return (
-    <header className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.07] bg-white/90 px-7 backdrop-blur-xl">
+    <header className="flex h-[74px] shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-7 backdrop-blur-xl">
       <div className="min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-medium text-black/30">
+          <span className="text-[10px] font-medium text-[var(--text-muted)]">
             Administration
           </span>
 
-          <ChevronRight size={11} className="text-black/20" />
+          <ChevronRight size={11} className="text-[var(--text-disabled)]" />
 
           <span className="text-[10px] font-semibold">{section?.label}</span>
         </div>
@@ -39,8 +39,8 @@ export default function SettingsHeader({
         className={[
           "group flex h-9 items-center gap-2 rounded-xl px-4 text-[11px] font-semibold transition-all duration-300",
           saved
-            ? "bg-black text-white"
-            : "bg-black text-white hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.14)]",
+            ? "bg-[var(--accent)] text-[var(--accent-contrast)]"
+            : "bg-[var(--accent)] text-[var(--accent-contrast)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.14)]",
         ].join(" ")}
       >
         {saved ? <Check size={14} /> : <Save size={14} />}

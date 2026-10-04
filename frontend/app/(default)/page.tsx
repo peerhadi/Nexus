@@ -16,7 +16,7 @@ export default function HomePage() {
     }
   }, []);
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f8f8f6] text-[#111]">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       <Atmosphere />
       <Hero />
       <Services />

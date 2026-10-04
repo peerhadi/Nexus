@@ -11,7 +11,7 @@ import FinalCta from "@/components/default/work/final-cta";
 
 export default function WorkPage() {
   return (
-    <main className="relative overflow-hidden bg-[#f8f8f6] text-[#111]">
+    <main className="relative overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       <Hero />
 
       <WorkHeader />

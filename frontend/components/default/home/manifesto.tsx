@@ -22,14 +22,14 @@ export default function Manifesto() {
         <p className="text-[clamp(3.2rem,8vw,8.5rem)] font-black leading-[0.86] tracking-[-0.085em]">
           GOOD SOFTWARE
           <br />
-          <span className="text-black/20">SHOULD FEEL</span>
+          <span className="text-[var(--text-disabled)]">SHOULD FEEL</span>
           <br />
-          <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
             LIKE MAGIC.
           </span>
         </p>
 
-        <p className="mx-auto mt-14 max-w-2xl text-lg leading-8 text-black/40">
+        <p className="mx-auto mt-14 max-w-2xl text-lg leading-8 text-[var(--text-tertiary)]">
           Not because it's complicated. Because someone took the complicated
           part away.
         </p>

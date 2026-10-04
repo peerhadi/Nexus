@@ -15,14 +15,14 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="mb-8 flex w-fit items-center gap-3 rounded-full border border-black/10 bg-white/65 px-4 py-2.5 shadow-sm backdrop-blur-xl"
+              className="mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-40" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-500" />
               </span>
 
-              <span className="text-xs font-bold tracking-wide text-black/60">
+              <span className="text-xs font-bold tracking-wide text-[var(--text-secondary)]">
                 We build useful things.
               </span>
             </motion.div>
@@ -48,11 +48,11 @@ export default function Hero() {
                     repeat: Infinity,
                     repeatDelay: 5,
                   }}
-                  className="absolute bottom-[3%] left-0 h-[0.07em] rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500"
+                  className="absolute bottom-[3%] left-0 h-[0.07em] rounded-full bg-[var(--gradient-primary)]"
                 />
               </span>
               <br />
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent text-[90%]">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent text-[90%]">
                 DISAPPEAR.
               </span>
             </motion.h1>
@@ -61,7 +61,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55, duration: 0.8 }}
-              className="mt-10 max-w-xl text-lg leading-8 text-black/50 sm:text-xl"
+              className="mt-10 max-w-xl text-lg leading-8 text-[var(--text-secondary)] sm:text-xl"
             >
               Nexus builds automations, applications, and intelligent systems
               that take annoying work out of your day.
@@ -75,12 +75,12 @@ export default function Hero() {
             >
               <Link
                 href="build"
-                className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-black/10 bg-white/75 px-5 py-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-black/15 hover:bg-white hover:shadow-[0_18px_45px_rgba(0,0,0,0.1)]"
+                className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:bg-[var(--surface)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.1)]"
               >
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-violet-100 via-fuchsia-100 to-blue-100 transition-transform duration-700 group-hover:translate-x-0" />
 
                 <span className="relative flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111] text-white transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
                     <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
 
@@ -95,7 +95,7 @@ export default function Hero() {
           <HeroVisual />
         </div>
 
-        <div className="mt-10 overflow-hidden border-y border-black/[0.08] py-5">
+        <div className="mt-10 overflow-hidden border-y border-[var(--border)] py-5">
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{
@@ -115,10 +115,10 @@ export default function Hero() {
               ].map((item) => (
                 <span
                   key={`${copy}-${item}`}
-                  className="flex items-center gap-10 text-xs font-bold tracking-[0.22em] text-black/25"
+                  className="flex items-center gap-10 text-xs font-bold tracking-[0.22em] text-[var(--text-muted)]"
                 >
                   {item}
-                  <span className="text-black/10">✦</span>
+                  <span className="text-[var(--text-disabled)]">✦</span>
                 </span>
               )),
             )}

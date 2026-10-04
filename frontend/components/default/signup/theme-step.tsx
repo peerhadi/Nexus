@@ -8,7 +8,7 @@ export const themes = [
     name: "Neon White",
     description: "Bright, electric, alive.",
     className:
-      "bg-white border-black/[0.08] shadow-[0_0_45px_rgba(255,255,255,0.9)]",
+      "bg-[var(--surface)] border-[var(--border)] shadow-[0_0_45px_rgba(255,255,255,0.9)]",
     orb: "bg-[conic-gradient(from_90deg,#ff00cc,#00e5ff,#a8ff00,#ffe600,#ff4d00,#ff00cc)]",
   },
   {
@@ -46,7 +46,7 @@ export default function ThemeStep({ theme, setTheme }: ThemeStepProps) {
   return (
     <div>
       <div className="mb-8">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--accent-contrast)]">
           <Palette size={20} />
         </div>
 
@@ -54,7 +54,7 @@ export default function ThemeStep({ theme, setTheme }: ThemeStepProps) {
           Pick your energy.
         </h2>
 
-        <p className="mt-2 text-[11px] leading-5 text-black/40">
+        <p className="mt-2 text-[11px] leading-5 text-[var(--text-tertiary)]">
           Choose a starting theme. You&apos;ll be able to customize it later.
         </p>
       </div>
@@ -76,13 +76,13 @@ export default function ThemeStep({ theme, setTheme }: ThemeStepProps) {
             >
               <div className={["mb-4 h-24 rounded-xl", item.orb].join(" ")}>
                 <div className="flex h-full items-center justify-center">
-                  <div className="h-12 w-12 rounded-full bg-white/70 shadow-2xl backdrop-blur-xl" />
+                  <div className="h-12 w-12 rounded-full bg-[var(--surface)] shadow-2xl backdrop-blur-xl" />
                 </div>
               </div>
 
               <p className="text-[11px] font-semibold">{item.name}</p>
 
-              <p className="mt-1 text-[9px] text-black/40">
+              <p className="mt-1 text-[9px] text-[var(--text-tertiary)]">
                 {item.description}
               </p>
 

@@ -42,28 +42,28 @@ type Project = {
 
 const gradients = [
   {
-    color: "from-violet-400 via-fuchsia-400 to-pink-400",
-    soft: "from-violet-100 via-fuchsia-50 to-pink-50",
+    color: "var(--gradient-violet-pink)",
+    soft: "var(--gradient-soft)",
   },
   {
-    color: "from-cyan-400 via-blue-400 to-violet-400",
-    soft: "from-cyan-100 via-blue-50 to-violet-50",
+    color: "var(--gradient-cyan-violet)",
+    soft: "var(--gradient-soft)",
   },
   {
-    color: "from-emerald-400 via-cyan-400 to-blue-400",
-    soft: "from-emerald-100 via-cyan-50 to-blue-50",
+    color: "var(--gradient-emerald-cyan)",
+    soft: "var(--gradient-soft)",
   },
   {
-    color: "from-orange-400 via-pink-400 to-fuchsia-400",
-    soft: "from-orange-100 via-pink-50 to-fuchsia-50",
+    color: "var(--gradient-orange-pink)",
+    soft: "var(--gradient-soft)",
   },
   {
-    color: "from-yellow-400 via-orange-400 to-pink-400",
-    soft: "from-yellow-100 via-orange-50 to-pink-50",
+    color: "var(--gradient-rainbow)",
+    soft: "var(--gradient-soft)",
   },
   {
-    color: "from-indigo-400 via-violet-400 to-fuchsia-400",
-    soft: "from-indigo-100 via-violet-50 to-fuchsia-50",
+    color: "var(--gradient-violet-pink)",
+    soft: "var(--gradient-soft)",
   },
 ];
 
@@ -179,18 +179,18 @@ export default function OverviewProjects() {
     <section>
       <div className="mb-4 flex items-end justify-between">
         <div>
-          <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+          <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">
             Workspace
           </div>
 
-          <h2 className="mt-1 text-xl font-black tracking-tight text-slate-800">
+          <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--text-primary)]">
             Your projects
           </h2>
         </div>
 
         <Link
           href="/dashboard/projects"
-          className="flex items-center gap-1 text-[10px] font-black text-violet-500 transition hover:text-fuchsia-500"
+          className="flex items-center gap-1 text-[10px] font-black text-[var(--accent)] transition hover:text-[var(--accent-hover)]"
         >
           See all
           <ChevronRight size={13} />
@@ -199,11 +199,11 @@ export default function OverviewProjects() {
 
       <div className="space-y-3">
         {loading ? (
-          <div className="rounded-[22px] border border-black/[0.05] bg-white p-6 text-center text-[11px] font-semibold text-slate-400">
+          <div className="rounded-[22px] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-[11px] font-semibold text-[var(--text-muted)]">
             Loading projects...
           </div>
         ) : projects.length === 0 ? (
-          <div className="rounded-[22px] border border-black/[0.05] bg-white p-6 text-center text-[11px] font-semibold text-slate-400">
+          <div className="rounded-[22px] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-[11px] font-semibold text-[var(--text-muted)]">
             No projects yet.
           </div>
         ) : (

@@ -60,15 +60,15 @@ export default function ProjectUpdates({
   }
 
   return (
-    <div className="rounded-2xl border border-black/[0.07] bg-white shadow-[0_4px_18px_rgba(0,0,0,0.025)]">
-      <div className="border-b border-black/[0.07] px-5 py-4">
+    <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_4px_18px_rgba(0,0,0,0.025)]">
+      <div className="border-b border-[var(--border)] px-5 py-4">
         <div className="flex items-center gap-2">
           <MessageSquare size={12} />
 
           <span className="text-[10px] font-bold">Project updates</span>
         </div>
 
-        <div className="mt-1 text-[8px] text-black/30">
+        <div className="mt-1 text-[8px] text-[var(--text-muted)]">
           Post an update to the client's project timeline.
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function ProjectUpdates({
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Update title..."
-            className="h-9 w-full rounded-xl border border-black/[0.08] bg-[#f7f7f5] px-3 text-[9px] font-semibold outline-none transition-colors placeholder:text-black/25 focus:border-black/20 focus:bg-white"
+            className="h-9 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 text-[9px] font-semibold outline-none transition-colors placeholder:text-[var(--text-muted)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)]"
           />
 
           <div className="flex gap-2">
@@ -88,14 +88,14 @@ export default function ProjectUpdates({
               onChange={(event) => setDescription(event.target.value)}
               placeholder="Write a project update..."
               rows={3}
-              className="min-w-0 flex-1 resize-none rounded-xl border border-black/[0.08] bg-[#f7f7f5] p-3 text-[9px] leading-4 outline-none transition-colors placeholder:text-black/25 focus:border-black/20 focus:bg-white"
+              className="min-w-0 flex-1 resize-none rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] p-3 text-[9px] leading-4 outline-none transition-colors placeholder:text-[var(--text-muted)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)]"
             />
 
             <button
               type="button"
               onClick={() => void submitUpdate()}
               disabled={!title.trim() || !description.trim() || submitting}
-              className="flex h-9 w-9 shrink-0 items-center justify-center self-end rounded-xl bg-black text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_15px_rgba(0,0,0,0.13)] disabled:cursor-not-allowed disabled:opacity-25 disabled:hover:translate-y-0"
+              className="flex h-9 w-9 shrink-0 items-center justify-center self-end rounded-xl bg-[var(--accent)] text-[var(--accent-contrast)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_15px_rgba(0,0,0,0.13)] disabled:cursor-not-allowed disabled:opacity-25 disabled:hover:translate-y-0"
             >
               <Send size={12} />
             </button>
@@ -109,7 +109,7 @@ export default function ProjectUpdates({
                   "PROGRESS" | "MILESTONE" | "NOTE" | "COMPLETED",
               )
             }
-            className="h-8 w-full rounded-xl border border-black/[0.08] bg-[#f7f7f5] px-3 text-[8px] font-bold uppercase outline-none focus:bg-white"
+            className="h-8 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 text-[8px] font-bold uppercase outline-none focus:bg-[var(--surface)]"
           >
             <option value="PROGRESS">Progress</option>
             <option value="MILESTONE">Milestone</option>
@@ -120,12 +120,12 @@ export default function ProjectUpdates({
 
         <div className="mt-4 space-y-3">
           {project.updates.length === 0 ? (
-            <div className="rounded-xl bg-[#f7f7f5] px-4 py-8 text-center">
-              <div className="text-[9px] font-bold text-black/40">
+            <div className="rounded-xl bg-[var(--surface-secondary)] px-4 py-8 text-center">
+              <div className="text-[9px] font-bold text-[var(--text-tertiary)]">
                 No updates yet
               </div>
 
-              <div className="mt-1 text-[8px] text-black/25">
+              <div className="mt-1 text-[8px] text-[var(--text-muted)]">
                 Your first project update will appear here.
               </div>
             </div>
@@ -139,49 +139,49 @@ export default function ProjectUpdates({
                         ? "bg-emerald-500"
                         : update.type === "MILESTONE"
                           ? "bg-violet-500"
-                          : "bg-black"
+                          : "bg-[var(--accent)]"
                     }`}
                   />
 
                   {index < project.updates.length - 1 && (
-                    <div className="mt-1 h-full w-px bg-black/[0.08]" />
+                    <div className="mt-1 h-full w-px bg-[var(--border)]" />
                   )}
                 </div>
 
                 <div className="min-w-0 flex-1 pb-3">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="text-[9px] font-bold text-black/70">
+                    <div className="text-[9px] font-bold text-[var(--text-secondary)]">
                       {update.title}
                     </div>
 
-                    <span className="shrink-0 rounded-full bg-black/[0.04] px-1.5 py-0.5 text-[7px] font-bold uppercase tracking-[0.06em] text-black/30">
+                    <span className="shrink-0 rounded-full bg-[var(--surface-hover)] px-1.5 py-0.5 text-[7px] font-bold uppercase tracking-[0.06em] text-[var(--text-muted)]">
                       {formatType(update.type)}
                     </span>
                   </div>
 
-                  <div className="mt-1 text-[8px] leading-4 text-black/45">
+                  <div className="mt-1 text-[8px] leading-4 text-[var(--text-tertiary)]">
                     {update.description}
                   </div>
 
                   <div className="mt-2 flex items-center gap-3">
-                    <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-black/25">
+                    <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[var(--text-muted)]">
                       {formatDate(update.createdAt)}
                     </span>
 
-                    <span className="text-[7px] font-bold text-black/25">
+                    <span className="text-[7px] font-bold text-[var(--text-muted)]">
                       {update.progress}% progress
                     </span>
                   </div>
 
                   {update.comments?.length > 0 && (
-                    <div className="mt-3 space-y-2 border-l border-black/[0.08] pl-3">
+                    <div className="mt-3 space-y-2 border-l border-[var(--border)] pl-3">
                       {update.comments.map((comment) => (
                         <div key={comment.id}>
-                          <div className="text-[8px] leading-4 text-black/50">
+                          <div className="text-[8px] leading-4 text-[var(--text-secondary)]">
                             {comment.content}
                           </div>
 
-                          <div className="mt-0.5 text-[7px] font-bold uppercase tracking-[0.08em] text-black/20">
+                          <div className="mt-0.5 text-[7px] font-bold uppercase tracking-[0.08em] text-[var(--text-disabled)]">
                             {formatDate(comment.createdAt)}
                           </div>
                         </div>

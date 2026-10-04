@@ -17,7 +17,7 @@ export function ArchiveStats({ items }: ArchiveStatsProps) {
   );
 
   return (
-    <div className="grid h-[58px] shrink-0 grid-cols-3 border-b border-black/[0.08] bg-white">
+    <div className="grid h-[58px] shrink-0 grid-cols-3 border-b border-[var(--border)] bg-[var(--surface)]">
       <Stat
         label="Archived"
         value={String(items.length)}

@@ -52,7 +52,7 @@ export function ClientListItem({
       type="button"
       onClick={onSelect}
       className={`flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors ${
-        selected ? "bg-black/[0.045]" : "hover:bg-black/[0.025]"
+        selected ? "bg-[var(--surface-hover)]" : "hover:bg-[var(--surface-hover)]"
       }`}
     >
       <div
@@ -63,16 +63,16 @@ export function ClientListItem({
 
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-3">
-          <div className="truncate text-[11px] font-bold text-black/85">
+          <div className="truncate text-[11px] font-bold text-[var(--text-primary)]">
             {client.name}
           </div>
 
           {selected && (
-            <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-black" />
+            <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
           )}
         </div>
 
-        <div className="mt-0.5 truncate text-[10px] font-medium text-black/35">
+        <div className="mt-0.5 truncate text-[10px] font-medium text-[var(--text-muted)]">
           {client.email}
         </div>
       </div>

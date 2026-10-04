@@ -23,7 +23,7 @@ function Toggle({
       }`}
     >
       <span
-        className={`block h-5 w-5 rounded-full bg-white shadow-[0_2px_5px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
+        className={`block h-5 w-5 rounded-full bg-[var(--surface)] shadow-[0_2px_5px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
           enabled ? "translate-x-5" : "translate-x-0"
         }`}
       />
@@ -61,25 +61,25 @@ export default function NotificationSettings() {
   ];
 
   return (
-    <div className="divide-y divide-black/[0.05]">
+    <div className="divide-y divide-[var(--border-subtle)]">
       {items.map((item) => {
         const Icon = item.icon;
 
         return (
           <div
             key={item.title}
-            className="flex items-center gap-4 p-5 transition-colors duration-300 hover:bg-black/[0.012]"
+            className="flex items-center gap-4 p-5 transition-colors duration-300 hover:bg-[var(--surface-hover)]"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black/[0.035] text-slate-400">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-hover)] text-[var(--text-muted)]">
               <Icon size={16} />
             </div>
 
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-black text-slate-700">
+              <div className="text-[11px] font-black text-[var(--text-secondary)]">
                 {item.title}
               </div>
 
-              <div className="mt-1 text-[9px] font-medium text-slate-400">
+              <div className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
                 {item.description}
               </div>
             </div>

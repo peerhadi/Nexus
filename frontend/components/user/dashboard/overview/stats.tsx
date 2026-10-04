@@ -9,30 +9,34 @@ const statStyles = [
   {
     key: "totalProjects",
     label: "Projects",
-    gradient: "from-violet-100 to-fuchsia-50",
-    iconBg: "bg-violet-500/10",
-    iconColor: "text-violet-600",
+    background: "var(--surface)",
+    iconBg: "var(--accent-soft-strong)",
+    iconColor: "var(--accent)",
+    glow: "var(--accent-soft)",
   },
   {
     key: "averageProgress",
     label: "Average progress",
-    gradient: "from-cyan-100 to-blue-50",
-    iconBg: "bg-cyan-500/10",
-    iconColor: "text-cyan-600",
+    background: "var(--surface)",
+    iconBg: "var(--accent-soft-strong)",
+    iconColor: "var(--accent)",
+    glow: "var(--accent-soft)",
   },
   {
     key: "requests",
     label: "Requests",
-    gradient: "from-pink-100 to-rose-50",
-    iconBg: "bg-pink-500/10",
-    iconColor: "text-pink-600",
+    background: "var(--surface)",
+    iconBg: "var(--accent-soft-strong)",
+    iconColor: "var(--accent)",
+    glow: "var(--accent-soft)",
   },
   {
     key: "activeProjects",
     label: "Active projects",
-    gradient: "from-orange-100 to-amber-50",
-    iconBg: "bg-orange-500/10",
-    iconColor: "text-orange-600",
+    background: "var(--surface)",
+    iconBg: "var(--accent-soft-strong)",
+    iconColor: "var(--accent)",
+    glow: "var(--accent-soft)",
   },
 ] as const;
 
@@ -152,19 +156,32 @@ export default function OverviewStats() {
               y: -5,
               scale: 1.015,
             }}
-            className={`rounded-[22px] border border-white bg-gradient-to-br ${stat.gradient} p-5 shadow-sm transition-shadow hover:shadow-xl`}
+            style={{
+              background: stat.background,
+              boxShadow: `0 0 45px ${stat.glow}`,
+            }}
+            className="relative overflow-hidden rounded-[22px] border border-[var(--border)] p-5 shadow-[var(--shadow-sm)] transition-shadow hover:shadow-[var(--shadow-lg)]"
           >
             <div
-              className={`mb-7 flex h-9 w-9 items-center justify-center rounded-xl ${stat.iconBg}`}
+              className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full opacity-70 blur-3xl"
+              style={{ background: stat.glow }}
+            />
+
+            <div
+              className="relative mb-7 flex h-9 w-9 items-center justify-center rounded-xl"
+              style={{
+                background: stat.iconBg,
+                color: stat.iconColor,
+              }}
             >
-              <Icon size={17} className={stat.iconColor} />
+              <Icon size={17} strokeWidth={2.5} />
             </div>
 
-            <div className="text-2xl font-black tracking-tight text-slate-800">
+            <div className="relative text-2xl font-black tracking-tight text-[var(--text-primary)]">
               {values[index]}
             </div>
 
-            <div className="mt-1 text-[10px] font-bold text-slate-500/70">
+            <div className="relative mt-1 text-[10px] font-bold text-[var(--text-tertiary)]">
               {stat.label}
             </div>
           </motion.div>

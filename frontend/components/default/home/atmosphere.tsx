@@ -16,7 +16,7 @@ export default function Atmosphere() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -left-[18%] -top-[18%] h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle_at_center,rgba(157,122,255,0.34),rgba(157,122,255,0)_68%)] blur-3xl"
+        className="absolute -left-[18%] -top-[18%] h-[800px] w-[800px] rounded-full bg-[var(--hero-glow-primary)] blur-3xl"
       />
 
       <motion.div
@@ -30,7 +30,7 @@ export default function Atmosphere() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -right-[18%] top-[15%] h-[850px] w-[850px] rounded-full bg-[radial-gradient(circle_at_center,rgba(84,188,255,0.28),rgba(84,188,255,0)_68%)] blur-3xl"
+        className="absolute -right-[18%] top-[15%] h-[850px] w-[850px] rounded-full bg-[var(--hero-glow-secondary)] blur-3xl"
       />
 
       <motion.div
@@ -43,14 +43,14 @@ export default function Atmosphere() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[-25%] left-[20%] h-[750px] w-[750px] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,166,137,0.25),rgba(255,166,137,0)_68%)] blur-3xl"
+        className="absolute bottom-[-25%] left-[20%] h-[750px] w-[750px] rounded-full bg-[var(--hero-glow-tertiary)] blur-3xl"
       />
 
       <div
         className="absolute inset-0 opacity-[0.025]"
         style={{
           backgroundImage:
-            "linear-gradient(to right,#111 1px,transparent 1px),linear-gradient(to bottom,#111 1px,transparent 1px)",
+            "linear-gradient(to right,var(--text-primary) 1px,transparent 1px),linear-gradient(to bottom,var(--text-primary) 1px,transparent 1px)",
           backgroundSize: "52px 52px",
         }}
       />

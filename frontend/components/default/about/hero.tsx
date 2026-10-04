@@ -16,7 +16,7 @@ export default function Hero() {
               stiffness: 180,
               damping: 14,
             }}
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#111] text-white"
+            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)] text-white"
           >
             <Gamepad2 className="h-5 w-5" />
           </motion.div>
@@ -25,7 +25,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-xs font-bold uppercase tracking-[0.25em] text-black/35"
+            className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]"
           >
             About / The people behind the pixels
           </motion.p>
@@ -45,7 +45,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="block text-black/15"
+            className="block text-[var(--text-disabled)]"
           >
             ONE INTERNET.
           </motion.span>
@@ -54,7 +54,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text pb-3 text-transparent"
+            className="block bg-[var(--gradient-primary)] bg-clip-text pb-3 text-transparent"
           >
             TOO MANY IDEAS.
           </motion.span>
@@ -65,12 +65,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.7 }}
-            className="max-w-3xl text-lg leading-8 text-black/45 sm:text-xl"
+            className="max-w-3xl text-lg leading-8 text-[var(--text-tertiary)] sm:text-xl"
           >
             Nexus is a small group of builders who like making software,
             breaking software, fixing software, and occasionally staring at
             software wondering why it behaved like that.
-            <span className="font-semibold text-black/65">
+            <span className="font-semibold text-[var(--text-secondary)]">
               {" "}
               Mostly, we like building things that should exist.
             </span>
@@ -90,14 +90,14 @@ export default function Hero() {
                     y: -7,
                     rotate: index % 2 ? 5 : -5,
                   }}
-                  className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-[#f8f8f6] bg-white text-sm font-black shadow-sm"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-[#f8f8f6] bg-[var(--surface)] text-sm font-black shadow-sm"
                 >
                   {letter}
                 </motion.div>
               ))}
             </div>
 
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-black/30">
+            <span className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               4 builders
             </span>
           </motion.div>

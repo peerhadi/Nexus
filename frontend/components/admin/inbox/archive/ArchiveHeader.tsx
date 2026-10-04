@@ -6,14 +6,14 @@ type ArchiveHeaderProps = {
 
 export function ArchiveHeader({ count }: ArchiveHeaderProps) {
   return (
-    <header className="relative flex h-[74px] shrink-0 items-center justify-between overflow-hidden border-b border-black/[0.08] bg-white px-5 sm:px-8">
-      <div className="pointer-events-none absolute -right-10 -top-16 h-40 w-40 rounded-full border-[24px] border-black/[0.025]" />
+    <header className="relative flex h-[74px] shrink-0 items-center justify-between overflow-hidden border-b border-[var(--border)] bg-[var(--surface)] px-5 sm:px-8">
+      <div className="pointer-events-none absolute -right-10 -top-16 h-40 w-40 rounded-full border-[24px] border-[var(--border-subtle)]" />
 
       <div className="relative">
         <div className="flex items-center gap-2">
-          <div className="h-1.5 w-1.5 rounded-full bg-black" />
+          <div className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
 
-          <div className="text-[8px] font-bold uppercase tracking-[0.18em] text-black/30">
+          <div className="text-[8px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
             Inbox / History
           </div>
         </div>
@@ -24,14 +24,14 @@ export function ArchiveHeader({ count }: ArchiveHeaderProps) {
       </div>
 
       <div className="relative flex items-center gap-2">
-        <div className="hidden text-[8px] font-semibold uppercase tracking-[0.12em] text-black/20 sm:block">
+        <div className="hidden text-[8px] font-semibold uppercase tracking-[0.12em] text-[var(--text-disabled)] sm:block">
           Closed conversations
         </div>
 
-        <div className="flex h-8 items-center gap-2 rounded-xl border border-black/[0.08] bg-[#f7f7f5] px-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-          <Archive size={11} className="text-black/50" />
+        <div className="flex h-8 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <Archive size={11} className="text-[var(--text-secondary)]" />
 
-          <span className="text-[9px] font-bold text-black/60">{count}</span>
+          <span className="text-[9px] font-bold text-[var(--text-secondary)]">{count}</span>
         </div>
       </div>
     </header>

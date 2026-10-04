@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
 type Message = {
   id: string;
   role: "USER" | "ASSISTANT";
@@ -433,19 +434,19 @@ export default function AIPage() {
   const hasMessages = messages.length > 0;
 
   return (
-    <main className="flex h-[calc(100vh-70px)] min-h-0 overflow-hidden bg-[#fafafa] text-slate-800">
+    <main className="flex h-[calc(100vh-70px)] min-h-0 overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       {/* ========================================================= */}
       {/* SIDEBAR */}
       {/* ========================================================= */}
 
-      <aside className="hidden w-[245px] shrink-0 border-r border-black/[0.05] bg-white/70 p-4 lg:flex lg:flex-col">
+      <aside className="hidden w-[245px] shrink-0 border-r border-[var(--border-subtle)] bg-[var(--surface)] p-4 lg:flex lg:flex-col">
         <div className="mb-5 flex items-center justify-between">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-disabled)]">
               Nexus AI
             </div>
 
-            <div className="mt-1 text-[13px] font-black text-slate-700">
+            <div className="mt-1 text-[13px] font-black text-[var(--text-secondary)]">
               Conversations
             </div>
           </div>
@@ -455,7 +456,7 @@ export default function AIPage() {
             onClick={newChat}
             disabled={loading || loadingConversation}
             aria-label="New conversation"
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-black/[0.06] bg-white text-slate-400 transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Plus size={15} />
           </button>
@@ -465,13 +466,19 @@ export default function AIPage() {
         <div className="min-h-0 flex-1 overflow-y-auto pr-1">
           {loadingConversations ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={15} className="animate-spin text-cyan-400" />
+              <Loader2
+                size={15}
+                className="animate-spin text-[var(--accent)]"
+              />
             </div>
           ) : conversations.length === 0 ? (
             <div className="px-2 py-8 text-center">
-              <MessageSquare size={20} className="mx-auto text-slate-200" />
+              <MessageSquare
+                size={20}
+                className="mx-auto text-[var(--text-disabled)]"
+              />
 
-              <p className="mt-3 text-[9px] font-semibold leading-4 text-slate-300">
+              <p className="mt-3 text-[9px] font-semibold leading-4 text-[var(--text-disabled)]">
                 Your conversations will appear here.
               </p>
             </div>
@@ -493,28 +500,32 @@ export default function AIPage() {
                       }
                     }}
                     className={`group flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2.5 transition ${
-                      active ? "bg-cyan-50" : "hover:bg-slate-50"
+                      active
+                        ? "bg-[var(--accent-soft)]"
+                        : "hover:bg-[var(--surface-hover)]"
                     }`}
                   >
                     <MessageSquare
                       size={14}
                       className={
                         active
-                          ? "shrink-0 text-cyan-500"
-                          : "shrink-0 text-slate-300"
+                          ? "shrink-0 text-[var(--accent)]"
+                          : "shrink-0 text-[var(--text-disabled)]"
                       }
                     />
 
                     <div className="min-w-0 flex-1">
                       <div
                         className={`truncate text-[10px] font-black ${
-                          active ? "text-cyan-600" : "text-slate-700"
+                          active
+                            ? "text-[var(--accent)]"
+                            : "text-[var(--text-secondary)]"
                         }`}
                       >
                         {conversation.title || "New conversation"}
                       </div>
 
-                      <div className="mt-0.5 text-[8px] text-slate-400">
+                      <div className="mt-0.5 text-[8px] text-[var(--text-muted)]">
                         {formatDate(conversation.updatedAt)}
                       </div>
                     </div>
@@ -525,7 +536,7 @@ export default function AIPage() {
                       onClick={(event) =>
                         deleteConversation(event, conversation.id)
                       }
-                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-slate-200 opacity-0 transition hover:bg-red-50 hover:text-red-400 group-hover:opacity-100"
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[var(--text-disabled)] opacity-0 transition hover:bg-[var(--danger-soft)] hover:text-[var(--danger)] group-hover:opacity-100"
                     >
                       <Trash2 size={11} />
                     </button>
@@ -537,16 +548,16 @@ export default function AIPage() {
         </div>
 
         {/* Sidebar footer */}
-        <div className="mt-4 rounded-2xl border border-black/[0.05] bg-gradient-to-br from-cyan-50 to-violet-50 p-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-cyan-500 shadow-sm">
+        <div className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--accent-soft)] p-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--surface)] text-[var(--accent)] shadow-[var(--shadow-sm)]">
             <Sparkles size={15} />
           </div>
 
-          <div className="mt-3 text-[10px] font-black text-slate-700">
+          <div className="mt-3 text-[10px] font-black text-[var(--text-secondary)]">
             Nexus AI
           </div>
 
-          <p className="mt-1 text-[8px] font-medium leading-4 text-slate-400">
+          <p className="mt-1 text-[8px] font-medium leading-4 text-[var(--text-muted)]">
             Your intelligent Nexus workspace assistant.
           </p>
         </div>
@@ -558,29 +569,29 @@ export default function AIPage() {
 
       <section className="flex min-w-0 flex-1 flex-col">
         {/* Header */}
-        <header className="flex h-[68px] shrink-0 items-center justify-between border-b border-black/[0.05] bg-white/75 px-5 backdrop-blur-xl sm:px-7">
+        <header className="flex h-[68px] shrink-0 items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--surface)] px-5 backdrop-blur-xl sm:px-7">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-white shadow-[0_5px_18px_rgba(34,211,238,0.2)]">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)] shadow-[var(--shadow-md)]">
               <Bot size={17} />
             </div>
 
             <div>
-              <div className="text-[11px] font-black text-slate-700">
+              <div className="text-[11px] font-black text-[var(--text-secondary)]">
                 Nexus AI
               </div>
 
               <div
                 className={`mt-0.5 flex items-center gap-1.5 text-[8px] font-bold uppercase tracking-[0.12em] ${
                   loading || loadingConversation
-                    ? "text-cyan-500"
-                    : "text-emerald-500"
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--success)]"
                 }`}
               >
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
                     loading || loadingConversation
-                      ? "animate-pulse bg-cyan-400"
-                      : "bg-emerald-400"
+                      ? "animate-pulse bg-[var(--accent)]"
+                      : "bg-[var(--success)]"
                   }`}
                 />
 
@@ -597,7 +608,7 @@ export default function AIPage() {
             type="button"
             onClick={newChat}
             disabled={loading || loadingConversation || !hasMessages}
-            className="rounded-xl px-3 py-2 text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 transition hover:bg-black/[0.03] hover:text-slate-600 disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-xl px-3 py-2 text-[9px] font-black uppercase tracking-[0.12em] text-[var(--text-muted)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:opacity-30"
           >
             New chat
           </button>
@@ -610,24 +621,27 @@ export default function AIPage() {
         <div className="min-h-0 flex-1 overflow-y-auto">
           {loadingConversation ? (
             <div className="flex h-full items-center justify-center">
-              <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-400">
-                <Loader2 size={14} className="animate-spin text-cyan-500" />
+              <div className="flex items-center gap-2 text-[10px] font-semibold text-[var(--text-muted)]">
+                <Loader2
+                  size={14}
+                  className="animate-spin text-[var(--accent)]"
+                />
                 Loading conversation...
               </div>
             </div>
           ) : messages.length === 0 ? (
             <div className="flex min-h-full items-center justify-center px-5 py-12">
               <div className="w-full max-w-2xl">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-violet-500 text-white shadow-[0_12px_35px_rgba(34,211,238,0.2)]">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--text-inverse)] shadow-[var(--shadow-lg)]">
                   <Sparkles size={24} />
                 </div>
 
                 <div className="mt-6 text-center">
-                  <h1 className="text-3xl font-black tracking-[-0.05em] text-slate-800 sm:text-4xl">
+                  <h1 className="text-3xl font-black tracking-[-0.05em] text-[var(--text-primary)] sm:text-4xl">
                     What can I help you with?
                   </h1>
 
-                  <p className="mx-auto mt-3 max-w-md text-[11px] font-medium leading-5 text-slate-400">
+                  <p className="mx-auto mt-3 max-w-md text-[11px] font-medium leading-5 text-[var(--text-muted)]">
                     Ask me anything about Nexus, our services, projects, or how
                     to use the website.
                   </p>
@@ -640,13 +654,13 @@ export default function AIPage() {
                       type="button"
                       disabled={loading}
                       onClick={() => sendMessage(suggestion.text)}
-                      className="group rounded-2xl border border-black/[0.06] bg-white p-4 text-left shadow-[0_8px_30px_rgba(0,0,0,0.025)] transition hover:border-cyan-200 hover:bg-cyan-50/30 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="group rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-4 text-left shadow-[var(--shadow-sm)] transition hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      <div className="text-[10px] font-black text-slate-700 transition group-hover:text-cyan-500">
+                      <div className="text-[10px] font-black text-[var(--text-secondary)] transition group-hover:text-[var(--accent)]">
                         {suggestion.title}
                       </div>
 
-                      <div className="mt-1.5 text-[9px] font-medium leading-4 text-slate-400">
+                      <div className="mt-1.5 text-[9px] font-medium leading-4 text-[var(--text-muted)]">
                         {suggestion.text}
                       </div>
                     </button>
@@ -664,7 +678,7 @@ export default function AIPage() {
                   }`}
                 >
                   {message.role === "ASSISTANT" && (
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-white">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)]">
                       <Bot size={14} />
                     </div>
                   )}
@@ -672,15 +686,15 @@ export default function AIPage() {
                   <div
                     className={`max-w-[75%] ${
                       message.role === "USER"
-                        ? "rounded-2xl rounded-tr-md bg-slate-800 px-4 py-3 text-white"
-                        : "rounded-2xl rounded-tl-md border border-black/[0.05] bg-white px-4 py-3 shadow-[0_6px_25px_rgba(0,0,0,0.025)]"
+                        ? "rounded-2xl rounded-tr-md bg-[var(--accent)] px-4 py-3 text-[var(--text-inverse)]"
+                        : "rounded-2xl rounded-tl-md border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 shadow-[var(--shadow-sm)]"
                     }`}
                   >
                     <div
                       className={`whitespace-pre-wrap text-[11px] font-medium leading-5 ${
                         message.role === "USER"
-                          ? "text-white"
-                          : "text-slate-600"
+                          ? "text-[var(--text-inverse)]"
+                          : "text-[var(--text-secondary)]"
                       }`}
                     >
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -692,11 +706,11 @@ export default function AIPage() {
                       <button
                         type="button"
                         onClick={() => copyMessage(message)}
-                        className="mt-3 flex items-center gap-1.5 text-[8px] font-black uppercase tracking-[0.1em] text-slate-300 transition hover:text-cyan-500"
+                        className="mt-3 flex items-center gap-1.5 text-[8px] font-black uppercase tracking-[0.1em] text-[var(--text-disabled)] transition hover:text-[var(--accent)]"
                       >
                         {copiedId === message.id ? (
                           <>
-                            <Check size={11} />
+                            <Check size={11} className="text-[var(--accent)]" />
                             Copied
                           </>
                         ) : (
@@ -710,7 +724,7 @@ export default function AIPage() {
                   </div>
 
                   {message.role === "USER" && (
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-secondary)] text-[var(--text-muted)]">
                       <User size={14} />
                     </div>
                   )}
@@ -720,18 +734,18 @@ export default function AIPage() {
               {/* Thinking indicator */}
               {loading && (
                 <div className="flex justify-start gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-white">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)]">
                     <Bot size={14} />
                   </div>
 
-                  <div className="rounded-2xl rounded-tl-md border border-black/[0.05] bg-white px-4 py-3 shadow-[0_6px_25px_rgba(0,0,0,0.025)]">
+                  <div className="rounded-2xl rounded-tl-md border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 shadow-[var(--shadow-sm)]">
                     <div className="flex items-center gap-2">
                       <Loader2
                         size={13}
-                        className="animate-spin text-cyan-500"
+                        className="animate-spin text-[var(--accent)]"
                       />
 
-                      <span className="text-[10px] font-semibold text-slate-400">
+                      <span className="text-[10px] font-semibold text-[var(--text-muted)]">
                         Nexus AI is thinking...
                       </span>
                     </div>
@@ -750,13 +764,13 @@ export default function AIPage() {
 
         {error && (
           <div className="shrink-0 px-4 pb-2 sm:px-6">
-            <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-[9px] font-semibold text-red-500">
+            <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 rounded-xl border border-[var(--border)] bg-[var(--danger-soft)] px-3 py-2 text-[9px] font-semibold text-[var(--danger)]">
               <span>{error}</span>
 
               <button
                 type="button"
                 onClick={() => setError(null)}
-                className="shrink-0 font-black uppercase tracking-wider text-red-400 hover:text-red-600"
+                className="shrink-0 font-black uppercase tracking-wider text-[var(--danger)] transition hover:opacity-70"
               >
                 Dismiss
               </button>
@@ -768,9 +782,9 @@ export default function AIPage() {
         {/* INPUT */}
         {/* ======================================================= */}
 
-        <div className="shrink-0 border-t border-black/[0.05] bg-white/80 px-4 py-4 backdrop-blur-xl sm:px-6">
+        <div className="shrink-0 border-t border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-4 backdrop-blur-xl sm:px-6">
           <div className="mx-auto max-w-3xl">
-            <div className="flex items-end gap-2 rounded-2xl border border-black/[0.07] bg-white p-2 shadow-[0_10px_35px_rgba(0,0,0,0.04)] transition focus-within:border-cyan-300">
+            <div className="flex items-end gap-2 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-2 shadow-[var(--shadow-md)] transition focus-within:border-[var(--accent)] focus-within:ring-2 focus-within:ring-[var(--accent-soft)]">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -781,7 +795,8 @@ export default function AIPage() {
                   loading ? "Nexus AI is thinking..." : "Message Nexus AI..."
                 }
                 rows={1}
-                className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-3 py-2.5 text-[11px] font-medium text-slate-700 outline-none placeholder:text-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
+                style={{ outline: "none" }}
+                className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-3 py-2.5 text-[11px] font-medium text-[var(--text-secondary)] outline-none placeholder:text-[var(--text-disabled)] disabled:cursor-not-allowed disabled:opacity-60"
               />
 
               <button
@@ -789,7 +804,7 @@ export default function AIPage() {
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading || loadingConversation}
                 aria-label="Send message"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-800 text-white transition hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-30"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--text-inverse)] transition hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-30"
               >
                 {loading ? (
                   <Loader2 size={16} className="animate-spin" />
@@ -799,7 +814,7 @@ export default function AIPage() {
               </button>
             </div>
 
-            <p className="mt-2 text-center text-[8px] font-medium text-slate-300">
+            <p className="mt-2 text-center text-[8px] font-medium text-[var(--text-disabled)]">
               Nexus AI can make mistakes. Verify important information.
             </p>
           </div>

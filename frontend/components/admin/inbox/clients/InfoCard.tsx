@@ -6,8 +6,8 @@ type InfoCardProps = {
 
 export function InfoCard({ label, value, small = false }: InfoCardProps) {
   return (
-    <div className="rounded-xl border border-black/[0.07] bg-[#fafaf8] px-3 py-3">
-      <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-black/25">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-3">
+      <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[var(--text-muted)]">
         {label}
       </div>
 

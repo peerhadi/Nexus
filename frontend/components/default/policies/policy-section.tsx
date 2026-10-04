@@ -24,7 +24,7 @@ export function PolicySection({
   return (
     <section
       id={id}
-      className={`rounded-[28px] border ${styles.border} bg-white/85 p-7 shadow-[0_12px_45px_rgba(15,23,42,0.045)] backdrop-blur sm:p-9`}
+      className={`rounded-[28px] border ${styles.border} bg-[var(--surface)] p-7 shadow-[0_12px_45px_rgba(15,23,42,0.045)] backdrop-blur sm:p-9`}
     >
       <div className="flex gap-5">
         <div
@@ -34,11 +34,11 @@ export function PolicySection({
         </div>
 
         <div className="min-w-0">
-          <h2 className="text-lg font-black tracking-tight text-slate-900 sm:text-xl">
+          <h2 className="text-lg font-black tracking-tight text-[var(--text-primary)] sm:text-xl">
             {title}
           </h2>
 
-          <div className="mt-3 max-w-3xl text-sm font-medium leading-7 text-slate-500">
+          <div className="mt-3 max-w-3xl text-sm font-medium leading-7 text-[var(--text-tertiary)]">
             {text}
             {content}
           </div>

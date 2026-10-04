@@ -146,15 +146,15 @@ export default function BuildForm() {
   if (submitted) {
     return (
       <section className="w-full">
-        <div className="overflow-hidden rounded-[30px] border border-black/[0.07] bg-white/90 shadow-[0_30px_100px_rgba(0,0,0,0.09)] backdrop-blur-2xl">
+        <div className="overflow-hidden rounded-[30px] border border-[var(--border)] bg-[var(--surface)] shadow-[0_30px_100px_rgba(0,0,0,0.09)] backdrop-blur-2xl">
           <div className="h-1 w-full bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00b8ff,#00c853)]" />
 
           <div className="flex min-h-[500px] flex-col items-center justify-center p-8 text-center sm:p-12">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white shadow-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--gradient-hero)] text-white shadow-xl">
               <Check size={28} />
             </div>
 
-            <div className="mt-7 text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">
+            <div className="mt-7 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">
               Request received
             </div>
 
@@ -162,7 +162,7 @@ export default function BuildForm() {
               We're on it.
             </h1>
 
-            <p className="mt-4 max-w-md text-sm leading-6 text-neutral-400">
+            <p className="mt-4 max-w-md text-sm leading-6 text-[var(--text-muted)]">
               Your project request has been sent to the Nexus team. We'll review
               everything and get back to you soon.
             </p>
@@ -181,14 +181,14 @@ export default function BuildForm() {
                 setWebsite("");
                 setError("");
               }}
-              className="mt-8 rounded-xl bg-black px-5 py-3 text-[10px] font-black text-white transition hover:-translate-y-0.5 hover:shadow-xl"
+              className="mt-8 rounded-xl bg-[var(--accent)] px-5 py-3 text-[10px] font-black text-white transition hover:-translate-y-0.5 hover:shadow-xl"
             >
               Send another request
             </button>
           </div>
         </div>
 
-        <div className="mt-5 flex items-center justify-center gap-2 text-[9px] font-bold text-neutral-400">
+        <div className="mt-5 flex items-center justify-center gap-2 text-[9px] font-bold text-[var(--text-muted)]">
           <span className="flex h-4 w-4 items-center justify-center rounded-full border border-neutral-300 text-[8px]">
             ✓
           </span>
@@ -200,14 +200,14 @@ export default function BuildForm() {
 
   return (
     <section className="w-full">
-      <div className="overflow-hidden rounded-[30px] border border-black/[0.07] bg-white/90 shadow-[0_30px_100px_rgba(0,0,0,0.09)] backdrop-blur-2xl">
+      <div className="overflow-hidden rounded-[30px] border border-[var(--border)] bg-[var(--surface)] shadow-[0_30px_100px_rgba(0,0,0,0.09)] backdrop-blur-2xl">
         <div className="h-1 w-full overflow-hidden">
           <div className="h-full w-full animate-[rainbow_4s_linear_infinite] bg-[linear-gradient(90deg,#ff0080,#ff8a00,#ffe600,#00e676,#00c8ff,#7c3aed,#ff0080)] bg-[length:300%_100%]" />
         </div>
 
         <div className="p-6 sm:p-8">
           <div className="mb-7 lg:hidden">
-            <div className="mb-3 text-[9px] font-black uppercase tracking-[0.22em] text-neutral-400">
+            <div className="mb-3 text-[9px] font-black uppercase tracking-[0.22em] text-[var(--text-muted)]">
               Start a project
             </div>
 
@@ -223,11 +223,11 @@ export default function BuildForm() {
 
           <div className="mb-8">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-[9px] font-black uppercase tracking-[0.18em] text-neutral-400">
+              <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
                 Step {step + 1} of 4
               </span>
 
-              <span className="text-[9px] font-bold text-neutral-400">
+              <span className="text-[9px] font-bold text-[var(--text-muted)]">
                 {Math.round(((step + 1) / 4) * 100)}%
               </span>
             </div>
@@ -249,7 +249,7 @@ export default function BuildForm() {
                   What are we building?
                 </div>
 
-                <p className="text-xs leading-5 text-neutral-400">
+                <p className="text-xs leading-5 text-[var(--text-muted)]">
                   Pick the closest match. You can explain the rest later.
                 </p>
               </div>
@@ -266,14 +266,13 @@ export default function BuildForm() {
                       onClick={() => setType(item.id)}
                       className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ${
                         selected
-                          ? "border-[#06b6d44d] bg-[#06b6d414] shadow-[0_12px_30px_rgba(0,0,0,0.15)]"
-                          : "border-black/[0.07] bg-white hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg"
+                          ? "border-[#06b6d44d] bg-[#06b6d414] shadow-[0_12px_30px_rgba(0,0,0,0.15)] "
+                          : "border-[var(--border)] bg-[var(--surface)] hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:shadow-lg"
                       }`}
                     >
                       <div
-                        className={`mb-4 flex h-9 w-9 items-center justify-center rounded-xl ${
-                          selected ? "bg-white/15" : "bg-neutral-100"
-                        }`}
+                        className={`mb-4 flex h-9 w-9 items-center justify-center rounded-xl
+                         bg-[var(--surface)]/15`}
                       >
                         <Icon size={17} />
                       </div>
@@ -282,7 +281,9 @@ export default function BuildForm() {
 
                       <div
                         className={`mt-1 text-[10px] leading-4 ${
-                          selected ? "text-black/55" : "text-neutral-400"
+                          selected
+                            ? "text-[var(--text-secondary)]"
+                            : "text-[var(--text-muted)]"
                         }`}
                       >
                         {item.description}
@@ -307,7 +308,7 @@ export default function BuildForm() {
                   Who are we talking to?
                 </div>
 
-                <p className="text-xs leading-5 text-neutral-400">
+                <p className="text-xs leading-5 text-[var(--text-muted)]">
                   Just the basics. No corporate interrogation.
                 </p>
               </div>
@@ -349,14 +350,14 @@ export default function BuildForm() {
                   Tell us about it.
                 </div>
 
-                <p className="text-xs leading-5 text-neutral-400">
+                <p className="text-xs leading-5 text-[var(--text-muted)]">
                   Don't worry about making it sound professional. Explain it
                   like you're talking to us.
                 </p>
               </div>
 
               <div>
-                <label className="mb-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.14em] text-neutral-500">
+                <label className="mb-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
                   <FileText size={13} />
                   Your idea
                 </label>
@@ -366,10 +367,10 @@ export default function BuildForm() {
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder="I currently do this manually every day..."
                   rows={8}
-                  className="w-full resize-none rounded-2xl border border-black/[0.08] bg-neutral-50/70 px-4 py-4 text-sm font-medium outline-none transition-all placeholder:text-neutral-300 focus:border-black/30 focus:bg-white focus:shadow-[0_0_0_4px_rgba(124,58,237,0.06)]"
+                  className="w-full resize-none rounded-2xl border border-[var(--border)] bg-[var(--input)] px-4 py-4 text-sm font-medium outline-none transition-all placeholder:text-[var(--text-disabled)] focus:border-[var(--border-focus)] focus:bg-[var(--surface)] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.06)]"
                 />
 
-                <div className="mt-2 flex justify-between text-[9px] font-bold text-neutral-300">
+                <div className="mt-2 flex justify-between text-[9px] font-bold text-[var(--text-disabled)]">
                   <span>More detail = better context</span>
                   <span>{message.length} characters</span>
                 </div>
@@ -395,7 +396,7 @@ export default function BuildForm() {
                   What's the rough budget?
                 </div>
 
-                <p className="text-xs leading-5 text-neutral-400">
+                <p className="text-xs leading-5 text-[var(--text-muted)]">
                   This isn't a commitment. It just helps us understand the shape
                   of the project.
                 </p>
@@ -413,12 +414,12 @@ export default function BuildForm() {
                       className={`flex w-full items-center justify-between rounded-2xl border px-5 py-4 text-left transition-all duration-300 ${
                         selected
                           ? "border-[#06b6d44d] bg-[#06b6d414] shadow-lg"
-                          : "border-black/[0.07] bg-white hover:-translate-y-0.5 hover:border-black/20 hover:shadow-md"
+                          : "border-[var(--border)] bg-[var(--surface)] hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:shadow-md"
                       }`}
                     >
                       <span className="text-xs font-black">{item}</span>
 
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-black/10">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[var(--border)]">
                         {selected && <Check size={12} />}
                       </span>
                     </button>
@@ -426,15 +427,15 @@ export default function BuildForm() {
                 })}
               </div>
 
-              <div className="mt-5 flex items-start gap-3 rounded-2xl bg-neutral-50 p-4">
+              <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[var(--input)] p-4">
                 <Sparkles
                   size={15}
                   className="mt-0.5 shrink-0 text-violet-500"
                 />
 
-                <p className="text-[10px] leading-5 text-neutral-400">
+                <p className="text-[10px] leading-5 text-[var(--text-muted)]">
                   Don't know yet? That's completely fine. Choose{" "}
-                  <span className="font-black text-neutral-700">
+                  <span className="font-black text-[var(--text-secondary)]">
                     Not sure yet
                   </span>{" "}
                   and we'll figure it out together.
@@ -449,7 +450,7 @@ export default function BuildForm() {
             </div>
           )}
 
-          <div className="mt-8 flex items-center justify-between gap-3 border-t border-black/[0.06] pt-5">
+          <div className="mt-8 flex items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-5">
             <button
               type="button"
               onClick={back}
@@ -457,7 +458,7 @@ export default function BuildForm() {
               className={`flex h-11 items-center gap-2 rounded-xl px-4 text-[10px] font-black transition-all ${
                 step === 0
                   ? "pointer-events-none opacity-0"
-                  : "text-neutral-400 hover:bg-neutral-50 hover:text-black"
+                  : "text-[var(--text-muted)] hover:bg-[var(--input)] hover:text-[var(--text-primary)]"
               }`}
             >
               <ArrowLeft size={14} />
@@ -470,8 +471,8 @@ export default function BuildForm() {
               disabled={!canContinue || submitting}
               className={`group relative flex h-11 min-w-[130px] items-center justify-center gap-2 overflow-hidden rounded-xl px-5 text-[10px] font-black transition-all ${
                 canContinue && !submitting
-                  ? "bg-black text-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
-                  : "cursor-not-allowed bg-neutral-100 text-neutral-300"
+                  ? "bg-[var(--accent)] text-[var(--accent-contrast)] shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
+                  : "cursor-not-allowed bg-neutral-100 text-[var(--text-disabled)]"
               }`}
             >
               {canContinue && !submitting && (
@@ -500,7 +501,7 @@ export default function BuildForm() {
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-center gap-2 text-[9px] font-bold text-neutral-400">
+      <div className="mt-5 flex items-center justify-center gap-2 text-[9px] font-bold text-[var(--text-muted)]">
         <span className="flex h-4 w-4 items-center justify-center rounded-full border border-neutral-300 text-[8px]">
           ✓
         </span>

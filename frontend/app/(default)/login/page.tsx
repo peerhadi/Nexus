@@ -7,7 +7,7 @@ import LoginHeader from "@/components/default/login/login-header";
 
 export default function LoginPage() {
   return (
-    <main className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[#fbfbfa] px-5 py-10 text-[#111] selection:bg-black selection:text-white">
+    <main className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[var(--background)] px-5 py-10 text-[var(--text-primary)] selection:bg-[var(--accent)] selection:text-[var(--accent-contrast)]">
       <Background />
 
       <div className="pointer-events-none absolute left-[24%] top-[28%] h-1.5 w-1.5 animate-[ping_2.7s_ease-in-out_infinite] rounded-full bg-fuchsia-500" />

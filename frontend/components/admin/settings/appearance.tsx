@@ -28,14 +28,14 @@ export default function AppearanceSettings({
             type="button"
             className="rounded-2xl border border-[#06b6d44d] bg-[#06b6d414] p-4 text-left shadow-[0_5px_15px_rgba(0,0,0,0.04)]"
           >
-            <div className="h-[105px] overflow-hidden rounded-xl border border-black/[0.06] bg-white p-3">
+            <div className="h-[105px] overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3">
               <div className="flex gap-2">
-                <div className="h-[75px] w-10 rounded-md bg-black/[0.04]" />
+                <div className="h-[75px] w-10 rounded-md bg-[var(--surface-hover)]" />
 
                 <div className="flex-1 space-y-2">
-                  <div className="h-2 w-20 rounded bg-black/[0.08]" />
-                  <div className="h-8 rounded-md bg-black/[0.04]" />
-                  <div className="h-2 w-28 rounded bg-black/[0.06]" />
+                  <div className="h-2 w-20 rounded bg-[var(--border)]" />
+                  <div className="h-8 rounded-md bg-[var(--surface-hover)]" />
+                  <div className="h-2 w-28 rounded bg-[var(--surface-hover)]" />
                 </div>
               </div>
             </div>
@@ -44,12 +44,12 @@ export default function AppearanceSettings({
               <div>
                 <p className="text-[11px] font-semibold">Light</p>
 
-                <p className="mt-0.5 text-[9px] text-black/35">
+                <p className="mt-0.5 text-[9px] text-[var(--text-muted)]">
                   Clean and bright
                 </p>
               </div>
 
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-contrast)]">
                 <Check size={12} />
               </div>
             </div>
@@ -57,16 +57,16 @@ export default function AppearanceSettings({
 
           <button
             type="button"
-            className="rounded-2xl border border-black/[0.07] bg-[#fafaf9] p-4 text-left opacity-55 transition hover:opacity-80"
+            className="rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] p-4 text-left opacity-55 transition hover:opacity-80"
           >
             <div className="h-[105px] overflow-hidden rounded-xl bg-[#151515] p-3">
               <div className="flex gap-2">
-                <div className="h-[75px] w-10 rounded-md bg-white/10" />
+                <div className="h-[75px] w-10 rounded-md bg-[var(--surface-hover)]" />
 
                 <div className="flex-1 space-y-2">
-                  <div className="h-2 w-20 rounded bg-white/20" />
-                  <div className="h-8 rounded-md bg-white/10" />
-                  <div className="h-2 w-28 rounded bg-white/15" />
+                  <div className="h-2 w-20 rounded bg-[var(--surface)]/20" />
+                  <div className="h-8 rounded-md bg-[var(--surface-hover)]" />
+                  <div className="h-2 w-28 rounded bg-[var(--surface)]/15" />
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function AppearanceSettings({
             <div className="mt-4">
               <p className="text-[11px] font-semibold">Dark</p>
 
-              <p className="mt-0.5 text-[9px] text-black/35">Coming soon</p>
+              <p className="mt-0.5 text-[9px] text-[var(--text-muted)]">Coming soon</p>
             </div>
           </button>
         </div>

@@ -50,14 +50,14 @@ export default function GeneralSettings({
         >
           <div className="py-6">
             <div className="mb-6 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--accent-contrast)] shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
                 <UserRound size={22} />
               </div>
 
               <div>
                 <p className="text-[13px] font-semibold">{adminName}</p>
 
-                <p className="mt-1 text-[10px] text-black/40">
+                <p className="mt-1 text-[10px] text-[var(--text-tertiary)]">
                   Primary administrator
                 </p>
               </div>
@@ -65,26 +65,26 @@ export default function GeneralSettings({
 
             <div className="grid grid-cols-2 gap-4">
               <label className="block">
-                <span className="mb-2 block text-[10px] font-semibold text-black/55">
+                <span className="mb-2 block text-[10px] font-semibold text-[var(--text-secondary)]">
                   Display name
                 </span>
 
                 <input
                   value={adminName}
                   onChange={(e) => setAdminName(e.target.value)}
-                  className="h-10 w-full rounded-xl border border-black/[0.08] bg-[#fafaf9] px-3 text-[11px] outline-none transition focus:border-black/25 focus:bg-white"
+                  className="h-10 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 text-[11px] outline-none transition focus:border-[var(--border-focus)] focus:bg-[var(--surface)]"
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-[10px] font-semibold text-black/55">
+                <span className="mb-2 block text-[10px] font-semibold text-[var(--text-secondary)]">
                   Admin email
                 </span>
 
                 <input
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
-                  className="h-10 w-full rounded-xl border border-black/[0.08] bg-[#fafaf9] px-3 text-[11px] outline-none transition focus:border-black/25 focus:bg-white"
+                  className="h-10 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 text-[11px] outline-none transition focus:border-[var(--border-focus)] focus:bg-[var(--surface)]"
                 />
               </label>
             </div>
@@ -103,21 +103,21 @@ export default function GeneralSettings({
                 <button
                   key={item.title}
                   type="button"
-                  className="flex w-full items-center gap-3 border-b border-black/[0.05] py-4 text-left last:border-0 hover:bg-black/[0.015]"
+                  className="flex w-full items-center gap-3 border-b border-[var(--border-subtle)] py-4 text-left last:border-0 hover:bg-[var(--surface-muted)]"
                 >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f5f5f3]">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-tertiary)]">
                     <Icon size={14} />
                   </div>
 
                   <div className="flex-1">
                     <p className="text-[11px] font-semibold">{item.title}</p>
 
-                    <p className="mt-0.5 text-[9px] text-black/35">
+                    <p className="mt-0.5 text-[9px] text-[var(--text-muted)]">
                       {item.description}
                     </p>
                   </div>
 
-                  <ChevronRight size={13} className="text-black/20" />
+                  <ChevronRight size={13} className="text-[var(--text-disabled)]" />
                 </button>
               );
             })}

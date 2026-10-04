@@ -111,7 +111,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   if (loading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <div className="text-[11px] font-black text-black/30">
+        <div className="text-[11px] font-black text-[var(--text-muted)]">
           Loading project...
         </div>
       </div>
@@ -122,17 +122,17 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     return (
       <main className="mx-auto max-w-[1500px] px-5 py-8 lg:px-9">
         <div className="flex min-h-[400px] flex-col items-center justify-center text-center">
-          <div className="text-lg font-black text-black/70">
+          <div className="text-lg font-black text-[var(--text-secondary)]">
             Project not found
           </div>
 
-          <p className="mt-2 text-[11px] font-medium text-black/35">
+          <p className="mt-2 text-[11px] font-medium text-[var(--text-muted)]">
             This project doesn't exist or you don't have access to it.
           </p>
 
           <Link
             href="/dashboard/projects"
-            className="mt-5 inline-flex items-center gap-2 rounded-xl bg-black px-4 py-3 text-[10px] font-black text-white"
+            className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-[10px] font-black text-white"
           >
             <ArrowLeft size={13} />
             All projects
@@ -147,7 +147,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <div className="space-y-7">
         <Link
           href="/dashboard/projects"
-          className="inline-flex items-center gap-2 text-[10px] font-black text-black/40 transition hover:text-black"
+          className="inline-flex items-center gap-2 text-[10px] font-black text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
         >
           <ArrowLeft size={13} />
           All projects

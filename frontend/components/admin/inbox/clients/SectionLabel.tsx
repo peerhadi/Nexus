@@ -6,7 +6,7 @@ type SectionLabelProps = {
 
 export function SectionLabel({ children }: SectionLabelProps) {
   return (
-    <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/30">
+    <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
       {children}
     </div>
   );

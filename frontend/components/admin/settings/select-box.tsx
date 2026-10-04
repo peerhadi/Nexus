@@ -13,7 +13,7 @@ export default function SelectBox({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="h-9 rounded-xl border border-black/[0.08] bg-white px-3 text-[11px] font-medium outline-none transition focus:border-black/25"
+      className="h-9 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 text-[11px] font-medium outline-none transition focus:border-[var(--border-focus)]"
     >
       {children}
     </select>

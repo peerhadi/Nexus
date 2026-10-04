@@ -22,20 +22,20 @@ export default function SettingsSection({
       className="space-y-4"
     >
       <div>
-        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
+        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-disabled)]">
           {title}
         </div>
 
-        <h2 className="mt-1 text-xl font-black tracking-tight text-slate-800">
+        <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--text-primary)]">
           {title} settings
         </h2>
 
-        <p className="mt-1 text-[10px] font-medium text-slate-400">
+        <p className="mt-1 text-[10px] font-medium text-[var(--text-muted)]">
           {description}
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-[24px] border border-black/[0.05] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.035)]">
+      <div className="overflow-hidden rounded-[24px] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[0_12px_40px_rgba(0,0,0,0.035)]">
         {children}
       </div>
     </motion.section>

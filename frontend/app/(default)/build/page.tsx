@@ -26,7 +26,7 @@ export default function BuildPage() {
   }
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-[#fafaf8] text-neutral-950">
+    <main className="relative min-h-dvh overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       <BuildBackground />
 
       <div className="relative mx-auto flex min-h-dvh w-full max-w-[1180px] flex-col px-5 py-6 sm:px-8 lg:px-10">
@@ -37,7 +37,7 @@ export default function BuildPage() {
           </div>
         </div>
 
-        <footer className="pb-2 text-center text-[9px] font-bold text-neutral-300">
+        <footer className="pb-2 text-center text-[9px] font-bold text-[var(--text-disabled)]">
           Nexus · Build less manually. Create more.
         </footer>
       </div>

@@ -84,11 +84,11 @@ export default function ConversationDetail({
   }, [conversation.id, conversation.messages?.length]);
 
   return (
-    <section className="flex min-h-0 min-w-0 flex-1 flex-col">
+    <section className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
       {/* Header stays outside animation */}
-      <div className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white px-5 sm:px-7">
+      <div className="flex h-[74px] shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-5 sm:px-7">
         <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-black/[0.06] text-[10px] font-bold">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-hover)] text-[10px] font-bold">
             {getInitials(conversation.client.name)}
           </div>
 
@@ -97,7 +97,7 @@ export default function ConversationDetail({
               {conversation.client.name}
             </div>
 
-            <div className="truncate text-[9px] text-black/35">
+            <div className="truncate text-[9px] text-[var(--text-muted)]">
               {conversation.client.email}
             </div>
           </div>
@@ -106,14 +106,14 @@ export default function ConversationDetail({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-black/30 hover:bg-black/[0.05] hover:text-black"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
           >
             <Star size={14} />
           </button>
 
           <button
             type="button"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-black/30 hover:bg-black/[0.05] hover:text-black"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
           >
             <MoreHorizontal size={15} />
           </button>
@@ -140,7 +140,7 @@ export default function ConversationDetail({
                   {conversation.subject || "Conversation"}
                 </h2>
 
-                <div className="mt-1 text-[9px] text-black/35">
+                <div className="mt-1 text-[9px] text-[var(--text-muted)]">
                   Updated {formatDate(conversation.updatedAt)}
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function ConversationDetail({
                   onChange={(event) =>
                     onStatusChange(event.target.value as ConversationStatus)
                   }
-                  className="h-8 appearance-none rounded-lg border border-black/[0.08] bg-white pl-3 pr-7 text-[9px] font-bold outline-none"
+                  className="h-8 appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface)] pl-3 pr-7 text-[9px] font-bold outline-none"
                 >
                   <option value="OPEN">Open</option>
                   <option value="CLOSED">Closed</option>
@@ -159,21 +159,21 @@ export default function ConversationDetail({
 
                 <ChevronDown
                   size={11}
-                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-black/30"
+                  className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
                 />
               </div>
             </div>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              <div className="rounded-full bg-black/[0.04] px-2.5 py-1 text-[8px] font-semibold text-black/40">
+              <div className="rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[8px] font-semibold text-[var(--text-tertiary)]">
                 {conversation.client.email}
               </div>
 
-              <div className="rounded-full bg-black/[0.04] px-2.5 py-1 text-[8px] font-semibold text-black/40">
+              <div className="rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[8px] font-semibold text-[var(--text-tertiary)]">
                 {conversation.id}
               </div>
 
-              <div className="rounded-full bg-black/[0.04] px-2.5 py-1 text-[8px] font-semibold text-black/40">
+              <div className="rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[8px] font-semibold text-[var(--text-tertiary)]">
                 {conversation.messages.length}{" "}
                 {conversation.messages.length === 1 ? "message" : "messages"}
               </div>
@@ -192,13 +192,13 @@ export default function ConversationDetail({
                       duration: 0.18,
                       ease: "easeOut",
                     }}
-                    className={`rounded-2xl border border-black/[0.08] bg-white ${
+                    className={`rounded-2xl border border-[var(--border)] bg-[var(--surface)] ${
                       isAdmin ? "ml-8" : "mr-8"
                     }`}
                   >
-                    <div className="flex items-center justify-between border-b border-black/[0.07] px-5 py-4">
+                    <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/[0.06]">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--surface-hover)]">
                           <UserRound size={12} />
                         </div>
 
@@ -207,19 +207,19 @@ export default function ConversationDetail({
                             {isAdmin ? "Nexus" : conversation.client.name}
                           </div>
 
-                          <div className="text-[8px] text-black/30">
+                          <div className="text-[8px] text-[var(--text-muted)]">
                             {isAdmin ? "Nexus team" : conversation.client.email}
                           </div>
                         </div>
                       </div>
 
-                      <span className="text-[8px] text-black/25">
+                      <span className="text-[8px] text-[var(--text-muted)]">
                         {formatDate(message.createdAt)}
                       </span>
                     </div>
 
                     <div className="px-5 py-5">
-                      <p className="whitespace-pre-line text-[12px] leading-6 text-black/65">
+                      <p className="whitespace-pre-line text-[12px] leading-6 text-[var(--text-secondary)]">
                         {message.content}
                       </p>
                     </div>
@@ -232,15 +232,15 @@ export default function ConversationDetail({
       </div>
 
       {/* Reply area stays outside animation */}
-      <div className="shrink-0 border-t border-black/[0.08] bg-white px-5 py-4 sm:px-8">
+      <div className="shrink-0 border-t border-[var(--border)] bg-[var(--surface)] px-5 py-4 sm:px-8">
         <div className="mx-auto w-full max-w-4xl">
           <div className="mb-3 flex items-center justify-between">
-            <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-black/30">
+            <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
               Reply as Nexus
             </span>
 
             {sent && (
-              <span className="text-[9px] font-bold text-black/45">
+              <span className="text-[9px] font-bold text-[var(--text-tertiary)]">
                 Reply sent
               </span>
             )}
@@ -251,13 +251,13 @@ export default function ConversationDetail({
             onChange={(event) => onReplyChange(event.target.value)}
             placeholder="Write a reply..."
             rows={3}
-            className="w-full resize-none rounded-xl border border-black/[0.08] bg-[#fafaf8] p-3 text-[11px] leading-5 outline-none placeholder:text-black/25 focus:border-black/20 focus:bg-white"
+            className="w-full resize-none rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 text-[11px] leading-5 outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)]"
           />
 
           <div className="mt-3 flex items-center justify-between">
             <button
               type="button"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-black/30 hover:bg-black/[0.05] hover:text-black"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
             >
               <Paperclip size={14} />
             </button>
@@ -266,7 +266,7 @@ export default function ConversationDetail({
               type="button"
               onClick={onSendReply}
               disabled={!reply.trim()}
-              className="flex items-center gap-2 rounded-xl bg-[#111] px-3.5 py-2.5 text-[10px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_7px_18px_rgba(0,0,0,0.12)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-3.5 py-2.5 text-[10px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_7px_18px_rgba(0,0,0,0.12)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               <Send size={12} />
               Send reply

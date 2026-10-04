@@ -41,15 +41,15 @@ export default function ActivityItem({
       </motion.div>
 
       <div className="min-w-0">
-        <div className="text-[11px] font-black text-slate-700">
+        <div className="text-[11px] font-black text-[var(--text-secondary)]">
           {item.title}
         </div>
 
-        <div className="mt-1 text-[10px] leading-relaxed text-slate-500/70">
+        <div className="mt-1 text-[10px] leading-relaxed text-[var(--text-tertiary)]/70">
           {item.text}
         </div>
 
-        <div className="mt-2 text-[9px] font-bold text-slate-400">
+        <div className="mt-2 text-[9px] font-bold text-[var(--text-muted)]">
           {item.time}
         </div>
       </div>

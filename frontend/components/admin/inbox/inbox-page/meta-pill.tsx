@@ -5,12 +5,12 @@ type MetaPillProps = {
 
 export default function MetaPill({ label, value }: MetaPillProps) {
   return (
-    <div className="rounded-xl border border-black/[0.07] bg-white px-3 py-2">
-      <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-black/25">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2">
+      <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[var(--text-muted)]">
         {label}
       </div>
 
-      <div className="mt-0.5 text-[9px] font-bold text-black/55">{value}</div>
+      <div className="mt-0.5 text-[9px] font-bold text-[var(--text-secondary)]">{value}</div>
     </div>
   );
 }

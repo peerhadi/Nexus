@@ -204,21 +204,21 @@ export default function MessageList({ conversationId }: MessageListProps) {
   return (
     <div
       ref={messagesContainerRef}
-      className="flex-1 overflow-y-auto bg-gradient-to-br from-white via-violet-50/20 to-pink-50/30 min-h-[450px] max-h-[450px]"
+      className="flex min-h-[450px] max-h-[450px] flex-1 overflow-y-auto bg-[var(--background)]"
     >
       <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col px-8 py-8 lg:px-14">
         {loading ? (
-          <div className="flex flex-1 items-center justify-center text-[10px] font-bold text-slate-400">
+          <div className="flex flex-1 items-center justify-center text-[10px] font-bold text-[var(--text-muted)]">
             Loading messages...
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-1 items-center justify-center text-center">
             <div>
-              <div className="text-sm font-black text-slate-700">
+              <div className="text-sm font-black text-[var(--text-secondary)]">
                 No messages yet
               </div>
 
-              <p className="mt-1 text-[10px] font-medium text-slate-400">
+              <p className="mt-1 text-[10px] font-medium text-[var(--text-muted)]">
                 Send a message to start the conversation.
               </p>
             </div>
@@ -226,15 +226,15 @@ export default function MessageList({ conversationId }: MessageListProps) {
         ) : (
           <>
             <div className="mb-8 flex items-center gap-4">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-violet-100" />
+              <div className="h-px flex-1 bg-[var(--border)]" />
 
-              <div className="rounded-full border border-violet-100 bg-white px-4 py-1.5 text-[8px] font-black uppercase tracking-[0.18em] text-violet-300 shadow-sm">
+              <div className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-1.5 text-[8px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)] shadow-sm">
                 {messages.every((message) => isToday(message.createdAt))
                   ? "Today"
                   : "Messages"}
               </div>
 
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-pink-100" />
+              <div className="h-px flex-1 bg-[var(--border)]" />
             </div>
 
             <div className="space-y-7">
@@ -265,7 +265,7 @@ export default function MessageList({ conversationId }: MessageListProps) {
                       }`}
                     >
                       {!isUser && (
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-pink-400 text-[8px] font-black text-white shadow-sm">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[8px] font-black text-[var(--text-inverse)] shadow-sm">
                           N
                         </div>
                       )}
@@ -274,13 +274,15 @@ export default function MessageList({ conversationId }: MessageListProps) {
                         <div
                           className={`rounded-[20px] px-5 py-4 ${
                             isUser
-                              ? "rounded-br-sm bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white shadow-lg shadow-violet-200/30"
-                              : "rounded-bl-sm border border-violet-100 bg-white text-slate-500 shadow-sm"
+                              ? "rounded-br-sm bg-[var(--gradient-primary)] text-[var(--text-inverse)] shadow-lg"
+                              : "rounded-bl-sm border border-[var(--border)] bg-[var(--surface)] text-[var(--text-primary)] shadow-sm"
                           }`}
                         >
                           <p
                             className={`text-[11px] leading-6 ${
-                              isUser ? "text-white/90" : "text-slate-500"
+                              isUser
+                                ? "text-[var(--text-inverse)]"
+                                : "text-[var(--text-primary)]"
                             }`}
                           >
                             {item.content}
@@ -288,14 +290,17 @@ export default function MessageList({ conversationId }: MessageListProps) {
                         </div>
 
                         <div
-                          className={`mt-2 flex items-center gap-1.5 text-[8px] font-bold text-slate-300 ${
+                          className={`mt-2 flex items-center gap-1.5 text-[8px] font-bold text-[var(--text-disabled)] ${
                             isUser ? "justify-end" : ""
                           }`}
                         >
                           {formatTime(item.createdAt)}
 
                           {isUser && (
-                            <CheckCheck size={11} className="text-violet-400" />
+                            <CheckCheck
+                              size={11}
+                              className="text-[var(--accent)]"
+                            />
                           )}
                         </div>
                       </div>
