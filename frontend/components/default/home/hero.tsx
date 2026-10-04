@@ -52,7 +52,7 @@ export default function Hero() {
                 />
               </span>
               <br />
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent text-[90%]">
                 DISAPPEAR.
               </span>
             </motion.h1>

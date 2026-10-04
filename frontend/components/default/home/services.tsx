@@ -18,7 +18,7 @@ export default function Services() {
             <h2 className="max-w-4xl text-[clamp(3.5rem,7vw,7rem)] font-black leading-[0.82] tracking-[-0.08em]">
               YOUR PROBLEM.
               <br />
-              <span className="text-black/20">OUR PLAYGROUND.</span>
+              <span className="text-black/20 text-[90%]">OUR PLAYGROUND.</span>
             </h2>
           </div>
 

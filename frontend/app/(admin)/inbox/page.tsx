@@ -1,8 +1,10 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { Archive, Clock3, Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Archive, Clock3 } from "lucide-react";
+
 import ConversationList from "@/components/admin/inbox/inbox-page/conversation-list";
 import ConversationDetail from "@/components/admin/inbox/inbox-page/conversation-detail";
 import type { Conversation, ConversationStatus } from "@/lib/inbox/inbox-types";
@@ -17,6 +19,7 @@ export default function InboxPage() {
   const [loading, setLoading] = useState(true);
   const [messagesLoading, setMessagesLoading] = useState(false);
   const [error, setError] = useState("");
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const selectedConversation = useMemo(
     () =>
@@ -52,7 +55,9 @@ export default function InboxPage() {
         setLoading(true);
         setError("");
 
-        const token = localStorage.getItem("nexus_token");
+        const token =
+          localStorage.getItem("nexus_token") ??
+          sessionStorage.getItem("nexus_token");
 
         if (!token) {
           setError("Authentication required.");
@@ -89,7 +94,7 @@ export default function InboxPage() {
       }
     }
 
-    loadConversations();
+    void loadConversations();
   }, []);
 
   useEffect(() => {
@@ -103,7 +108,9 @@ export default function InboxPage() {
       try {
         setMessagesLoading(true);
 
-        const token = localStorage.getItem("nexus_token");
+        const token =
+          localStorage.getItem("nexus_token") ??
+          sessionStorage.getItem("nexus_token");
 
         if (!token) {
           return;
@@ -143,7 +150,7 @@ export default function InboxPage() {
       }
     }
 
-    loadMessages();
+    void loadMessages();
   }, [selectedConversation?.id]);
 
   useEffect(() => {
@@ -151,7 +158,9 @@ export default function InboxPage() {
       return;
     }
 
-    const token = localStorage.getItem("nexus_token");
+    const token =
+      localStorage.getItem("nexus_token") ??
+      sessionStorage.getItem("nexus_token");
 
     if (!token) {
       return;
@@ -261,7 +270,7 @@ export default function InboxPage() {
       }
     }
 
-    connect();
+    void connect();
 
     return () => {
       stopped = true;
@@ -274,10 +283,19 @@ export default function InboxPage() {
     };
   }, [selectedConversation?.id]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileDrawerOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   function selectConversation(conversation: Conversation) {
     setSelectedId(conversation.id);
     setReply("");
     setSent(false);
+    setMobileDrawerOpen(false);
   }
 
   async function updateConversationStatus(nextStatus: ConversationStatus) {
@@ -286,7 +304,9 @@ export default function InboxPage() {
     }
 
     try {
-      const token = localStorage.getItem("nexus_token");
+      const token =
+        localStorage.getItem("nexus_token") ??
+        sessionStorage.getItem("nexus_token");
 
       if (!token) {
         return;
@@ -332,7 +352,9 @@ export default function InboxPage() {
     }
 
     try {
-      const token = localStorage.getItem("nexus_token");
+      const token =
+        localStorage.getItem("nexus_token") ??
+        sessionStorage.getItem("nexus_token");
 
       if (!token) {
         return;
@@ -394,6 +416,7 @@ export default function InboxPage() {
       console.error("Failed to send reply:", error);
     }
   }
+
   if (error) {
     return (
       <motion.main
@@ -417,33 +440,39 @@ export default function InboxPage() {
   }
 
   return (
-    <main className="flex min-h-[100vh] max-h-[100vh] min-w-0 w-[calc(100vw_-_250px)] flex-col">
+    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden">
+      {/* =========================
+          HEADER
+      ========================== */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22, ease: "easeOut" }}
-        className="flex shrink-0 items-center justify-between border-b border-black/[0.08] px-5 py-4 sm:px-7"
+        className="flex shrink-0 items-center justify-between border-b border-black/[0.08] px-4 py-4 sm:px-7"
       >
-        <div>
+        <div className="min-w-0">
           <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
             Inbox
           </div>
 
-          <h1 className="mt-1 text-[22px] font-bold tracking-[-0.04em]">
+          <h1 className="mt-1 truncate text-[20px] font-bold tracking-[-0.04em] sm:text-[22px]">
             Conversations
           </h1>
         </div>
 
         <Link
           href="/admin"
-          className="flex items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-3.5 py-2.5 text-[10px] font-bold text-black/60 transition-colors hover:border-black/15 hover:text-black"
+          className="flex shrink-0 items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-3 py-2.5 text-[10px] font-bold text-black/60 transition-colors hover:border-black/15 hover:text-black"
         >
           <Archive size={12} />
-          Dashboard
+          <span className="hidden sm:inline">Dashboard</span>
         </Link>
       </motion.div>
 
-      <div className="flex min-h-0 flex-1">
+      <div className="relative flex min-h-0 min-w-0 flex-1 overflow-hidden">
+        {/* =========================
+            DESKTOP CONVERSATION LIST
+        ========================== */}
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -452,7 +481,7 @@ export default function InboxPage() {
             delay: 0.04,
             ease: "easeOut",
           }}
-          className="min-h-0"
+          className="hidden min-h-0 shrink-0 lg:block"
         >
           <ConversationList
             conversations={filteredConversations}
@@ -463,6 +492,78 @@ export default function InboxPage() {
           />
         </motion.div>
 
+        {/* =========================
+            MOBILE DRAWER
+        ========================== */}
+        <AnimatePresence>
+          {mobileDrawerOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.button
+                type="button"
+                aria-label="Close conversation menu"
+                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                onClick={() => setMobileDrawerOpen(false)}
+              />
+
+              {/* Sliding drawer */}
+              <motion.aside
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 340,
+                  damping: 32,
+                  mass: 0.8,
+                }}
+                className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+              >
+                {/* Drawer header */}
+                <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+                      Inbox
+                    </p>
+
+                    <p className="text-sm font-semibold text-black/75">
+                      {filteredConversations.length} conversation
+                      {filteredConversations.length === 1 ? "" : "s"}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    aria-label="Close conversation menu"
+                    onClick={() => setMobileDrawerOpen(false)}
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                {/* Conversation list */}
+                <div className="min-h-0 flex-1 overflow-hidden">
+                  <ConversationList
+                    conversations={filteredConversations}
+                    selectedId={selectedConversation?.id ?? ""}
+                    search={search}
+                    onSearchChange={setSearch}
+                    onSelect={selectConversation}
+                  />
+                </div>
+              </motion.aside>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* =========================
+            CONVERSATION DETAIL
+        ========================== */}
         <AnimatePresence mode="wait" initial={false}>
           {selectedConversation ? (
             <motion.div
@@ -474,17 +575,46 @@ export default function InboxPage() {
                 duration: 0.18,
                 ease: "easeOut",
               }}
-              className="flex min-w-0 flex-1"
+              className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
             >
-              <ConversationDetail
-                conversation={selectedConversation}
-                status={selectedConversation.status}
-                reply={reply}
-                sent={sent}
-                onStatusChange={updateConversationStatus}
-                onReplyChange={setReply}
-                onSendReply={sendReply}
-              />
+              {/* Mobile toolbar */}
+              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                <button
+                  type="button"
+                  aria-label="Open conversation menu"
+                  onClick={() => setMobileDrawerOpen(true)}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                >
+                  <Menu className="h-4 w-4" />
+                </button>
+
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-black/80">
+                    {selectedConversation.subject || "Conversation"}
+                  </p>
+
+                  <p className="truncate text-[11px] text-black/35">
+                    {selectedConversation.client.name} ·{" "}
+                    {selectedConversation.client.email}
+                  </p>
+                </div>
+
+                <span className="hidden shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40 sm:inline">
+                  {selectedConversation.status.replace("_", " ")}
+                </span>
+              </div>
+
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <ConversationDetail
+                  conversation={selectedConversation}
+                  status={selectedConversation.status}
+                  reply={reply}
+                  sent={sent}
+                  onStatusChange={updateConversationStatus}
+                  onReplyChange={setReply}
+                  onSendReply={sendReply}
+                />
+              </div>
             </motion.div>
           ) : (
             <motion.section

@@ -1,7 +1,8 @@
 "use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { Archive, Mail } from "lucide-react";
+import { Archive, Mail, Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import type {
@@ -37,6 +38,7 @@ export default function RequestsPage() {
     string | null
   >(null);
   const [error, setError] = useState("");
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   useEffect(() => {
     const loadRequests = async () => {
@@ -91,6 +93,14 @@ export default function RequestsPage() {
     void loadRequests();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileDrawerOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   const filteredRequests = useMemo(() => {
     const query = search.trim().toLowerCase();
 
@@ -126,6 +136,7 @@ export default function RequestsPage() {
     setSelectedId(request.id);
     setStatus(request.status);
     setError("");
+    setMobileDrawerOpen(false);
   }
 
   async function updateRequestStatus(nextStatus: RequestStatus) {
@@ -262,26 +273,29 @@ export default function RequestsPage() {
 
   if (error && !selectedRequest) {
     return (
-      <main className="flex h-dvh w-full items-center justify-center bg-[#f7f7f5] text-[#111]">
-        <div className="rounded-2xl border border-black/[0.08] bg-white px-8 py-7 text-center shadow-sm">
+      <main className="flex h-dvh w-full items-center justify-center bg-[#f7f7f5] px-5 text-[#111]">
+        <div className="w-full max-w-md rounded-2xl border border-black/[0.08] bg-white px-6 py-7 text-center shadow-sm sm:px-8">
           <div className="text-sm font-bold">Failed to load requests</div>
 
-          <div className="mt-2 text-[10px] text-black/40">{error}</div>
+          <div className="mt-2 break-words text-[10px] text-black/40">
+            {error}
+          </div>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="flex h-dvh max-h-[100vh] min-h-0 min-w-0 w-[calc(100vw_-_250px)] flex-col overflow-auto bg-[#f7f7f5] text-[#111]">
+    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[#f7f7f5] text-[#111]">
       <div className="flex h-full min-h-0 flex-col">
+        {/* HEADER */}
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white/85 px-5 backdrop-blur-xl sm:px-8"
+          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white/85 px-4 backdrop-blur-xl sm:px-8"
         >
-          <div>
+          <div className="min-w-0">
             <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-black/30">
               Communication
             </div>
@@ -291,7 +305,7 @@ export default function RequestsPage() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <motion.div
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
@@ -310,13 +324,14 @@ export default function RequestsPage() {
               className="flex items-center gap-2 rounded-xl bg-[#111] px-3 py-2 text-[10px] font-bold text-white transition-colors hover:bg-black/80"
             >
               <Archive size={13} />
-              Inbox
+              <span className="hidden xs:inline">Inbox</span>
             </Link>
           </div>
         </motion.header>
 
-        <div className="flex min-h-0 max-h-[80vh] min-w-0 flex-1 flex-col">
-          <div className="mx-auto w-full max-w-[1500px] p-5">
+        <div className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+          <div className="mx-auto w-full max-w-[1500px] p-3 sm:p-5">
+            {/* STATS */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -325,7 +340,7 @@ export default function RequestsPage() {
                 delay: 0.04,
                 ease: "easeOut",
               }}
-              className="grid grid-cols-2 gap-3 lg:grid-cols-4"
+              className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4"
             >
               <Stat
                 label="New"
@@ -359,6 +374,7 @@ export default function RequestsPage() {
               />
             </motion.div>
 
+            {/* ERROR / SUCCESS */}
             <AnimatePresence initial={false}>
               {error && selectedRequest && (
                 <motion.div
@@ -366,7 +382,7 @@ export default function RequestsPage() {
                   animate={{ opacity: 1, height: "auto", y: 0 }}
                   exit={{ opacity: 0, height: 0, y: -4 }}
                   transition={{ duration: 0.18 }}
-                  className="mt-4 overflow-hidden rounded-xl border border-red-500/10 bg-red-500/[0.04] px-4 py-3 text-[10px] font-semibold text-red-600"
+                  className="mt-3 overflow-hidden rounded-xl border border-red-500/10 bg-red-500/[0.04] px-4 py-3 text-[10px] font-semibold text-red-600 sm:mt-4"
                 >
                   {error}
                 </motion.div>
@@ -378,13 +394,14 @@ export default function RequestsPage() {
                   animate={{ opacity: 1, height: "auto", y: 0 }}
                   exit={{ opacity: 0, height: 0, y: -4 }}
                   transition={{ duration: 0.18 }}
-                  className="mt-4 overflow-hidden rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-semibold text-black/55"
+                  className="mt-3 overflow-hidden rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-semibold text-black/55 sm:mt-4"
                 >
                   Project created successfully.
                 </motion.div>
               )}
             </AnimatePresence>
 
+            {/* MAIN WORKSPACE */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -393,10 +410,13 @@ export default function RequestsPage() {
                 delay: 0.08,
                 ease: "easeOut",
               }}
-              className="mt-5 flex min-h-[600px] overflow-hidden rounded-2xl border border-black/[0.08] bg-white"
+              className="relative mt-3 flex min-h-[600px] overflow-hidden rounded-2xl border border-black/[0.08] bg-white sm:mt-5"
             >
               {selectedRequest ? (
                 <>
+                  {/* =========================
+                      DESKTOP REQUEST LIST
+                  ========================== */}
                   <motion.div
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -405,7 +425,7 @@ export default function RequestsPage() {
                       delay: 0.1,
                       ease: "easeOut",
                     }}
-                    className="min-h-0"
+                    className="hidden min-h-0 shrink-0 lg:block"
                   >
                     <RequestList
                       requests={filteredRequests}
@@ -419,6 +439,81 @@ export default function RequestsPage() {
                     />
                   </motion.div>
 
+                  {/* =========================
+                      MOBILE REQUEST DRAWER
+                  ========================== */}
+                  <AnimatePresence>
+                    {mobileDrawerOpen && (
+                      <>
+                        {/* Backdrop */}
+                        <motion.button
+                          type="button"
+                          aria-label="Close request menu"
+                          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.18 }}
+                          onClick={() => setMobileDrawerOpen(false)}
+                        />
+
+                        {/* Sliding drawer */}
+                        <motion.aside
+                          initial={{ x: "-100%" }}
+                          animate={{ x: 0 }}
+                          exit={{ x: "-100%" }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 340,
+                            damping: 32,
+                            mass: 0.8,
+                          }}
+                          className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                        >
+                          {/* Drawer header */}
+                          <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                            <div>
+                              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+                                Requests
+                              </p>
+
+                              <p className="text-sm font-semibold text-black/75">
+                                {filteredRequests.length} request
+                                {filteredRequests.length === 1 ? "" : "s"}
+                              </p>
+                            </div>
+
+                            <button
+                              type="button"
+                              aria-label="Close request menu"
+                              onClick={() => setMobileDrawerOpen(false)}
+                              className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+
+                          {/* Request list */}
+                          <div className="min-h-0 flex-1 overflow-hidden">
+                            <RequestList
+                              requests={filteredRequests}
+                              selectedRequest={selectedRequest}
+                              search={search}
+                              filter={filter}
+                              statusOptions={statusOptions}
+                              onSearchChange={setSearch}
+                              onFilterChange={setFilter}
+                              onSelect={selectRequest}
+                            />
+                          </div>
+                        </motion.aside>
+                      </>
+                    )}
+                  </AnimatePresence>
+
+                  {/* =========================
+                      REQUEST DETAIL
+                  ========================== */}
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div
                       key={selectedRequest.id}
@@ -429,22 +524,51 @@ export default function RequestsPage() {
                         duration: 0.18,
                         ease: "easeOut",
                       }}
-                      className="min-w-0 flex-1"
+                      className="flex min-w-0 flex-1 flex-col"
                     >
-                      <RequestDetail
-                        request={selectedRequest}
-                        status={status}
-                        statusOptions={statusOptions}
-                        onStatusChange={updateRequestStatus}
-                        onCreateProject={createProjectFromRequest}
-                        creatingProject={creatingProject}
-                        projectCreated={
-                          createdProjectRequestId === selectedRequest.id
-                        }
-                      />
+                      {/* Mobile toolbar */}
+                      <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                        <button
+                          type="button"
+                          aria-label="Open request menu"
+                          onClick={() => setMobileDrawerOpen(true)}
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                        >
+                          <Menu className="h-4 w-4" />
+                        </button>
+
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-semibold text-black/80">
+                            {selectedRequest.subject || "Client request"}
+                          </p>
+
+                          <p className="truncate text-[11px] text-black/35">
+                            {selectedRequest.name} · {selectedRequest.email}
+                          </p>
+                        </div>
+
+                        <span className="hidden shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40 xs:inline">
+                          {selectedRequest.status.replace("_", " ")}
+                        </span>
+                      </div>
+
+                      <div className="min-h-0 flex-1 overflow-y-auto">
+                        <RequestDetail
+                          request={selectedRequest}
+                          status={status}
+                          statusOptions={statusOptions}
+                          onStatusChange={updateRequestStatus}
+                          onCreateProject={createProjectFromRequest}
+                          creatingProject={creatingProject}
+                          projectCreated={
+                            createdProjectRequestId === selectedRequest.id
+                          }
+                        />
+                      </div>
                     </motion.div>
                   </AnimatePresence>
 
+                  {/* STATUS TOASTS */}
                   <AnimatePresence>
                     {updating && (
                       <motion.div
@@ -452,7 +576,7 @@ export default function RequestsPage() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.16 }}
-                        className="pointer-events-none fixed bottom-6 right-6 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg"
+                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
                       >
                         Updating request...
                       </motion.div>
@@ -464,7 +588,7 @@ export default function RequestsPage() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.16 }}
-                        className="pointer-events-none fixed bottom-6 right-6 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg"
+                        className="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl border border-black/[0.08] bg-white px-4 py-3 text-[10px] font-bold text-black/55 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
                       >
                         Creating project...
                       </motion.div>
@@ -476,7 +600,7 @@ export default function RequestsPage() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="flex min-h-[600px] flex-1 items-center justify-center px-8 text-center"
+                  className="flex min-h-[600px] flex-1 items-center justify-center px-6 text-center"
                 >
                   <div>
                     <Mail size={22} className="mx-auto text-black/20" />

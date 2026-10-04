@@ -4,7 +4,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <div className="flex">
       <Sidebar />
-      {children}
+
+      <main className="min-w-0 lg:ml-[250px] w-full">{children}</main>
     </div>
   );
 }

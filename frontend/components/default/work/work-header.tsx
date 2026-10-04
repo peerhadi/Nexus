@@ -1,6 +1,6 @@
 export default function WorkHeader() {
   return (
-    <section className="px-5 pb-14 sm:px-8 lg:px-12">
+    <section className="px-5 pb-14 pt-14 sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-[1450px] items-end justify-between border-b border-black/10 pb-7">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">

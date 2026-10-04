@@ -1,5 +1,7 @@
 "use client";
+
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { ArchiveDetail } from "@/components/admin/inbox/archive/ArchiveDetail";
@@ -17,6 +19,7 @@ export default function ArchivePage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<ArchiveFilter>("All");
   const [loading, setLoading] = useState(true);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -69,6 +72,14 @@ export default function ArchivePage() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileDrawerOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   const filteredItems = useMemo(() => {
     const value = search.trim().toLowerCase();
 
@@ -97,27 +108,73 @@ export default function ArchivePage() {
     filteredItems[0] ??
     items[0];
 
+  const handleSelect = (id: string) => {
+    setSelectedId(id);
+    setMobileDrawerOpen(false);
+  };
+
   if (!selectedItem) {
     return (
-      <main className="flex h-dvh w-full items-center justify-center bg-white text-[#111]">
-        <div className="text-sm font-semibold text-black/40">
-          No archived conversations.
+      <main className="flex h-dvh w-full items-center justify-center bg-white px-6 text-[#111]">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-2 text-sm font-semibold text-black/40">
+            No archived conversations.
+          </div>
+
+          {!loading && (
+            <div className="text-xs text-black/25">
+              Closed conversations will appear here.
+            </div>
+          )}
         </div>
       </main>
     );
   }
 
+  const archiveList = (
+    <>
+      <ArchiveFilters
+        search={search}
+        filter={filter}
+        resultCount={filteredItems.length}
+        filters={[
+          {
+            label: "All",
+            value: "All",
+          },
+          {
+            label: "Closed",
+            value: "CLOSED",
+          },
+        ]}
+        onSearchChange={setSearch}
+        onFilterChange={setFilter}
+      />
+
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <ArchiveList
+          items={filteredItems}
+          selectedId={selectedItem.id}
+          onSelect={handleSelect}
+        />
+      </div>
+    </>
+  );
+
   return (
     <main className="flex h-dvh w-full min-w-0 overflow-hidden bg-white text-[#111]">
       <div className="flex h-full w-full min-w-0 flex-1 flex-col overflow-hidden">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
+          className="shrink-0"
         >
           <ArchiveHeader count={items.length} />
         </motion.div>
 
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,11 +183,15 @@ export default function ArchivePage() {
             delay: 0.04,
             ease: "easeOut",
           }}
+          className="shrink-0"
         >
           <ArchiveStats items={items} />
         </motion.div>
 
-        <div className="flex min-h-0 w-full min-w-0 flex-1 overflow-hidden">
+        <div className="relative flex min-h-0 w-full min-w-0 flex-1 overflow-hidden">
+          {/* =========================
+              DESKTOP SIDEBAR
+          ========================== */}
           <motion.aside
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
@@ -139,35 +200,77 @@ export default function ArchivePage() {
               delay: 0.08,
               ease: "easeOut",
             }}
-            className="flex w-[360px] shrink-0 flex-col border-r border-black/[0.08] bg-white"
+            className="hidden w-[360px] shrink-0 flex-col border-r border-black/[0.08] bg-white lg:flex"
           >
-            <ArchiveFilters
-              search={search}
-              filter={filter}
-              resultCount={filteredItems.length}
-              filters={[
-                {
-                  label: "All",
-                  value: "All",
-                },
-                {
-                  label: "Closed",
-                  value: "CLOSED",
-                },
-              ]}
-              onSearchChange={setSearch}
-              onFilterChange={setFilter}
-            />
-
-            <div className="min-h-0 flex-1 overflow-y-auto">
-              <ArchiveList
-                items={filteredItems}
-                selectedId={selectedItem.id}
-                onSelect={setSelectedId}
-              />
-            </div>
+            {archiveList}
           </motion.aside>
 
+          {/* =========================
+              MOBILE DRAWER
+          ========================== */}
+          <AnimatePresence>
+            {mobileDrawerOpen && (
+              <>
+                {/* Backdrop */}
+                <motion.button
+                  type="button"
+                  aria-label="Close archive menu"
+                  className="fixed inset-x-0 bottom-0 top-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  onClick={() => setMobileDrawerOpen(false)}
+                />
+
+                {/* Drawer */}
+                <motion.aside
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 340,
+                    damping: 32,
+                    mass: 0.8,
+                  }}
+                  className="fixed bottom-0 left-0 top-0 z-50 flex w-[min(88vw,360px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                >
+                  {/* Drawer header */}
+                  <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-black/35">
+                        Archive
+                      </p>
+
+                      <p className="text-sm font-semibold text-black/75">
+                        {filteredItems.length} conversation
+                        {filteredItems.length === 1 ? "" : "s"}
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      aria-label="Close archive menu"
+                      onClick={() => setMobileDrawerOpen(false)}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  {/* Drawer content */}
+                  <div className="flex min-h-0 flex-1 flex-col">
+                    {archiveList}
+                  </div>
+                </motion.aside>
+              </>
+            )}
+          </AnimatePresence>
+
+          {/* =========================
+              DETAIL PANEL
+          ========================== */}
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={selectedItem.id}
@@ -178,9 +281,39 @@ export default function ArchivePage() {
                 duration: 0.18,
                 ease: "easeOut",
               }}
-              className="flex min-w-0 flex-1"
+              className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
             >
-              <ArchiveDetail item={selectedItem} />
+              {/* Mobile toolbar */}
+              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                <button
+                  type="button"
+                  aria-label="Open archive menu"
+                  onClick={() => setMobileDrawerOpen(true)}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                >
+                  <Menu className="h-4 w-4" />
+                </button>
+
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-black/80">
+                    {selectedItem.subject || "Archived conversation"}
+                  </p>
+
+                  <p className="truncate text-[11px] text-black/35">
+                    {selectedItem.client?.name ||
+                      selectedItem.client?.email ||
+                      "Archived"}
+                  </p>
+                </div>
+
+                <span className="shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40">
+                  Closed
+                </span>
+              </div>
+
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <ArchiveDetail item={selectedItem} />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
