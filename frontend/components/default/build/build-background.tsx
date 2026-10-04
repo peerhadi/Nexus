@@ -43,7 +43,7 @@ export default function BuildBackground({
       {Array.from({ length: 18 }).map((_, index) => (
         <div
           key={index}
-          className="absolute h-1.5 w-1.5 animate-[particle_5s_ease-in-out_infinite] rounded-full bg-black/15"
+          className="absolute h-1.5 w-1.5 animate-[particle_5s_ease-in-out_infinite] rounded-full bg-[var(--border)]"
           style={{
             left: `${(index * 17) % 100}%`,
             top: `${(index * 29) % 100}%`,

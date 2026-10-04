@@ -76,16 +76,16 @@ export default function NotificationsSettings({
         </SettingRow>
       </Card>
 
-      <div className="rounded-2xl border border-black/[0.07] bg-white p-6">
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
         <div className="flex items-start gap-4">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black text-white">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--accent-contrast)]">
             <Bell size={17} />
           </div>
 
           <div>
             <p className="text-[12px] font-semibold">Notification delivery</p>
 
-            <p className="mt-1 max-w-[600px] text-[10px] leading-5 text-black/40">
+            <p className="mt-1 max-w-[600px] text-[10px] leading-5 text-[var(--text-tertiary)]">
               Nexus currently uses the administrator email configured under
               General settings for system notifications.
             </p>

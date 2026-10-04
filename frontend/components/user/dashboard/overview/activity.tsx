@@ -46,30 +46,30 @@ function getActivityStyle(type: ProjectUpdate["type"]) {
     case "COMPLETED":
       return {
         icon: CircleCheck,
-        iconBg: "bg-emerald-50",
-        iconColor: "text-emerald-500",
+        iconBg: "bg-[var(--success-soft)]",
+        iconColor: "text-[var(--success)]",
       };
 
     case "MILESTONE":
       return {
         icon: Flag,
-        iconBg: "bg-violet-50",
-        iconColor: "text-violet-500",
+        iconBg: "bg-[var(--accent-soft)]",
+        iconColor: "text-[var(--accent)]",
       };
 
     case "NOTE":
       return {
         icon: MessageCircle,
-        iconBg: "bg-pink-50",
-        iconColor: "text-pink-500",
+        iconBg: "bg-[var(--accent-soft)]",
+        iconColor: "text-[var(--accent)]",
       };
 
     case "PROGRESS":
     default:
       return {
         icon: TrendingUp,
-        iconBg: "bg-blue-50",
-        iconColor: "text-blue-500",
+        iconBg: "bg-[var(--info-soft)]",
+        iconColor: "text-[var(--info)]",
       };
   }
 }
@@ -168,22 +168,22 @@ export default function OverviewActivity() {
   return (
     <section>
       <div className="mb-4">
-        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">
           Timeline
         </div>
 
-        <h2 className="mt-1 text-xl font-black tracking-tight text-slate-800">
+        <h2 className="mt-1 text-xl font-black tracking-tight text-[var(--text-primary)]">
           Recent activity
         </h2>
       </div>
 
-      <div className="rounded-[22px] border border-white bg-white/75 p-5 shadow-sm backdrop-blur-xl">
+      <div className="rounded-[22px] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-sm)] backdrop-blur-xl">
         {loading ? (
-          <div className="py-6 text-center text-[11px] font-semibold text-slate-400">
+          <div className="py-6 text-center text-[11px] font-semibold text-[var(--text-muted)]">
             Loading activity...
           </div>
         ) : activity.length === 0 ? (
-          <div className="py-6 text-center text-[11px] font-semibold text-slate-400">
+          <div className="py-6 text-center text-[11px] font-semibold text-[var(--text-muted)]">
             No recent activity yet.
           </div>
         ) : (
@@ -201,7 +201,7 @@ export default function OverviewActivity() {
 
         <Link
           href="/dashboard/messages"
-          className="mt-7 flex items-center justify-between rounded-xl bg-gradient-to-r from-violet-50 to-pink-50 px-3 py-3 text-[10px] font-black text-violet-600 transition hover:from-violet-100 hover:to-pink-100"
+          className="mt-7 flex items-center justify-between rounded-xl bg-[var(--accent-soft)] px-3 py-3 text-[10px] font-black text-[var(--accent)] transition hover:bg-[var(--accent-soft-strong)] hover:text-[var(--accent-hover)]"
         >
           Open communication
           <ChevronRight size={13} />

@@ -44,12 +44,12 @@ export default function SidebarNav() {
   }, []);
 
   return (
-    <nav className="space-y-1.5">
+    <nav className="flex gap-1 flex-col">
       {nav.map((item) => {
         const Icon = item.icon;
 
         const active =
-          item.href != "/home" &&
+          item.href !== "/home" &&
           (pathname === item.href ||
             (item.href !== "/dashboard" && pathname.startsWith(item.href)));
 
@@ -57,18 +57,18 @@ export default function SidebarNav() {
           <Link key={item.href} href={item.href}>
             <motion.div
               whileHover={{ x: 2 }}
-              className={`group relative flex items-center gap-3 rounded-2xl border px-3 py-3 transition-all duration-300 ${
+              className={`group relative flex items-center gap-3 rounded-2xl px-3 py-3 transition-all duration-300 ${
                 active
-                  ? "border-cyan-200/80 bg-cyan-50/80 shadow-[0_6px_20px_rgba(34,211,238,0.08)]"
-                  : "border-transparent text-black/50 hover:border-black/[0.05] hover:bg-black/[0.025] hover:text-black"
+                  ? " bg-[var(--accent-soft)] shadow-[0_6px_20px_var(--accent-soft)]"
+                  : "border-transparent text-[var(--text-secondary)] hover:border-[var(--border-subtle)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
               }`}
             >
               {/* Icon */}
               <div
                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
                   active
-                    ? "bg-cyan-400 text-white shadow-[0_4px_14px_rgba(34,211,238,0.25)]"
-                    : "bg-black/[0.035] text-black/35 group-hover:bg-cyan-50 group-hover:text-cyan-400"
+                    ? "bg-[var(--accent)] text-[var(--accent-contrast)] shadow-[0_4px_14px_var(--accent-soft-strong)]"
+                    : "bg-[var(--surface-hover)] text-[var(--text-muted)] group-hover:bg-[var(--accent-soft)] group-hover:text-[var(--accent)]"
                 }`}
               >
                 <Icon size={15} />
@@ -78,7 +78,9 @@ export default function SidebarNav() {
               <div className="min-w-0 flex-1">
                 <div
                   className={`text-[10px] font-black leading-none ${
-                    active ? "text-cyan-600" : "text-black/65"
+                    active
+                      ? "text-[var(--accent)]"
+                      : "text-[var(--text-secondary)]"
                   }`}
                 >
                   {item.label}
@@ -86,7 +88,9 @@ export default function SidebarNav() {
 
                 <div
                   className={`mt-1 text-[8px] font-medium leading-3.5 ${
-                    active ? "text-cyan-500/60" : "text-black/30"
+                    active
+                      ? "text-[var(--accent)] opacity-60"
+                      : "text-[var(--text-muted)]"
                   }`}
                 >
                   {item.description}
@@ -97,7 +101,9 @@ export default function SidebarNav() {
               {item.label === "Messages" && conversationCount > 0 && (
                 <span
                   className={`flex h-5 min-w-5 shrink-0 items-center justify-center rounded-full px-1 text-[8px] font-black ${
-                    active ? "bg-cyan-400 text-white" : "bg-pink-500 text-white"
+                    active
+                      ? "bg-[var(--accent)] text-[var(--accent-contrast)]"
+                      : "bg-[var(--accent)] text-[var(--accent-contrast)]"
                   }`}
                 >
                   {conversationCount}

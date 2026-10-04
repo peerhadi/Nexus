@@ -3,7 +3,7 @@
 export default function BuildHero() {
   return (
     <section className="hidden lg:block">
-      <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/[0.07] bg-white/70 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.22em] text-neutral-500 shadow-sm backdrop-blur-xl">
+      <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.22em] text-[var(--text-tertiary)] shadow-sm backdrop-blur-xl">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
         Let's build
       </div>
@@ -18,10 +18,10 @@ export default function BuildHero() {
         </span>
       </h1>
 
-      <p className="mt-7 max-w-[390px] text-sm leading-7 text-neutral-500">
+      <p className="mt-7 max-w-[390px] text-sm leading-7 text-[var(--text-tertiary)]">
         Have a workflow that needs fixing? An idea that needs building?
         Something weird you want automated?
-        <span className="font-bold text-neutral-900"> Tell us everything.</span>
+        <span className="font-bold text-[var(--text-primary)]"> Tell us everything.</span>
       </p>
 
       <div className="mt-9 flex flex-wrap gap-2">
@@ -34,7 +34,7 @@ export default function BuildHero() {
         ].map((item, index) => (
           <div
             key={item}
-            className="animate-[chip_4s_ease-in-out_infinite] rounded-full border border-black/[0.06] bg-white/75 px-3 py-2 text-[9px] font-bold text-neutral-500 shadow-sm backdrop-blur-xl"
+            className="animate-[chip_4s_ease-in-out_infinite] rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-[9px] font-bold text-[var(--text-tertiary)] shadow-sm backdrop-blur-xl"
             style={{ animationDelay: `${index * 0.2}s` }}
           >
             {item}

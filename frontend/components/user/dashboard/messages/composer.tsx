@@ -67,12 +67,12 @@ export default function Composer({
   };
 
   return (
-    <div className="shrink-0 border-t border-violet-100 bg-white px-6 py-5 lg:px-10">
+    <div className="shrink-0 bg-[var(--surface)] px-6 py-5 lg:px-10">
       <div className="mx-auto max-w-5xl">
-        <div className="flex min-h-[64px] items-center gap-2 rounded-[20px] border border-violet-100 bg-white p-2 shadow-[0_8px_30px_rgba(139,92,246,0.07)]">
+        <div className="flex min-h-[64px] items-center gap-2 rounded-[20px] bg-[var(--surface)] p-2 shadow-[0_8px_30px_rgba(139,92,246,0.07)]">
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[15px] text-slate-300 transition hover:bg-violet-50 hover:text-violet-500"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[15px] text-[var(--text-disabled)] transition hover:bg-violet-50 hover:text-violet-500"
           >
             <Paperclip size={17} />
           </button>
@@ -85,13 +85,13 @@ export default function Composer({
               placeholder="Write a message..."
               rows={1}
               disabled={sending}
-              className="block max-h-24 min-h-6 w-full resize-none overflow-y-auto bg-transparent py-2 text-[15px] font-medium leading-5 text-slate-700 outline-none placeholder:text-slate-300 disabled:opacity-50"
+              className="outline-none! block max-h-24 min-h-6 w-full resize-none overflow-y-auto bg-transparent py-2 text-[15px] font-medium leading-5 text-[var(--text-secondary)] outline-none placeholder:text-[var(--text-disabled)] disabled:opacity-50"
             />
           </div>
 
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[15px] text-slate-300 transition hover:bg-pink-50 hover:text-pink-500"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[15px] text-[var(--text-disabled)] transition hover:bg-pink-50 hover:text-pink-500"
           >
             <Smile size={17} />
           </button>
@@ -102,7 +102,8 @@ export default function Composer({
             whileTap={{ scale: 0.96 }}
             onClick={() => void sendMessage()}
             disabled={!message.trim() || sending}
-            className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 px-5 text-[9px] font-black text-white shadow-md shadow-violet-200 transition disabled:cursor-not-allowed disabled:opacity-40"
+            style={{ background: "var(--gradient-primary" }}
+            className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-[15px] px-5 text-[9px] font-black text-white shadow-md shadow-violet-200 transition disabled:cursor-not-allowed disabled:opacity-40"
           >
             <span className="hidden sm:inline">
               {sending ? "Sending..." : "Send"}
@@ -111,7 +112,7 @@ export default function Composer({
           </motion.button>
         </div>
 
-        <div className="mt-2 flex items-center justify-between px-2 text-[8px] font-bold text-slate-300">
+        <div className="mt-2 flex items-center justify-between px-2 text-[8px] font-bold text-[var(--text-disabled)]">
           <span>Messages are connected to your project.</span>
 
           <span className="hidden sm:block">

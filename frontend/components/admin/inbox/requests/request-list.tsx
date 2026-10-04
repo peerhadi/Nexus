@@ -55,16 +55,16 @@ function formatDate(date: string) {
 function getStatusClasses(status: RequestStatus) {
   switch (status) {
     case "NEW":
-      return "bg-[#111] text-white";
+      return "bg-[var(--accent)] text-white";
 
     case "IN_PROGRESS":
-      return "bg-black/[0.08] text-black/65";
+      return "bg-[var(--border)] text-[var(--text-secondary)]";
 
     case "REPLIED":
-      return "bg-black/[0.06] text-black/50";
+      return "bg-[var(--surface-hover)] text-[var(--text-secondary)]";
 
     case "CLOSED":
-      return "bg-black/[0.04] text-black/30";
+      return "bg-[var(--surface-hover)] text-[var(--text-muted)]";
   }
 }
 
@@ -79,19 +79,19 @@ export function RequestList({
   onSelect,
 }: RequestListProps) {
   return (
-    <section className="flex h-full w-[360px] shrink-0 min-h-0 flex-col border-r border-black/[0.08] bg-white">
-      <div className="shrink-0 border-b border-black/[0.07] p-3">
+    <section className="flex h-full w-[360px] shrink-0 min-h-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
+      <div className="shrink-0 border-b border-[var(--border)] p-3">
         <div className="relative">
           <Search
             size={13}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-black/25"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
           />
 
           <input
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder="Search requests..."
-            className="h-9 w-full rounded-xl border border-black/[0.08] bg-[#f7f7f5] pl-9 pr-3 text-[10px] outline-none placeholder:text-black/25 focus:border-black/20 focus:bg-white"
+            className="h-9 w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] pl-9 pr-3 text-[10px] outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)]"
           />
         </div>
 
@@ -106,8 +106,8 @@ export function RequestList({
                 onClick={() => onFilterChange(item)}
                 className={`shrink-0 rounded-lg px-2.5 py-1.5 text-[8px] font-bold transition-colors ${
                   active
-                    ? "bg-[#111] text-white"
-                    : "bg-black/[0.04] text-black/40 hover:bg-black/[0.07] hover:text-black"
+                    ? "bg-[var(--accent)] text-white"
+                    : "bg-[var(--surface-hover)] text-[var(--text-tertiary)] hover:bg-[var(--accent)]/[0.07] hover:text-[var(--text-primary)]"
                 }`}
               >
                 {item === "All" ? "All" : getStatusLabel(item as RequestStatus)}
@@ -121,11 +121,11 @@ export function RequestList({
         {requests.length === 0 ? (
           <div className="flex h-full items-center justify-center px-8 text-center">
             <div>
-              <Mail size={20} className="mx-auto text-black/20" />
+              <Mail size={20} className="mx-auto text-[var(--text-disabled)]" />
 
               <div className="mt-3 text-[11px] font-bold">No requests</div>
 
-              <div className="mt-1 text-[10px] text-black/35">
+              <div className="mt-1 text-[10px] text-[var(--text-muted)]">
                 Try another search or filter.
               </div>
             </div>
@@ -139,16 +139,16 @@ export function RequestList({
                 key={request.id}
                 type="button"
                 onClick={() => onSelect(request)}
-                className={`w-full border-b border-black/[0.06] px-4 py-4 text-left transition-colors ${
-                  active ? "bg-black/[0.045]" : "hover:bg-black/[0.025]"
+                className={`w-full border-b border-[var(--border-subtle)] px-4 py-4 text-left transition-colors ${
+                  active ? "bg-[var(--surface-hover)]" : "hover:bg-[var(--surface-hover)]"
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div
                     className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[10px] font-bold ${
                       active
-                        ? "bg-[#111] text-white"
-                        : "bg-black/[0.06] text-black/55"
+                        ? "bg-[var(--accent)] text-white"
+                        : "bg-[var(--surface-hover)] text-[var(--text-secondary)]"
                     }`}
                   >
                     {getInitials(request.name)}
@@ -160,12 +160,12 @@ export function RequestList({
                         {request.name}
                       </span>
 
-                      <span className="shrink-0 text-[8px] text-black/30">
+                      <span className="shrink-0 text-[8px] text-[var(--text-muted)]">
                         {formatDate(request.createdAt)}
                       </span>
                     </div>
 
-                    <div className="mt-1 truncate text-[10px] font-semibold text-black/55">
+                    <div className="mt-1 truncate text-[10px] font-semibold text-[var(--text-secondary)]">
                       {request.subject || "Untitled request"}
                     </div>
 
@@ -179,7 +179,7 @@ export function RequestList({
                       </span>
 
                       {request.company && (
-                        <span className="max-w-[130px] truncate rounded-full bg-black/[0.04] px-2 py-0.5 text-[8px] font-semibold text-black/35">
+                        <span className="max-w-[130px] truncate rounded-full bg-[var(--surface-hover)] px-2 py-0.5 text-[8px] font-semibold text-[var(--text-muted)]">
                           {request.company}
                         </span>
                       )}

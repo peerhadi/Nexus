@@ -89,48 +89,31 @@ export default function MessagesPage() {
         {/* Page header */}
         <div className="mb-4 flex items-end justify-between sm:mb-6">
           <div>
-            <h1 className="text-3xl font-black tracking-[-0.05em] text-slate-800 sm:text-5xl">
+            <h1 className="text-3xl font-black tracking-[-0.05em] text-[var(--text-primary)] sm:text-5xl">
               Messages
             </h1>
 
-            <p className="mt-2 max-w-xl text-[10px] font-medium leading-5 text-slate-400 sm:text-[11px]">
+            <p className="mt-2 max-w-xl text-[10px] font-medium leading-5 text-[var(--text-muted)] sm:text-[11px]">
               Talk directly with the Nexus team about your projects, milestones,
               ideas, and changes.
             </p>
           </div>
-
-          <div className="hidden items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 sm:flex">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-pink-400 text-[9px] font-black text-white shadow-md">
-              N
-              <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-emerald-50 bg-emerald-400" />
-            </div>
-
-            <div>
-              <div className="text-[10px] font-black text-slate-700">
-                Nexus Team
-              </div>
-
-              <div className="mt-0.5 text-[8px] font-bold text-emerald-500">
-                Online now
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Messaging workspace */}
-        <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-[24px] border border-violet-100 bg-white shadow-[0_20px_70px_rgba(139,92,246,0.08)] sm:rounded-[28px]">
+        <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-[24px] bg-[var(--surface)] shadow-[0_20px_70px_rgba(139,92,246,0.08)] sm:rounded-[28px]">
           {loading ? (
-            <div className="flex flex-1 items-center justify-center text-[11px] font-semibold text-slate-400">
+            <div className="flex flex-1 items-center justify-center text-[11px] font-semibold text-[var(--text-muted)]">
               Loading conversations...
             </div>
           ) : conversations.length === 0 ? (
             <div className="flex flex-1 items-center justify-center px-6 text-center">
               <div>
-                <div className="text-sm font-black text-slate-700">
+                <div className="text-sm font-black text-[var(--text-secondary)]">
                   No conversations yet
                 </div>
 
-                <p className="mt-2 text-[10px] font-medium text-slate-400">
+                <p className="mt-2 text-[10px] font-medium text-[var(--text-muted)]">
                   Start a conversation with the Nexus team and it will appear
                   here.
                 </p>
@@ -162,7 +145,7 @@ export default function MessagesPage() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px]"
+                      className="absolute inset-0 bg-[var(--accent)]/20 backdrop-blur-[2px]"
                     />
 
                     {/* Drawer */}
@@ -176,7 +159,7 @@ export default function MessagesPage() {
                         damping: 34,
                         mass: 0.8,
                       }}
-                      className="absolute inset-y-0 left-0 w-[88%] max-w-[380px] overflow-hidden bg-white shadow-[20px_0_60px_rgba(15,23,42,0.15)]"
+                      className="absolute inset-y-0 left-0 w-[88%] max-w-[380px] overflow-hidden bg-[var(--surface)] shadow-[20px_0_60px_rgba(15,23,42,0.15)]"
                     >
                       <div className="flex h-full flex-col">
                         {/* Drawer header */}
@@ -186,7 +169,7 @@ export default function MessagesPage() {
                               Nexus Inbox
                             </div>
 
-                            <div className="mt-1 text-lg font-black tracking-[-0.03em] text-slate-800">
+                            <div className="mt-1 text-lg font-black tracking-[-0.03em] text-[var(--text-primary)]">
                               Conversations
                             </div>
                           </div>
@@ -195,7 +178,7 @@ export default function MessagesPage() {
                             type="button"
                             onClick={() => setMenuOpen(false)}
                             aria-label="Close conversations"
-                            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 active:scale-[0.97]"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-[var(--text-muted)] transition-colors hover:bg-slate-100 hover:text-[var(--text-secondary)] active:scale-[0.97]"
                           >
                             <X size={15} strokeWidth={2.5} />
                           </button>
@@ -217,7 +200,7 @@ export default function MessagesPage() {
               {/* Message panel */}
               <section className="flex min-w-0 min-h-[600px] flex-1 flex-col">
                 {/* Mobile toolbar */}
-                <div className="flex shrink-0 items-center justify-between border-b border-violet-100/80 bg-white px-4 py-3 md:hidden">
+                <div className="flex shrink-0 items-center justify-between border-b border-violet-100/80 bg-[var(--surface)] px-4 py-3 md:hidden">
                   <div className="flex min-w-0 items-center gap-3">
                     <motion.button
                       type="button"
@@ -230,14 +213,14 @@ export default function MessagesPage() {
                     </motion.button>
 
                     <div className="min-w-0">
-                      <div className="truncate text-[10px] font-black tracking-tight text-slate-700">
+                      <div className="truncate text-[10px] font-black tracking-tight text-[var(--text-secondary)]">
                         {activeConversation.client.name}
                       </div>
 
                       <div className="mt-0.5 flex items-center gap-1.5">
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
 
-                        <span className="truncate text-[8px] font-bold text-slate-400">
+                        <span className="truncate text-[8px] font-bold text-[var(--text-muted)]">
                           {activeConversation.subject || "No subject"}
                         </span>
                       </div>

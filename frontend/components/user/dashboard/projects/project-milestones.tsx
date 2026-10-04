@@ -54,9 +54,9 @@ export default function ProjectMilestones({ updates }: ProjectMilestonesProps) {
   );
 
   return (
-    <section className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
+    <section className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-sm">
       <div className="mb-7">
-        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-black/30">
+        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">
           Roadmap
         </div>
 
@@ -64,12 +64,12 @@ export default function ProjectMilestones({ updates }: ProjectMilestonesProps) {
       </div>
 
       {milestones.length === 0 ? (
-        <div className="rounded-xl bg-black/[0.03] px-5 py-8 text-center">
-          <div className="text-[11px] font-black text-black/40">
+        <div className="rounded-xl bg-[var(--surface-hover)] px-5 py-8 text-center">
+          <div className="text-[11px] font-black text-[var(--text-tertiary)]">
             No milestones yet
           </div>
 
-          <p className="mt-1 text-[9px] font-medium text-black/25">
+          <p className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
             Project updates will appear here as work progresses.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function ProjectMilestones({ updates }: ProjectMilestonesProps) {
                 {index !== milestones.length - 1 && (
                   <div
                     className={`absolute left-[15px] top-[46px] h-8 w-px ${
-                      done ? "bg-black/40" : "bg-black/10"
+                      done ? "bg-[var(--overlay)]" : "bg-[var(--surface-hover)]"
                     }`}
                   />
                 )}
@@ -100,10 +100,10 @@ export default function ProjectMilestones({ updates }: ProjectMilestonesProps) {
                 <div
                   className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
                     done
-                      ? "bg-black/90 text-white"
+                      ? "bg-[var(--overlay)] text-white"
                       : isCurrent
                         ? "bg-gradient-to-br from-pink-400 to-violet-400 text-white"
-                        : "bg-black/[0.05] text-black/20"
+                        : "bg-[var(--surface-hover)] text-[var(--text-disabled)]"
                   }`}
                 >
                   {done ? <Check size={13} /> : index + 1}
@@ -112,12 +112,12 @@ export default function ProjectMilestones({ updates }: ProjectMilestonesProps) {
                 <div className="min-w-0">
                   <div className="text-[12px] font-black">{update.title}</div>
 
-                  <div className="mt-1 text-[9px] font-bold text-black/35">
+                  <div className="mt-1 text-[9px] font-bold text-[var(--text-muted)]">
                     {status}
                   </div>
 
                   {update.description && (
-                    <p className="mt-1 max-w-lg text-[9px] leading-4 text-black/25">
+                    <p className="mt-1 max-w-lg text-[9px] leading-4 text-[var(--text-muted)]">
                       {update.description}
                     </p>
                   )}

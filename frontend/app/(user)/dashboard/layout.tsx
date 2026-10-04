@@ -8,7 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f8f8f6] text-black">
+    <div className="min-h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       <AmbientBackground />
 
       <Sidebar />

@@ -78,7 +78,7 @@ export default function ProjectsPage() {
       <div className="space-y-7">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-black/30">
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">
               Workspace
             </div>
 
@@ -86,14 +86,14 @@ export default function ProjectsPage() {
               Projects
             </h1>
 
-            <p className="mt-2 max-w-xl text-sm leading-6 text-black/40">
+            <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
               Everything Nexus is building for you, in one place.
             </p>
           </div>
 
           <Link
             href="/build"
-            className="flex w-fit items-center gap-2 rounded-xl bg-black px-4 py-3 text-[11px] font-black text-white shadow-lg transition hover:-translate-y-1"
+            className="flex w-fit items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-[11px] font-black text-white shadow-lg transition hover:-translate-y-1"
           >
             <Plus size={14} />
             New project
@@ -101,17 +101,17 @@ export default function ProjectsPage() {
         </div>
 
         {loading ? (
-          <div className="flex min-h-64 items-center justify-center rounded-2xl border border-black/5 bg-white text-[11px] font-bold text-black/30">
+          <div className="flex min-h-64 items-center justify-center rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] text-[11px] font-bold text-[var(--text-muted)]">
             Loading projects...
           </div>
         ) : projects.length === 0 ? (
-          <div className="flex min-h-64 items-center justify-center rounded-2xl border border-black/5 bg-white text-center">
+          <div className="flex min-h-64 items-center justify-center rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] text-center">
             <div>
-              <div className="text-sm font-black text-black/70">
+              <div className="text-sm font-black text-[var(--text-secondary)]">
                 No projects yet
               </div>
 
-              <p className="mt-2 text-[11px] font-medium text-black/35">
+              <p className="mt-2 text-[11px] font-medium text-[var(--text-muted)]">
                 Your Nexus projects will appear here once they are created.
               </p>
             </div>

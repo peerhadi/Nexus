@@ -37,7 +37,7 @@ const steps = [
 export default function ProgressBar({ step }: { step: Step }) {
   return (
     <div className="relative mx-auto flex w-full max-w-[600px] items-center justify-between">
-      <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-black/[0.06]" />
+      <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-[var(--surface-hover)]" />
 
       <div
         className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-[linear-gradient(90deg,#ff00cc,#00e5ff,#a8ff00,#ffe600,#ff4d00)] transition-all duration-700 ease-out"
@@ -57,10 +57,10 @@ export default function ProgressBar({ step }: { step: Step }) {
               className={[
                 "flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-500",
                 completed
-                  ? "scale-95 border-black bg-black text-white"
+                  ? "scale-95 border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-contrast)]"
                   : current
-                    ? "scale-110 border-black bg-white text-black shadow-[0_0_0_5px_rgba(0,0,0,0.04),0_0_25px_rgba(0,229,255,0.35)]"
-                    : "border-black/[0.08] bg-white text-black/25",
+                    ? "scale-110 border-[var(--accent)] bg-[var(--surface)] text-[var(--text-primary)] shadow-[0_0_0_5px_rgba(0,0,0,0.04),0_0_25px_rgba(0,229,255,0.35)]"
+                    : "border-[var(--border)] bg-[var(--surface)] text-[var(--text-muted)]",
               ].join(" ")}
             >
               {completed ? (
@@ -73,7 +73,7 @@ export default function ProgressBar({ step }: { step: Step }) {
             <span
               className={[
                 "absolute left-1/2 top-11 -translate-x-1/2 whitespace-nowrap text-[9px] font-semibold transition-all",
-                current ? "text-black" : "text-black/30",
+                current ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]",
               ].join(" ")}
             >
               {item.label}

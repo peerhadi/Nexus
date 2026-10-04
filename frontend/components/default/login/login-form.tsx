@@ -71,7 +71,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-[28px] border border-black/[0.07] bg-white/80 shadow-[0_30px_100px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
+    <div className="relative overflow-hidden rounded-[28px] border border-[var(--border)] bg-[var(--surface)] shadow-[0_30px_100px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
       <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,#ff00cc,#00e5ff,#a8ff00,#ffe600,#ff4d00,#ff00cc)] bg-[length:200%_100%] animate-[gradient_5s_linear_infinite]" />
 
       <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/10 blur-3xl animate-[pulse_4s_ease-in-out_infinite]" />
@@ -79,7 +79,7 @@ export default function LoginForm() {
 
       <div className="relative p-7 sm:p-9">
         <div className="mb-8 flex w-full flex-col items-center justify-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white shadow-[0_0_30px_rgba(0,229,255,0.12)]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--accent-contrast)] shadow-[0_0_30px_rgba(0,229,255,0.12)]">
             <LockKeyhole size={20} />
           </div>
 
@@ -88,14 +88,14 @@ export default function LoginForm() {
 
         <div className="space-y-5">
           <label className="block">
-            <span className="mb-2 block text-[10px] font-semibold text-black/55">
+            <span className="mb-2 block text-[10px] font-semibold text-[var(--text-secondary)]">
               Email address
             </span>
 
             <div className="group relative">
               <Mail
                 size={15}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/25 transition-colors group-focus-within:text-black/50"
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--text-secondary)]"
               />
 
               <input
@@ -109,7 +109,7 @@ export default function LoginForm() {
                   }
                 }}
                 placeholder="you@example.com"
-                className="h-13 w-full rounded-2xl border border-black/[0.09] bg-[#fafaf9] pl-11 pr-4 text-[12px] outline-none transition-all duration-300 placeholder:text-black/20 focus:border-black/20 focus:bg-white focus:shadow-[0_0_0_5px_rgba(0,229,255,0.06),0_10px_30px_rgba(0,0,0,0.04)]"
+                className="h-13 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] pl-11 pr-4 text-[12px] outline-none transition-all duration-300 placeholder:text-[var(--text-disabled)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)] focus:shadow-[0_0_0_5px_rgba(0,229,255,0.06),0_10px_30px_rgba(0,0,0,0.04)]"
               />
 
               <div className="pointer-events-none absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[linear-gradient(90deg,#ff00cc,#00e5ff,#a8ff00)] transition-all duration-500 group-focus-within:w-[92%]" />
@@ -118,13 +118,13 @@ export default function LoginForm() {
 
           <label className="block">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-[10px] font-semibold text-black/55">
+              <span className="text-[10px] font-semibold text-[var(--text-secondary)]">
                 Password
               </span>
 
               <button
                 type="button"
-                className="text-[9px] font-medium text-black/35 transition hover:text-black"
+                className="text-[9px] font-medium text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
               >
                 Forgot password?
               </button>
@@ -133,7 +133,7 @@ export default function LoginForm() {
             <div className="group relative">
               <LockKeyhole
                 size={15}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/25 transition-colors group-focus-within:text-black/50"
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] transition-colors group-focus-within:text-[var(--text-secondary)]"
               />
 
               <input
@@ -146,13 +146,13 @@ export default function LoginForm() {
                   }
                 }}
                 placeholder="Your password"
-                className="h-13 w-full rounded-2xl border border-black/[0.09] bg-[#fafaf9] pl-11 pr-12 text-[12px] outline-none transition-all duration-300 placeholder:text-black/20 focus:border-black/20 focus:bg-white focus:shadow-[0_0_0_5px_rgba(255,0,204,0.05),0_10px_30px_rgba(0,0,0,0.04)]"
+                className="h-13 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] pl-11 pr-12 text-[12px] outline-none transition-all duration-300 placeholder:text-[var(--text-disabled)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)] focus:shadow-[0_0_0_5px_rgba(255,0,204,0.05),0_10px_30px_rgba(0,0,0,0.04)]"
               />
 
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-black/25 transition hover:text-black"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
               >
                 {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
@@ -166,14 +166,14 @@ export default function LoginForm() {
           <button
             type="button"
             onClick={() => setRemember(!remember)}
-            className="flex items-center gap-2 text-[9px] text-black/40 transition hover:text-black"
+            className="flex items-center gap-2 text-[9px] text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
           >
             <span
               className={[
                 "flex h-4 w-4 items-center justify-center rounded-md border transition-all duration-200",
                 remember
-                  ? "border-black bg-black text-white"
-                  : "border-black/10 bg-white",
+                  ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-contrast)]"
+                  : "border-[var(--border)] bg-[var(--surface)]",
               ].join(" ")}
             >
               {remember && <Sparkles size={9} />}
@@ -189,8 +189,8 @@ export default function LoginForm() {
           className={[
             "group relative mt-7 flex h-12 w-full items-center justify-center gap-3 overflow-hidden rounded-2xl text-[11px] font-semibold text-white transition-all duration-300",
             !canLogin || loading
-              ? "cursor-not-allowed bg-black/20"
-              : "bg-black hover:-translate-y-0.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]",
+              ? "cursor-not-allowed bg-[var(--overlay)]"
+              : "bg-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]",
           ].join(" ")}
         >
           <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,#00e5ff,#ff00cc,#a8ff00,transparent)] opacity-50 transition-transform duration-1000 group-hover:translate-x-full" />
@@ -213,18 +213,18 @@ export default function LoginForm() {
         </button>
 
         <div className="my-7 flex items-center gap-3">
-          <div className="h-px flex-1 bg-black/[0.06]" />
+          <div className="h-px flex-1 bg-[var(--surface-hover)]" />
 
-          <span className="text-[8px] font-medium uppercase tracking-[0.15em] text-black/25">
+          <span className="text-[8px] font-medium uppercase tracking-[0.15em] text-[var(--text-muted)]">
             or
           </span>
 
-          <div className="h-px flex-1 bg-black/[0.06]" />
+          <div className="h-px flex-1 bg-[var(--surface-hover)]" />
         </div>
 
         <a
           href="/signup"
-          className="group flex h-11 w-full items-center justify-center rounded-2xl border border-black/[0.08] bg-white text-[10px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-black/15 hover:bg-[#fafaf9] hover:shadow-[0_10px_25px_rgba(0,0,0,0.05)]"
+          className="group flex h-11 w-full items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-[10px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:bg-[var(--surface-secondary)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.05)]"
         >
           New to Nexus? Create an account
         </a>

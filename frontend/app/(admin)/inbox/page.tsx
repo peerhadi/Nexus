@@ -433,7 +433,7 @@ export default function InboxPage() {
         >
           <div className="text-[12px] font-bold">Unable to load inbox</div>
 
-          <div className="mt-2 text-[10px] text-black/40">{error}</div>
+          <div className="mt-2 text-[10px] text-[var(--text-tertiary)]">{error}</div>
         </motion.div>
       </motion.main>
     );
@@ -448,10 +448,10 @@ export default function InboxPage() {
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22, ease: "easeOut" }}
-        className="flex shrink-0 items-center justify-between border-b border-black/[0.08] px-4 py-4 sm:px-7"
+        className="flex shrink-0 items-center justify-between border-b border-[var(--border)] px-4 py-4 sm:px-7"
       >
         <div className="min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
             Inbox
           </div>
 
@@ -462,7 +462,7 @@ export default function InboxPage() {
 
         <Link
           href="/admin"
-          className="flex shrink-0 items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-3 py-2.5 text-[10px] font-bold text-black/60 transition-colors hover:border-black/15 hover:text-black"
+          className="flex shrink-0 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-[10px] font-bold text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
         >
           <Archive size={12} />
           <span className="hidden sm:inline">Dashboard</span>
@@ -502,7 +502,7 @@ export default function InboxPage() {
               <motion.button
                 type="button"
                 aria-label="Close conversation menu"
-                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                className="fixed inset-0 z-40 bg-[var(--overlay)] backdrop-blur-[2px] lg:hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -521,16 +521,16 @@ export default function InboxPage() {
                   damping: 32,
                   mass: 0.8,
                 }}
-                className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] flex-col border-r border-[var(--border)] bg-[var(--surface)] shadow-2xl lg:hidden"
               >
                 {/* Drawer header */}
-                <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-[var(--border)] px-4">
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                       Inbox
                     </p>
 
-                    <p className="text-sm font-semibold text-black/75">
+                    <p className="text-sm font-semibold text-[var(--text-secondary)]">
                       {filteredConversations.length} conversation
                       {filteredConversations.length === 1 ? "" : "s"}
                     </p>
@@ -540,7 +540,7 @@ export default function InboxPage() {
                     type="button"
                     aria-label="Close conversation menu"
                     onClick={() => setMobileDrawerOpen(false)}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -578,28 +578,28 @@ export default function InboxPage() {
               className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
             >
               {/* Mobile toolbar */}
-              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+              <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-[var(--border)] bg-[var(--surface)] px-4 lg:hidden">
                 <button
                   type="button"
                   aria-label="Open conversation menu"
                   onClick={() => setMobileDrawerOpen(true)}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                 >
                   <Menu className="h-4 w-4" />
                 </button>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-black/80">
+                  <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
                     {selectedConversation.subject || "Conversation"}
                   </p>
 
-                  <p className="truncate text-[11px] text-black/35">
+                  <p className="truncate text-[11px] text-[var(--text-muted)]">
                     {selectedConversation.client.name} ·{" "}
                     {selectedConversation.client.email}
                   </p>
                 </div>
 
-                <span className="hidden shrink-0 rounded-full bg-black/[0.045] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/40 sm:inline">
+                <span className="hidden shrink-0 rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--text-tertiary)] sm:inline">
                   {selectedConversation.status.replace("_", " ")}
                 </span>
               </div>
@@ -626,13 +626,13 @@ export default function InboxPage() {
               className="flex min-w-0 flex-1 items-center justify-center"
             >
               <div className="text-center">
-                <Clock3 size={24} className="mx-auto text-black/20" />
+                <Clock3 size={24} className="mx-auto text-[var(--text-disabled)]" />
 
                 <div className="mt-3 text-[12px] font-bold">
                   No conversation selected
                 </div>
 
-                <div className="mt-1 text-[10px] text-black/35">
+                <div className="mt-1 text-[10px] text-[var(--text-muted)]">
                   Select a conversation to view its messages.
                 </div>
               </div>

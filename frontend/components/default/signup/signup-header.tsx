@@ -13,7 +13,7 @@ export default function SignupHeader() {
         </span>
       </h1>
 
-      <p className="mx-auto mt-4 max-w-[500px] text-[12px] leading-5 text-black/40">
+      <p className="mx-auto mt-4 max-w-[500px] text-[12px] leading-5 text-[var(--text-tertiary)]">
         A few quick choices, then you&apos;re in. You can change everything
         later.
       </p>

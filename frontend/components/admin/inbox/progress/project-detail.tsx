@@ -26,7 +26,7 @@ export default function ProjectDetail({
   onAddUpdate,
 }: ProjectDetailProps) {
   return (
-    <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#f7f7f5]">
+    <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[var(--surface-secondary)]">
       <ProjectHeader
         project={project}
         onStatusChange={onStatusChange}

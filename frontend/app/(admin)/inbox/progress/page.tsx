@@ -364,16 +364,16 @@ export default function ProgressPage() {
   }
 
   return (
-    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[#f7f7f5] text-[#111]">
+    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[var(--surface-secondary)] text-[var(--text-primary)]">
       <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white px-4 sm:px-7"
+          className="flex h-[74px] shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 sm:px-7"
         >
           <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-black/25">
+            <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-[var(--text-muted)]">
               Nexus
             </div>
 
@@ -388,15 +388,15 @@ export default function ProgressPage() {
             transition={{ duration: 0.2, delay: 0.05 }}
             className="flex items-center gap-2"
           >
-            <div className="hidden items-center gap-2 rounded-xl border border-black/[0.07] bg-[#f7f7f5] px-3 py-2 sm:flex">
-              <Activity size={11} className="text-black/30" />
+            <div className="hidden items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] px-3 py-2 sm:flex">
+              <Activity size={11} className="text-[var(--text-muted)]" />
 
-              <span className="text-[8px] font-bold text-black/40">
+              <span className="text-[8px] font-bold text-[var(--text-tertiary)]">
                 {stats.activeProjects} active
               </span>
             </div>
 
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-black text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--accent-contrast)]">
               <Target size={12} />
             </div>
           </motion.div>
@@ -424,7 +424,7 @@ export default function ProgressPage() {
             delay: 0.04,
             ease: "easeOut",
           }}
-          className="grid h-auto shrink-0 grid-cols-2 border-b border-black/[0.08] bg-white sm:h-[68px] sm:grid-cols-4 py-2 gap-2"
+          className="grid h-auto shrink-0 grid-cols-2 border-b border-[var(--border)] bg-[var(--surface)] sm:h-[68px] sm:grid-cols-4 py-2 gap-2"
         >
           <Summary
             label="Active projects"
@@ -481,7 +481,7 @@ export default function ProgressPage() {
                 <motion.button
                   type="button"
                   aria-label="Close project menu"
-                  className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                  className="fixed inset-0 z-40 bg-[var(--overlay)] backdrop-blur-[2px] lg:hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -499,11 +499,11 @@ export default function ProgressPage() {
                     damping: 32,
                     mass: 0.8,
                   }}
-                  className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] min-w-0 flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                  className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] min-w-0 flex-col border-r border-[var(--border)] bg-[var(--surface)] shadow-2xl lg:hidden"
                 >
-                  <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-black/[0.08] px-4">
+                  <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-[var(--border)] px-4">
                     <div>
-                      <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-black/25">
+                      <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
                         Nexus
                       </div>
 
@@ -516,7 +516,7 @@ export default function ProgressPage() {
                       type="button"
                       aria-label="Close project menu"
                       onClick={() => setMobileDrawerOpen(false)}
-                      className="flex h-8 w-8 items-center justify-center rounded-xl border border-black/[0.08] bg-[#f7f7f5] text-black/50 transition hover:bg-black hover:text-white"
+                      className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] text-[var(--text-secondary)] transition hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)]"
                     >
                       <X size={14} />
                     </button>
@@ -552,12 +552,12 @@ export default function ProgressPage() {
                 className="flex min-h-0 min-w-0 flex-1 flex-col overflow-auto"
               >
                 {/* Mobile detail toolbar */}
-                <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-[var(--border)] bg-[var(--surface)] px-4 lg:hidden">
                   <button
                     type="button"
                     aria-label="Open project menu"
                     onClick={() => setMobileDrawerOpen(true)}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-[#f7f7f5] text-black/50 transition hover:bg-black hover:text-white"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] text-[var(--text-secondary)] transition hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)]"
                   >
                     <Menu size={15} />
                   </button>
@@ -567,7 +567,7 @@ export default function ProgressPage() {
                       {selectedProject.name}
                     </div>
 
-                    <div className="mt-0.5 truncate text-[8px] text-black/35">
+                    <div className="mt-0.5 truncate text-[8px] text-[var(--text-muted)]">
                       {getStatusLabel(selectedProject.status)}
                     </div>
                   </div>
@@ -590,14 +590,14 @@ export default function ProgressPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="flex min-h-0 min-w-0 flex-1 items-center justify-center bg-[#f7f7f5]"
+                className="flex min-h-0 min-w-0 flex-1 items-center justify-center bg-[var(--surface-secondary)]"
               >
                 <div className="px-6 text-center">
                   <div className="text-[11px] font-bold">
                     No project selected
                   </div>
 
-                  <div className="mt-1 text-[9px] text-black/30">
+                  <div className="mt-1 text-[9px] text-[var(--text-muted)]">
                     Select a project to manage its progress.
                   </div>
                 </div>

@@ -19,18 +19,18 @@ const items = [
 
 export default function SecuritySettings() {
   return (
-    <div className="divide-y divide-black/[0.05]">
-      <div className="flex items-center gap-4 bg-gradient-to-r from-emerald-50/70 via-white to-cyan-50/50 p-5">
+    <div className="divide-y divide-[var(--border-subtle)]">
+      <div className="flex items-center gap-4 bg-[surface] p-5">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-500">
           <ShieldCheck size={17} />
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="text-[11px] font-black text-slate-700">
+          <div className="text-[11px] font-black text-[var(--text-secondary)]">
             Account security
           </div>
 
-          <div className="mt-1 text-[9px] font-medium text-slate-400">
+          <div className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
             Your account is protected and active.
           </div>
         </div>
@@ -47,25 +47,25 @@ export default function SecuritySettings() {
         return (
           <div
             key={item.title}
-            className="flex items-center gap-4 p-5 transition-colors hover:bg-black/[0.012]"
+            className="flex items-center gap-4 p-5 transition-colors hover:bg-[var(--surface-hover)]"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black/[0.035] text-slate-400">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-hover)] text-[var(--text-muted)]">
               <Icon size={16} />
             </div>
 
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-black text-slate-700">
+              <div className="text-[11px] font-black text-[var(--text-secondary)]">
                 {item.title}
               </div>
 
-              <div className="mt-1 text-[9px] font-medium text-slate-400">
+              <div className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
                 {item.description}
               </div>
             </div>
 
             <button
               type="button"
-              className="rounded-xl border border-black/[0.06] bg-white px-3.5 py-2 text-[9px] font-black uppercase tracking-[0.12em] text-slate-500 transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500"
+              className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] px-3.5 py-2 text-[9px] font-black uppercase tracking-[0.12em] text-[var(--text-tertiary)] transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500"
             >
               {item.action}
             </button>

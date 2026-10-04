@@ -158,7 +158,7 @@ const process = [
 
 export default function ServicesPage() {
   return (
-    <main className="relative overflow-hidden bg-[#f8f8f6] text-[#111]">
+    <main className="relative overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       {/* ===================================================== */}
       {/* ATMOSPHERE */}
       {/* ===================================================== */}
@@ -227,10 +227,10 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="mb-8 flex w-fit items-center gap-3 rounded-full border border-black/[0.08] bg-white/70 px-4 py-2.5 shadow-sm backdrop-blur-xl"
+                className="mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl"
               >
                 <span className="h-2.5 w-2.5 rounded-full bg-violet-500 shadow-[0_0_18px_rgba(139,92,246,0.45)]" />
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-black/50">
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                   Services / What we actually do
                 </span>
               </motion.div>
@@ -249,7 +249,7 @@ export default function ServicesPage() {
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.8 }}
-                  className="block text-black/15"
+                  className="block text-[var(--text-disabled)]"
                 >
                   THE PROBLEM.
                 </motion.span>
@@ -258,7 +258,7 @@ export default function ServicesPage() {
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
-                  className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text pb-2 text-transparent"
+                  className="block bg-[var(--gradient-primary)] bg-clip-text pb-2 text-transparent"
                 >
                   WE BUILD THE FIX.
                 </motion.span>
@@ -269,9 +269,9 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.8 }}
-              className="rounded-[28px] border border-black/[0.08] bg-white/70 p-7 shadow-[0_20px_70px_rgba(0,0,0,0.06)] backdrop-blur-xl"
+              className="rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-[0_20px_70px_rgba(0,0,0,0.06)] backdrop-blur-xl"
             >
-              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#111] text-white">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent)] text-white">
                 <Rocket className="h-5 w-5" />
               </div>
 
@@ -279,7 +279,7 @@ export default function ServicesPage() {
                 You don't need to know what to build.
               </p>
 
-              <p className="mt-3 text-sm leading-6 text-black/40">
+              <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">
                 You just need to tell us what isn't working.
               </p>
 
@@ -304,9 +304,9 @@ export default function ServicesPage() {
         className="relative px-5 pb-36 sm:px-8 lg:px-12 lg:pb-52"
       >
         <div className="mx-auto max-w-[1450px]">
-          <div className="mb-16 flex items-end justify-between border-b border-black/10 pb-7">
+          <div className="mb-16 flex items-end justify-between border-b border-[var(--border)] pb-7">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
                 001 — What we build
               </p>
 
@@ -315,7 +315,7 @@ export default function ServicesPage() {
               </h2>
             </div>
 
-            <p className="hidden max-w-xs text-right text-sm leading-6 text-black/35 md:block">
+            <p className="hidden max-w-xs text-right text-sm leading-6 text-[var(--text-muted)] md:block">
               Four broad categories.
               <br />
               An unreasonable number of possibilities.
@@ -337,7 +337,7 @@ export default function ServicesPage() {
                     delay: index * 0.08,
                   }}
                   whileHover={{ y: -5 }}
-                  className="group relative overflow-hidden rounded-[34px] border border-black/[0.08] bg-white/70 p-7 shadow-sm backdrop-blur-xl sm:p-10 lg:p-12"
+                  className="group relative overflow-hidden rounded-[34px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-sm backdrop-blur-xl sm:p-10 lg:p-12"
                 >
                   <div
                     className={`absolute -right-32 -top-40 h-[500px] w-[500px] rounded-full bg-gradient-to-br ${service.gradient} opacity-45 blur-[90px] transition-all duration-700 group-hover:scale-125 group-hover:opacity-70`}
@@ -346,16 +346,16 @@ export default function ServicesPage() {
                   <div className="relative grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
                     <div>
                       <div className="flex items-start justify-between">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#111] text-white transition-all duration-500 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-fuchsia-500">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent)] text-white transition-all duration-500 group-hover:rotate-6 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-fuchsia-500">
                           <Icon className="h-6 w-6" />
                         </div>
 
-                        <span className="text-xs font-black text-black/15">
+                        <span className="text-xs font-black text-[var(--text-disabled)]">
                           {service.number}
                         </span>
                       </div>
 
-                      <p className="mt-16 text-[10px] font-bold tracking-[0.24em] text-black/30">
+                      <p className="mt-16 text-[10px] font-bold tracking-[0.24em] text-[var(--text-muted)]">
                         {service.eyebrow}
                       </p>
 
@@ -365,7 +365,7 @@ export default function ServicesPage() {
                     </div>
 
                     <div className="flex flex-col justify-end">
-                      <p className="max-w-2xl text-lg leading-8 text-black/45">
+                      <p className="max-w-2xl text-lg leading-8 text-[var(--text-tertiary)]">
                         {service.description}
                       </p>
 
@@ -373,13 +373,13 @@ export default function ServicesPage() {
                         {service.examples.map((example) => (
                           <div
                             key={example}
-                            className="flex items-center gap-3 rounded-xl border border-black/[0.06] bg-black/[0.018] px-4 py-3"
+                            className="flex items-center gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-3"
                           >
-                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-white">
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-contrast)]">
                               <Check className="h-3 w-3" />
                             </span>
 
-                            <span className="text-sm font-semibold text-black/65">
+                            <span className="text-sm font-semibold text-[var(--text-secondary)]">
                               {example}
                             </span>
                           </div>
@@ -402,24 +402,26 @@ export default function ServicesPage() {
       {/* CAN / CANNOT */}
       {/* ===================================================== */}
 
-      <section className="relative overflow-hidden bg-[#f0efff] px-5 py-36 sm:px-8 lg:px-12 lg:py-48">
+      <section className="relative overflow-hidden bg-[var(--surface-secondary)] px-5 py-36 sm:px-8 lg:px-12 lg:py-48">
         <div className="mx-auto max-w-[1450px]">
           <div className="mb-20 max-w-5xl">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
               002 — Clear boundaries
             </p>
 
             <h2 className="mt-8 text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.88] tracking-[-0.09em]">
               ALMOST
               <br />
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
                 ANYTHING.
               </span>
               <br />
-              <span className="text-black/15">NOT LITERALLY.</span>
+              <span className="text-[var(--text-disabled)]">
+                NOT LITERALLY.
+              </span>
             </h2>
 
-            <p className="mt-10 max-w-2xl text-lg leading-8 text-black/40">
+            <p className="mt-10 max-w-2xl text-lg leading-8 text-[var(--text-tertiary)]">
               We want to be ambitious without pretending we can build every
               physical, legal, or technically impossible thing on Earth.
             </p>
@@ -429,7 +431,7 @@ export default function ServicesPage() {
             {/* CAN */}
             <motion.div
               whileHover={{ y: -6 }}
-              className="rounded-[34px] border border-black/[0.07] bg-white/75 p-7 shadow-sm backdrop-blur-xl sm:p-10"
+              className="rounded-[34px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-sm backdrop-blur-xl sm:p-10"
             >
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-lg">
@@ -437,7 +439,7 @@ export default function ServicesPage() {
                 </div>
 
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-black/30">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                     Green light
                   </p>
                   <h3 className="mt-1 text-2xl font-black tracking-[-0.04em]">
@@ -450,10 +452,10 @@ export default function ServicesPage() {
                 {canBuild.map((item) => (
                   <div
                     key={item}
-                    className="flex items-center gap-3 rounded-xl bg-emerald-50/70 px-4 py-3.5"
+                    className="flex items-center gap-3 rounded-xl bg-[var(--surface)] px-4 py-3.5"
                   >
                     <Check className="h-4 w-4 shrink-0 text-emerald-600" />
-                    <span className="text-sm font-semibold text-black/60">
+                    <span className="text-sm font-semibold text-[var(--text-secondary)]">
                       {item}
                     </span>
                   </div>
@@ -464,15 +466,15 @@ export default function ServicesPage() {
             {/* CANNOT */}
             <motion.div
               whileHover={{ y: -6 }}
-              className="rounded-[34px] border border-black/[0.07] bg-white/55 p-7 shadow-sm backdrop-blur-xl sm:p-10"
+              className="rounded-[34px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-sm backdrop-blur-xl sm:p-10"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--accent-contrast)] shadow-lg">
                   <X className="h-5 w-5" />
                 </div>
 
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-black/30">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                     Red line
                   </p>
                   <h3 className="mt-1 text-2xl font-black tracking-[-0.04em]">
@@ -485,10 +487,10 @@ export default function ServicesPage() {
                 {cannotBuild.map((item) => (
                   <div
                     key={item}
-                    className="flex items-start gap-3 rounded-xl bg-black/[0.025] px-4 py-3.5"
+                    className="flex items-start gap-3 rounded-xl bg-[var(--surface-hover)] px-4 py-3.5"
                   >
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-black/30" />
-                    <span className="text-sm font-semibold text-black/50">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-[var(--text-muted)]" />
+                    <span className="text-sm font-semibold text-[var(--text-secondary)]">
                       {item}
                     </span>
                   </div>
@@ -507,28 +509,28 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-[1450px]">
           <div className="grid gap-20 lg:grid-cols-[0.65fr_1.35fr] lg:gap-28">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
                 003 — How it works
               </p>
 
               <h2 className="mt-8 text-[clamp(3.8rem,7vw,7.5rem)] font-black leading-[0.86] tracking-[-0.09em]">
                 NO
                 <br />
-                <span className="text-black/15">MYSTERY.</span>
+                <span className="text-[var(--text-disabled)]">MYSTERY.</span>
                 <br />
-                <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+                <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
                   JUST BUILD.
                 </span>
               </h2>
 
-              <p className="mt-10 max-w-md text-base leading-7 text-black/40">
+              <p className="mt-10 max-w-md text-base leading-7 text-[var(--text-tertiary)]">
                 We keep the process simple enough that you always know what is
                 happening, what you're paying for, and what happens next.
               </p>
             </div>
 
             <div className="relative">
-              <div className="absolute bottom-8 left-6 top-8 w-px bg-black/10" />
+              <div className="absolute bottom-8 left-6 top-8 w-px bg-[var(--surface-hover)]" />
 
               <div className="space-y-5">
                 {process.map((step, index) => (
@@ -545,17 +547,17 @@ export default function ServicesPage() {
                   >
                     <motion.div
                       whileHover={{ scale: 1.15 }}
-                      className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white text-xs font-black shadow-sm"
+                      className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-xs font-black shadow-sm"
                     >
                       {step.number}
                     </motion.div>
 
-                    <div className="flex-1 rounded-[24px] border border-transparent bg-black/[0.018] p-6 transition-all duration-300 group-hover:border-black/[0.07] group-hover:bg-white group-hover:shadow-sm sm:p-7">
+                    <div className="flex-1 rounded-[24px] border border-transparent bg-[var(--surface-muted)] p-6 transition-all duration-300 group-hover:border-[var(--border)] group-hover:bg-[var(--surface)] group-hover:shadow-sm sm:p-7">
                       <h3 className="text-xl font-black tracking-[-0.03em] sm:text-2xl">
                         {step.title}
                       </h3>
 
-                      <p className="mt-3 max-w-xl text-sm leading-6 text-black/40">
+                      <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
                         {step.description}
                       </p>
                     </div>
@@ -571,7 +573,7 @@ export default function ServicesPage() {
       {/* PAYMENT */}
       {/* ===================================================== */}
 
-      <section className="relative overflow-hidden bg-[#fff4ec] px-5 py-36 sm:px-8 lg:px-12 lg:py-48">
+      <section className="relative overflow-hidden bg-[var(--surface-secondary)] px-5 py-36 sm:px-8 lg:px-12 lg:py-48">
         <motion.div
           animate={{
             x: [0, 60, -40, 0],
@@ -588,7 +590,7 @@ export default function ServicesPage() {
 
         <div className="relative mx-auto max-w-[1200px]">
           <div className="text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
               004 — Payment
             </p>
 
@@ -600,19 +602,19 @@ export default function ServicesPage() {
               </span>
             </h2>
 
-            <p className="mx-auto mt-10 max-w-2xl text-lg leading-8 text-black/40">
+            <p className="mx-auto mt-10 max-w-2xl text-lg leading-8 text-[var(--text-tertiary)]">
               We don't need the entire project budget sitting on our side before
               anything happens. We also don't want to build an entire project
               with no commitment.
             </p>
           </div>
 
-          <div className="mx-auto mt-16 grid max-w-4xl overflow-hidden rounded-[36px] border border-black/[0.08] bg-white/80 shadow-[0_25px_80px_rgba(0,0,0,0.07)] backdrop-blur-xl md:grid-cols-2">
+          <div className="mx-auto mt-16 grid max-w-4xl overflow-hidden rounded-[36px] border border-[var(--border)] bg-[var(--surface)] shadow-[0_25px_80px_rgba(0,0,0,0.07)] backdrop-blur-xl md:grid-cols-2">
             <div className="relative overflow-hidden p-8 sm:p-12">
               <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-violet-200/50 blur-3xl" />
 
               <div className="relative">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-black/30">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                   To start
                 </p>
 
@@ -622,18 +624,18 @@ export default function ServicesPage() {
 
                 <p className="mt-5 text-lg font-bold">Project advance</p>
 
-                <p className="mt-3 max-w-sm text-sm leading-6 text-black/40">
+                <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--text-tertiary)]">
                   Paid after the scope, price, and deliverables are agreed. This
                   officially starts the project.
                 </p>
               </div>
             </div>
 
-            <div className="relative overflow-hidden border-t border-black/[0.08] p-8 sm:p-12 md:border-l md:border-t-0">
+            <div className="relative overflow-hidden border-t border-[var(--border)] p-8 sm:p-12 md:border-l md:border-t-0">
               <div className="absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-blue-200/50 blur-3xl" />
 
               <div className="relative">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-black/30">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                   At completion
                 </p>
 
@@ -643,7 +645,7 @@ export default function ServicesPage() {
 
                 <p className="mt-5 text-lg font-bold">Final payment</p>
 
-                <p className="mt-3 max-w-sm text-sm leading-6 text-black/40">
+                <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--text-tertiary)]">
                   Paid when the agreed work is complete, before final handoff or
                   deployment.
                 </p>
@@ -663,7 +665,7 @@ export default function ServicesPage() {
               return (
                 <span
                   key={text as string}
-                  className="flex items-center gap-2 rounded-full border border-black/[0.07] bg-white/65 px-4 py-2.5 text-xs font-semibold text-black/45"
+                  className="flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-xs font-semibold text-[var(--text-tertiary)]"
                 >
                   <Component className="h-3.5 w-3.5" />
                   {text as string}
@@ -682,7 +684,7 @@ export default function ServicesPage() {
         id="contact"
         className="relative px-5 py-10 sm:px-8 lg:px-12 lg:py-12"
       >
-        <div className="relative mx-auto max-w-[1450px] overflow-hidden rounded-[44px] bg-gradient-to-br from-violet-500 via-fuchsia-400 to-blue-400 px-7 py-28 text-center text-white sm:px-12 lg:py-40">
+        <div className="relative mx-auto max-w-[1450px] overflow-hidden rounded-[44px] bg-[var(--gradient-hero)] px-7 py-28 text-center text-white sm:px-12 lg:py-40">
           <motion.div
             animate={{
               rotate: 360,
@@ -730,10 +732,10 @@ export default function ServicesPage() {
 
             <Link
               href="/build"
-              className="group mx-auto mt-10 flex w-fit items-center gap-4 rounded-full bg-white px-7 py-4 text-sm font-bold text-black shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-[0_20px_80px_rgba(255,255,255,0.25)]"
+              className="group mx-auto mt-10 flex w-fit items-center gap-4 rounded-full bg-[var(--surface)] px-7 py-4 text-sm font-bold text-[var(--text-primary)] shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-[0_20px_80px_rgba(255,255,255,0.25)]"
             >
               Start a conversation
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition-transform duration-500 group-hover:rotate-45">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-contrast)] transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </Link>

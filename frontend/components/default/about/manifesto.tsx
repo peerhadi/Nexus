@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Manifesto() {
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-36 sm:px-8 lg:px-12 lg:py-52">
+    <section className="relative overflow-hidden bg-[var(--surface)] px-5 py-36 sm:px-8 lg:px-12 lg:py-52">
       <motion.div
         animate={{
           x: [0, 80, -60, 0],
@@ -20,21 +20,21 @@ export default function Manifesto() {
       />
 
       <div className="relative mx-auto max-w-[1250px] text-center">
-        <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/25">
+        <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
           002 — Why we exist
         </p>
 
         <h2 className="mt-10 text-[clamp(3.7rem,8vw,9rem)] font-black leading-[0.9] tracking-[-0.09em]">
           WE LIKE
           <br />
-          <span className="text-black/15">MAKING</span>
+          <span className="text-[var(--text-disabled)]">MAKING</span>
           <br />
-          <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
             THINGS REAL.
           </span>
         </h2>
 
-        <p className="mx-auto mt-14 max-w-2xl text-lg leading-8 text-black/40">
+        <p className="mx-auto mt-14 max-w-2xl text-lg leading-8 text-[var(--text-tertiary)]">
           An idea sitting in someone's head is interesting.
           <br />
           An idea running on a server is considerably more interesting.
@@ -51,7 +51,7 @@ export default function Manifesto() {
           ].map((item) => (
             <span
               key={item}
-              className="rounded-full border border-black/[0.07] bg-[#f8f8f6] px-5 py-3 text-xs font-bold text-black/45"
+              className="rounded-full border border-[var(--border)] bg-[var(--background)] px-5 py-3 text-xs font-bold text-[var(--text-tertiary)]"
             >
               {item}
             </span>

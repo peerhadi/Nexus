@@ -24,15 +24,15 @@ export function ArchiveDetail({ item }: ArchiveDetailProps) {
   const clientEmail = item.client?.email ?? "";
 
   return (
-    <section className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-white">
-      <div className="relative flex h-[74px] shrink-0 items-center justify-between overflow-hidden border-b border-black/[0.08] bg-white px-5 sm:px-7">
-        <div className="pointer-events-none absolute -right-16 -top-24 h-44 w-44 rounded-full border-[30px] border-black/[0.018]" />
+    <section className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[var(--surface)]">
+      <div className="relative flex h-[74px] shrink-0 items-center justify-between overflow-hidden border-b border-[var(--border)] bg-[var(--surface)] px-5 sm:px-7">
+        <div className="pointer-events-none absolute -right-16 -top-24 h-44 w-44 rounded-full border-[30px] border-[var(--border-subtle)]" />
 
         <div className="relative flex min-w-0 items-center gap-3">
-          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-[#f7f7f5] shadow-[0_2px_6px_rgba(0,0,0,0.04)]">
+          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] shadow-[0_2px_6px_rgba(0,0,0,0.04)]">
             <UserRound size={13} />
 
-            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-black" />
+            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-[var(--accent)]" />
           </div>
 
           <div className="min-w-0">
@@ -40,14 +40,14 @@ export function ArchiveDetail({ item }: ArchiveDetailProps) {
               {clientName}
             </div>
 
-            <div className="mt-0.5 truncate text-[9px] text-black/35">
+            <div className="mt-0.5 truncate text-[9px] text-[var(--text-muted)]">
               {clientEmail}
             </div>
           </div>
         </div>
 
         <div className="relative flex shrink-0 items-center gap-2">
-          <span className="hidden rounded-lg border border-black/[0.07] bg-[#f7f7f5] px-2.5 py-1.5 text-[8px] font-bold text-black/35 sm:block">
+          <span className="hidden rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] px-2.5 py-1.5 text-[8px] font-bold text-[var(--text-muted)] sm:block">
             {item.id}
           </span>
 
@@ -59,9 +59,9 @@ export function ArchiveDetail({ item }: ArchiveDetailProps) {
         <div className="w-full px-5 py-7 sm:px-8">
           <div className="min-w-0">
             <div className="mb-2 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-black" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
 
-              <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-black/30">
+              <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                 Archived conversation
               </div>
             </div>
@@ -70,7 +70,7 @@ export function ArchiveDetail({ item }: ArchiveDetailProps) {
               {item.subject ?? "Untitled conversation"}
             </h2>
 
-            <div className="mt-2 text-[9px] text-black/30">
+            <div className="mt-2 text-[9px] text-[var(--text-muted)]">
               Closed {formatDate(item.updatedAt)}
             </div>
           </div>

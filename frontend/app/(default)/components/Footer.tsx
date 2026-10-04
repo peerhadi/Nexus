@@ -50,7 +50,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-black/[0.08] bg-[#f7f7f5]">
+    <footer className="mt-auto border-t border-[var(--border)] bg-[var(--surface-secondary)]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Main footer */}
         <div className="grid gap-12 py-14 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-10">
@@ -67,14 +67,14 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="mt-5 max-w-xs text-sm leading-6 text-black/45">
+            <p className="mt-5 max-w-xs text-sm leading-6 text-[var(--text-tertiary)]">
               We build websites, applications, automations, and custom systems
               that turn complicated ideas into useful software.
             </p>
 
             <Link
               href="/build"
-              className="group mt-6 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2.5 text-xs font-semibold text-black/60 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:text-black hover:shadow-md"
+              className="group mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-xs font-semibold text-[var(--text-secondary)] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] hover:shadow-md"
             >
               Start a project
               <ArrowUpRight
@@ -86,7 +86,7 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-black/30">
+            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Explore
             </div>
 
@@ -95,7 +95,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group relative text-sm font-medium text-black/55 transition-colors duration-200 hover:text-black"
+                  className="group relative text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
                 >
                   {link.label}
 
@@ -107,7 +107,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-black/30">
+            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
               What we build
             </div>
 
@@ -116,7 +116,7 @@ export default function Footer() {
                 <Link
                   key={service.label}
                   href={service.href}
-                  className="group flex items-center gap-1 text-sm font-medium text-black/55 transition-colors duration-200 hover:text-black"
+                  className="group flex items-center gap-1 text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
                 >
                   {service.label}
 
@@ -131,7 +131,7 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-black/30">
+            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Resources
             </div>
 
@@ -140,7 +140,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-black/55 transition-colors duration-200 hover:text-black"
+                  className="text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
                 >
                   {link.label}
                 </Link>
@@ -150,17 +150,17 @@ export default function Footer() {
         </div>
 
         {/* Connection strip */}
-        <div className="border-t border-black/[0.07] py-7">
+        <div className="border-t border-[var(--border)] py-7">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-black/55">
+              <div className="flex items-center gap-2 text-xs font-bold text-[var(--text-secondary)]">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                 Open for interesting ideas
               </div>
 
               <a
                 href="mailto:hello@nexus.dev"
-                className="group mt-2 flex w-fit items-center gap-2 text-sm font-semibold text-black/60 transition-colors hover:text-black"
+                className="group mt-2 flex w-fit items-center gap-2 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
               >
                 <Mail size={14} />
                 hello@nexus.dev
@@ -177,7 +177,7 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="group flex h-10 items-center gap-2 rounded-full border border-black/10 bg-white px-3.5 text-black/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-black/20 hover:text-black hover:shadow-md"
+                    className="group flex h-10 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[var(--text-tertiary)] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] hover:shadow-md"
                   >
                     <Icon
                       size={15}
@@ -193,7 +193,7 @@ export default function Footer() {
 
               <Link
                 href="/build"
-                className="group flex h-10 items-center gap-2 rounded-full bg-black px-4 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-black/85 hover:shadow-lg"
+                className="group flex h-10 items-center gap-2 rounded-full bg-[var(--accent)] px-4 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--accent)]/85 hover:shadow-lg"
               >
                 <MessageCircle size={14} />
 
@@ -209,11 +209,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-3 border-t border-black/[0.07] py-5 text-xs text-black/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-[var(--border)] py-5 text-xs text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span>© {new Date().getFullYear()} Nexus</span>
 
-            <span className="hidden h-1 w-1 rounded-full bg-black/15 sm:block" />
+            <span className="hidden h-1 w-1 rounded-full bg-[var(--border)] sm:block" />
 
             <span>Built with curiosity.</span>
           </div>
@@ -221,21 +221,21 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <Link
               href="/privacy"
-              className="transition-colors hover:text-black/60"
+              className="transition-colors hover:text-[var(--text-secondary)]"
             >
               Privacy
             </Link>
 
             <Link
               href="/terms"
-              className="transition-colors hover:text-black/60"
+              className="transition-colors hover:text-[var(--text-secondary)]"
             >
               Terms
             </Link>
 
             <Link
               href="/cookies"
-              className="transition-colors hover:text-black/60"
+              className="transition-colors hover:text-[var(--text-secondary)]"
             >
               Cookies
             </Link>

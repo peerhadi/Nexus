@@ -50,8 +50,8 @@ export default function People() {
   return (
     <section className="relative px-5 pb-36 sm:px-8 lg:px-12 lg:pb-52">
       <div className="mx-auto max-w-[1450px]">
-        <div className="mb-16 border-b border-black/10 pb-7">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+        <div className="mb-16 border-b border-[var(--border)] pb-7">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
             001 — The team
           </p>
 
@@ -75,7 +75,7 @@ export default function People() {
                   delay: index * 0.08,
                 }}
                 whileHover={{ y: -8 }}
-                className="group relative overflow-hidden rounded-[36px] border border-black/[0.08] bg-white/70 p-7 shadow-sm backdrop-blur-xl sm:p-10"
+                className="group relative overflow-hidden rounded-[36px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-sm backdrop-blur-xl sm:p-10"
               >
                 <div
                   className={`absolute -right-28 -top-28 h-[400px] w-[400px] rounded-full bg-gradient-to-br ${person.gradient} opacity-25 blur-[80px] transition-all duration-700 group-hover:scale-125 group-hover:opacity-55`}
@@ -83,16 +83,16 @@ export default function People() {
 
                 <div className="relative">
                   <div className="flex items-start justify-between">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#111] text-white transition-all duration-500 group-hover:rotate-6">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent)] text-white transition-all duration-500 group-hover:rotate-6">
                       <Icon className="h-6 w-6" />
                     </div>
 
-                    <span className="text-xs font-black text-black/15">
+                    <span className="text-xs font-black text-[var(--text-disabled)]">
                       {person.number}
                     </span>
                   </div>
 
-                  <p className="mt-16 text-[10px] font-bold uppercase tracking-[0.22em] text-black/30">
+                  <p className="mt-16 text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--text-muted)]">
                     {person.role}
                   </p>
 
@@ -100,14 +100,14 @@ export default function People() {
                     {person.name}
                   </h3>
 
-                  <p className="mt-7 max-w-xl text-sm leading-7 text-black/45 sm:text-base">
+                  <p className="mt-7 max-w-xl text-sm leading-7 text-[var(--text-tertiary)] sm:text-base">
                     {person.description}
                   </p>
 
-                  <div className="mt-8 flex items-center gap-2 rounded-xl bg-black/[0.025] px-4 py-3">
+                  <div className="mt-8 flex items-center gap-2 rounded-xl bg-[var(--surface-hover)] px-4 py-3">
                     <Sparkles className="h-4 w-4 text-violet-500" />
 
-                    <span className="text-xs font-semibold text-black/40">
+                    <span className="text-xs font-semibold text-[var(--text-tertiary)]">
                       {person.fact}
                     </span>
                   </div>

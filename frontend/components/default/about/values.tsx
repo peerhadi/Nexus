@@ -36,16 +36,16 @@ export default function Values() {
       <div className="mx-auto max-w-[1450px]">
         <div className="grid gap-20 lg:grid-cols-[0.65fr_1.35fr] lg:gap-28">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-black/30">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]">
               003 — The operating system
             </p>
 
             <h2 className="mt-8 text-[clamp(3.8rem,7vw,7.5rem)] font-black leading-[0.86] tracking-[-0.09em]">
               HOW WE
               <br />
-              <span className="text-black/15">LIKE TO</span>
+              <span className="text-[var(--text-disabled)]">LIKE TO</span>
               <br />
-              <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
                 WORK.
               </span>
             </h2>
@@ -69,9 +69,9 @@ export default function Values() {
                     y: -6,
                     rotate: index % 2 === 0 ? -1 : 1,
                   }}
-                  className="group rounded-[28px] border border-black/[0.07] bg-white/65 p-7 shadow-sm backdrop-blur-xl transition-shadow duration-500 hover:shadow-xl sm:p-8"
+                  className="group rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-sm backdrop-blur-xl transition-shadow duration-500 hover:shadow-xl sm:p-8"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111] text-white transition-all duration-500 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-fuchsia-500">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-white transition-all duration-500 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-fuchsia-500">
                     <Icon className="h-5 w-5" />
                   </div>
 
@@ -79,7 +79,7 @@ export default function Values() {
                     {value.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-black/40">
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">
                     {value.description}
                   </p>
                 </motion.div>

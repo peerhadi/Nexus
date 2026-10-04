@@ -60,7 +60,7 @@ export default function Hero() {
               stiffness: 180,
               damping: 14,
             }}
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#111] text-white shadow-lg"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent)] text-white shadow-lg"
           >
             <MousePointer2 className="h-4 w-4" />
           </motion.div>
@@ -69,7 +69,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-xs font-bold uppercase tracking-[0.25em] text-black/35"
+            className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--text-muted)]"
           >
             Selected work / 2026
           </motion.p>
@@ -98,7 +98,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16, duration: 0.8 }}
-            className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text pb-2 text-transparent text-[70%] lg:text-[100%]"
+            className="block bg-[var(--gradient-primary)] bg-clip-text pb-2 text-transparent text-[70%] lg:text-[100%]"
           >
             REMEMBERED.
           </motion.span>
@@ -114,7 +114,7 @@ export default function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute right-[3%] top-[16%] hidden rounded-2xl border border-black/[0.08] bg-white/75 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-xl lg:block"
+          className="absolute right-[3%] top-[16%] hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-xl lg:block"
         >
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-400 text-white">
@@ -123,7 +123,7 @@ export default function Hero() {
 
             <div>
               <p className="text-xs font-black">PRECISION: MAXIMUM</p>
-              <p className="mt-1 text-[10px] text-black/35">
+              <p className="mt-1 text-[10px] text-[var(--text-muted)]">
                 Every pixel accounted for.
               </p>
             </div>
@@ -137,16 +137,16 @@ export default function Hero() {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute right-[11%] top-[48%] hidden h-32 w-32 rounded-full border border-dashed border-black/10 lg:block"
+          className="absolute right-[11%] top-[48%] hidden h-32 w-32 rounded-full border border-dashed border-[var(--border)] lg:block"
         >
           <span className="absolute right-0 top-1/2 h-3 w-3 rounded-full bg-fuchsia-400 shadow-[0_0_25px_rgba(217,70,239,0.45)]" />
         </motion.div>
 
         <div className="mt-12 flex max-w-3xl items-end justify-between gap-10">
-          <p className="text-lg leading-8 text-black/45 sm:text-xl">
+          <p className="text-lg leading-8 text-[var(--text-tertiary)] sm:text-xl">
             A collection of systems, applications, experiments, and aggressively
             polished ideas built to prove one thing:
-            <span className="font-semibold text-black/65">
+            <span className="font-semibold text-[var(--text-secondary)]">
               {" "}
               software can be extraordinary.
             </span>
@@ -157,7 +157,7 @@ export default function Hero() {
             transition={{ duration: 2, repeat: Infinity }}
             className="hidden shrink-0 lg:block"
           >
-            <ArrowDown className="h-10 w-10 text-black/20" />
+            <ArrowDown className="h-10 w-10 text-[var(--text-disabled)]" />
           </motion.div>
         </div>
       </motion.div>

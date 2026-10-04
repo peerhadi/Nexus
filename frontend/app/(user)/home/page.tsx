@@ -214,35 +214,35 @@ export default function HomePage() {
 
   if (checkingAuth) {
     return (
-      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#fafcff]">
-        <div className="absolute left-[15%] top-[20%] h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-        <div className="absolute bottom-[10%] right-[15%] h-80 w-80 rounded-full bg-violet-300/20 blur-3xl" />
-        <div className="absolute left-1/2 top-[35%] h-64 w-64 -translate-x-1/2 rounded-full bg-pink-300/10 blur-3xl" />
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[var(--background)]">
+        <div className="absolute left-[15%] top-[20%] h-72 w-72 rounded-full bg-[var(--accent-soft-strong)] blur-3xl" />
+        <div className="absolute bottom-[10%] right-[15%] h-80 w-80 rounded-full bg-[var(--accent-soft)] blur-3xl" />
+        <div className="absolute left-1/2 top-[35%] h-64 w-64 -translate-x-1/2 rounded-full bg-[var(--hero-glow-tertiary)] blur-3xl" />
 
         <div className="relative flex flex-col items-center">
-          <div className="relative mb-7 flex h-16 w-16 items-center justify-center rounded-[20px] border border-white/80 bg-white/75 shadow-[0_12px_40px_rgba(34,211,238,0.12)] backdrop-blur-xl">
-            <div className="absolute inset-2 rounded-[14px] bg-gradient-to-br from-cyan-400 via-violet-400 to-pink-400 opacity-15" />
+          <div className="relative mb-7 flex h-16 w-16 items-center justify-center rounded-[20px] border border-[var(--card-border)] bg-[var(--surface)] shadow-[var(--shadow-lg)] backdrop-blur-xl">
+            <div className="absolute inset-2 rounded-[14px] bg-[var(--gradient-primary)] opacity-15" />
 
             <div className="relative flex flex-col gap-[4px]">
-              <span className="h-[3px] w-7 rounded-full bg-gradient-to-r from-cyan-400 to-violet-400" />
-              <span className="ml-2 h-[3px] w-5 rounded-full bg-gradient-to-r from-violet-400 to-pink-400" />
-              <span className="h-[3px] w-7 rounded-full bg-gradient-to-r from-pink-400 to-cyan-400" />
+              <span className="h-[3px] w-7 rounded-full bg-[var(--gradient-primary)]" />
+              <span className="ml-2 h-[3px] w-5 rounded-full bg-[var(--gradient-primary)]" />
+              <span className="h-[3px] w-7 rounded-full bg-[var(--gradient-primary)]" />
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[12px] font-black tracking-[0.25em] text-slate-700">
+            <span className="text-[12px] font-black tracking-[0.25em] text-[var(--text-secondary)]">
               NEXUS
             </span>
 
             <span className="flex gap-1">
-              <span className="h-1 w-1 animate-pulse rounded-full bg-cyan-400" />
-              <span className="h-1 w-1 animate-pulse rounded-full bg-violet-400 [animation-delay:150ms]" />
-              <span className="h-1 w-1 animate-pulse rounded-full bg-pink-400 [animation-delay:300ms]" />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-[var(--accent)]" />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-[var(--accent-hover)] [animation-delay:150ms]" />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-[var(--accent-active)] [animation-delay:300ms]" />
             </span>
           </div>
 
-          <p className="mt-2 text-[11px] font-medium text-slate-400">
+          <p className="mt-2 text-[11px] font-medium text-[var(--text-muted)]">
             Getting things ready
           </p>
         </div>
@@ -312,7 +312,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#fafafa] text-slate-900">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
       <Navbar />
 
       {/* ================================================================ */}
@@ -320,13 +320,13 @@ export default function HomePage() {
       {/* ================================================================ */}
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-cyan-300/25 blur-[120px]" />
+        <motion.div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[var(--hero-glow-primary)] blur-[120px]" />
 
-        <motion.div className="absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-violet-300/20 blur-[120px]" />
+        <motion.div className="absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-[var(--hero-glow-secondary)] blur-[120px]" />
 
-        <motion.div className="absolute bottom-[-180px] left-[35%] h-[500px] w-[500px] rounded-full bg-pink-300/15 blur-[130px]" />
+        <motion.div className="absolute bottom-[-180px] left-[35%] h-[500px] w-[500px] rounded-full bg-[var(--hero-glow-tertiary)] blur-[130px]" />
 
-        <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(#000_1px,transparent_1px),linear-gradient(90deg,#000_1px,transparent_1px)] [background-size:45px_45px]" />
+        <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(var(--text-primary)_1px,transparent_1px),linear-gradient(90deg,var(--text-primary)_1px,transparent_1px)] [background-size:45px_45px]" />
       </div>
 
       {/* ================================================================ */}
@@ -336,28 +336,28 @@ export default function HomePage() {
       <div className="relative z-10 mx-auto mt-20 max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:px-12">
         {/* HERO */}
 
-        <motion.section className="relative overflow-hidden rounded-[36px] border border-white/80 bg-white/65 p-7 shadow-[0_30px_100px_rgba(0,0,0,0.06)] backdrop-blur-2xl sm:p-10 lg:p-14">
-          <motion.div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[conic-gradient(from_90deg,#22d3ee,#8b5cf6,#ec4899,#22d3ee)] opacity-15 blur-2xl" />
+        <motion.section className="relative overflow-hidden rounded-[36px] border border-[var(--card-border)] bg-[var(--surface)] p-7 shadow-[var(--shadow-xl)] backdrop-blur-2xl sm:p-10 lg:p-14">
+          <motion.div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--gradient-rainbow)] opacity-15 blur-2xl" />
 
-          <div className="absolute right-10 top-10 hidden h-24 w-24 rounded-full border border-cyan-300/20 lg:block" />
-          <div className="absolute right-16 top-16 hidden h-12 w-12 rounded-full border border-violet-300/30 lg:block" />
+          <div className="absolute right-10 top-10 hidden h-24 w-24 rounded-full border border-[var(--accent-soft-strong)] lg:block" />
+          <div className="absolute right-16 top-16 hidden h-12 w-12 rounded-full border border-[var(--accent-soft-strong)] lg:block" />
 
           <div className="relative max-w-3xl">
-            <motion.div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50/80 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-cyan-500">
+            <motion.div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--accent-soft-strong)] bg-[var(--accent-soft)] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
               <Sparkles size={11} />
               Your Nexus space
             </motion.div>
 
-            <h1 className="text-[42px] font-black leading-[0.95] tracking-[-0.06em] text-slate-900 sm:text-[58px] lg:text-[72px]">
+            <h1 className="text-[42px] font-black leading-[0.95] tracking-[-0.06em] text-[var(--text-primary)] sm:text-[58px] lg:text-[72px]">
               Hey,{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
                 {firstName}.
               </span>
               <br />
               Let&apos;s make something.
             </h1>
 
-            <p className="mt-6 max-w-xl text-[13px] font-medium leading-6 text-slate-400 sm:text-[14px]">
+            <p className="mt-6 max-w-xl text-[13px] font-medium leading-6 text-[var(--text-muted)] sm:text-[14px]">
               Everything you&apos;re building with Nexus, all in one place.
               Explore your projects, track progress, and turn your next idea
               into something real.
@@ -366,7 +366,7 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/build"
-                className="group flex items-center gap-2 rounded-2xl bg-slate-900 px-5 py-3.5 text-[11px] font-black text-white shadow-[0_12px_30px_rgba(15,23,42,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.22)]"
+                className="group flex items-center gap-2 rounded-2xl bg-[var(--accent)] px-5 py-3.5 text-[11px] font-black text-[var(--text-inverse)] shadow-[var(--shadow-md)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
               >
                 <Plus size={14} />
                 Start a project
@@ -378,7 +378,7 @@ export default function HomePage() {
 
               <Link
                 href="/dashboard/projects"
-                className="flex items-center gap-2 rounded-2xl border border-black/[0.07] bg-white/80 px-5 py-3.5 text-[11px] font-black text-slate-500 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-500"
+                className="flex items-center gap-2 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3.5 text-[11px] font-black text-[var(--text-tertiary)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-soft-strong)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent)]"
               >
                 View projects
                 <ChevronRight size={13} />
@@ -398,28 +398,28 @@ export default function HomePage() {
               value: stats.totalProjects.toString().padStart(2, "0"),
               description: "Across your workspace",
               icon: Briefcase,
-              gradient: "from-cyan-400 to-blue-500",
+              gradient: "var(--gradient-cyan-violet)",
             },
             {
               label: "In progress",
               value: stats.activeProjects.toString().padStart(2, "0"),
               description: "Currently being worked on",
               icon: Zap,
-              gradient: "from-violet-400 to-fuchsia-500",
+              gradient: "var(--gradient-violet-pink)",
             },
             {
               label: "Completed",
               value: stats.completedProjects.toString().padStart(2, "0"),
               description: "Projects delivered",
               icon: TrendingUp,
-              gradient: "from-emerald-400 to-cyan-500",
+              gradient: "var(--gradient-emerald-cyan)",
             },
             {
               label: "Requests",
               value: stats.requests.toString().padStart(2, "0"),
               description: "Project requests",
               icon: BarChart3,
-              gradient: "from-orange-400 to-pink-500",
+              gradient: "var(--gradient-orange-pink)",
             },
           ].map((stat) => {
             const Icon = stat.icon;
@@ -427,29 +427,31 @@ export default function HomePage() {
             return (
               <motion.div
                 key={stat.label}
-                className="group relative overflow-hidden rounded-[24px] border border-black/[0.05] bg-white/80 p-5 shadow-[0_15px_45px_rgba(0,0,0,0.035)] backdrop-blur-xl"
+                className="group relative overflow-hidden rounded-[24px] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-md)] backdrop-blur-xl"
               >
                 <div
-                  className={`absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br ${stat.gradient} opacity-[0.08] blur-xl transition-all duration-500 group-hover:scale-150`}
+                  className="absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-[0.08] blur-xl transition-all duration-500 group-hover:scale-150"
+                  style={{ background: stat.gradient }}
                 />
 
                 <div className="relative flex items-start justify-between">
                   <div>
-                    <div className="text-[9px] font-black uppercase tracking-[0.18em] text-slate-300">
+                    <div className="text-[9px] font-black uppercase tracking-[0.18em] text-[var(--text-disabled)]">
                       {stat.label}
                     </div>
 
-                    <div className="mt-2 text-[27px] font-black tracking-[-0.05em] text-slate-800">
+                    <div className="mt-2 text-[27px] font-black tracking-[-0.05em] text-[var(--text-primary)]">
                       {stat.value}
                     </div>
 
-                    <div className="mt-1 text-[9px] font-medium text-slate-400">
+                    <div className="mt-1 text-[9px] font-medium text-[var(--text-muted)]">
                       {stat.description}
                     </div>
                   </div>
 
                   <div
-                    className={`flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${stat.gradient} text-white shadow-lg`}
+                    className="flex h-9 w-9 items-center justify-center rounded-xl text-[var(--text-inverse)] shadow-[var(--shadow-md)]"
+                    style={{ background: stat.gradient }}
                   >
                     <Icon size={15} />
                   </div>
@@ -466,21 +468,21 @@ export default function HomePage() {
         <section className="mt-6 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* PROJECTS */}
 
-          <motion.div className="rounded-[28px] border border-black/[0.05] bg-white/75 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.035)] backdrop-blur-xl">
+          <motion.div className="rounded-[28px] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-lg)] backdrop-blur-xl">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <div className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400">
+                <div className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
                   Workspace
                 </div>
 
-                <h2 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-slate-800">
+                <h2 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[var(--text-primary)]">
                   Your projects
                 </h2>
               </div>
 
               <Link
                 href="/dashboard/projects"
-                className="flex items-center gap-1 text-[9px] font-black uppercase tracking-[0.12em] text-slate-300 transition-colors hover:text-cyan-500"
+                className="flex items-center gap-1 text-[9px] font-black uppercase tracking-[0.12em] text-[var(--text-disabled)] transition-colors hover:text-[var(--accent)]"
               >
                 View all
                 <ArrowUpRight size={11} />
@@ -489,20 +491,23 @@ export default function HomePage() {
 
             <div className="space-y-3">
               {visibleProjects.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-black/[0.08] bg-white/60 px-5 py-10 text-center">
-                  <FolderKanban className="mx-auto text-slate-300" size={22} />
+                <div className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--surface)]/60 px-5 py-10 text-center">
+                  <FolderKanban
+                    className="mx-auto text-[var(--text-disabled)]"
+                    size={22}
+                  />
 
-                  <div className="mt-3 text-[11px] font-black text-slate-500">
+                  <div className="mt-3 text-[11px] font-black text-[var(--text-tertiary)]">
                     No projects yet
                   </div>
 
-                  <div className="mt-1 text-[9px] text-slate-300">
+                  <div className="mt-1 text-[9px] text-[var(--text-disabled)]">
                     Start your first project with Nexus.
                   </div>
 
                   <Link
                     href="/build"
-                    className="mt-4 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-[9px] font-black text-white"
+                    className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-[9px] font-black text-[var(--text-inverse)]"
                   >
                     <Plus size={12} />
                     Start a project
@@ -511,9 +516,9 @@ export default function HomePage() {
               ) : (
                 visibleProjects.map((project, index) => {
                   const gradients = [
-                    "from-cyan-400 via-blue-400 to-violet-500",
-                    "from-fuchsia-400 via-pink-400 to-orange-400",
-                    "from-emerald-400 via-cyan-400 to-blue-500",
+                    "var(--gradient-cyan-violet)",
+                    "var(--gradient-violet-pink)",
+                    "var(--gradient-emerald-cyan)",
                   ];
 
                   const gradient = gradients[index % gradients.length];
@@ -526,40 +531,45 @@ export default function HomePage() {
                   return (
                     <motion.div
                       key={project.id}
-                      className="group relative overflow-hidden rounded-2xl border border-black/[0.05] bg-white p-4 transition-all duration-300 hover:border-cyan-200 hover:shadow-[0_8px_30px_rgba(34,211,238,0.08)]"
+                      className="group relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-4 transition-all duration-300 hover:border-[var(--accent-soft-strong)] hover:shadow-[var(--shadow-md)]"
                     >
                       <div
-                        className={`absolute left-0 top-0 h-full w-1 bg-gradient-to-b ${gradient}`}
+                        className="absolute left-0 top-0 h-full w-1"
+                        style={{
+                          background: `linear-gradient(to bottom, var(--accent), var(--accent-hover))`,
+                        }}
                       />
 
                       <div className="flex items-center gap-4">
                         <div
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white`}
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[var(--text-inverse)]"
+                          style={{ background: gradient }}
                         >
                           <FolderKanban size={16} />
                         </div>
 
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-3">
-                            <div className="truncate text-[11px] font-black text-slate-700">
+                            <div className="truncate text-[11px] font-black text-[var(--text-secondary)]">
                               {project.name ??
                                 project.title ??
                                 "Untitled project"}
                             </div>
 
-                            <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-[7px] font-black uppercase tracking-[0.1em] text-slate-400">
+                            <span className="shrink-0 rounded-full bg-[var(--surface-secondary)] px-2 py-1 text-[7px] font-black uppercase tracking-[0.1em] text-[var(--text-muted)]">
                               {project.status ?? "Active"}
                             </span>
                           </div>
 
-                          <div className="mt-1 text-[9px] font-medium text-slate-300">
+                          <div className="mt-1 text-[9px] font-medium text-[var(--text-disabled)]">
                             {project.type ?? "Project"}
                           </div>
 
                           <div className="mt-3 flex items-center gap-3">
-                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100">
+                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--surface-secondary)]">
                               <motion.div
-                                className={`h-full rounded-full bg-gradient-to-r ${gradient}`}
+                                className="h-full rounded-full"
+                                style={{ background: gradient }}
                                 initial={{ width: 0 }}
                                 animate={{ width: `${progress}%` }}
                                 transition={{
@@ -569,7 +579,7 @@ export default function HomePage() {
                               />
                             </div>
 
-                            <span className="text-[8px] font-black text-slate-400">
+                            <span className="text-[8px] font-black text-[var(--text-muted)]">
                               {progress}%
                             </span>
                           </div>
@@ -584,13 +594,13 @@ export default function HomePage() {
 
           {/* ACTIVITY */}
 
-          <motion.div className="rounded-[28px] border border-black/[0.05] bg-white/75 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.035)] backdrop-blur-xl">
+          <motion.div className="rounded-[28px] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-lg)] backdrop-blur-xl">
             <div className="mb-5">
-              <div className="text-[9px] font-black uppercase tracking-[0.2em] text-violet-400">
+              <div className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
                 Timeline
               </div>
 
-              <h2 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-slate-800">
+              <h2 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[var(--text-primary)]">
                 Recent activity
               </h2>
             </div>
@@ -598,13 +608,16 @@ export default function HomePage() {
             <div className="space-y-5">
               {activity.length === 0 ? (
                 <div className="py-8 text-center">
-                  <Clock3 className="mx-auto text-slate-300" size={20} />
+                  <Clock3
+                    className="mx-auto text-[var(--text-disabled)]"
+                    size={20}
+                  />
 
-                  <div className="mt-3 text-[10px] font-black text-slate-500">
+                  <div className="mt-3 text-[10px] font-black text-[var(--text-tertiary)]">
                     No recent activity
                   </div>
 
-                  <div className="mt-1 text-[8px] text-slate-300">
+                  <div className="mt-1 text-[8px] text-[var(--text-disabled)]">
                     Your project activity will appear here.
                   </div>
                 </div>
@@ -615,25 +628,25 @@ export default function HomePage() {
                   return (
                     <div key={`${item.title}-${index}`} className="flex gap-3">
                       <div className="relative">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-400">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
                           <Icon size={14} />
                         </div>
 
                         {index !== activity.length - 1 && (
-                          <div className="absolute left-1/2 top-10 h-7 w-px -translate-x-1/2 bg-black/[0.06]" />
+                          <div className="absolute left-1/2 top-10 h-7 w-px -translate-x-1/2 bg-[var(--border-subtle)]" />
                         )}
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <div className="text-[10px] font-black text-slate-700">
+                        <div className="text-[10px] font-black text-[var(--text-secondary)]">
                           {item.title}
                         </div>
 
-                        <div className="mt-1 text-[9px] leading-4 text-slate-400">
+                        <div className="mt-1 text-[9px] leading-4 text-[var(--text-muted)]">
                           {item.description}
                         </div>
 
-                        <div className="mt-1.5 flex items-center gap-1 text-[7px] font-bold uppercase tracking-[0.1em] text-slate-300">
+                        <div className="mt-1.5 flex items-center gap-1 text-[7px] font-bold uppercase tracking-[0.1em] text-[var(--text-disabled)]">
                           <Clock3 size={9} />
                           {formatTime(item.time)}
                         </div>
@@ -646,7 +659,7 @@ export default function HomePage() {
 
             <Link
               href="/dashboard/projects"
-              className="mt-6 flex items-center justify-center gap-2 rounded-xl border border-black/[0.05] py-3 text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 transition-all hover:border-violet-200 hover:bg-violet-50 hover:text-violet-500"
+              className="mt-6 flex items-center justify-center gap-2 rounded-xl border border-[var(--border-subtle)] py-3 text-[9px] font-black uppercase tracking-[0.12em] text-[var(--text-muted)] transition-all hover:border-[var(--accent-soft-strong)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent)]"
             >
               View projects
               <ArrowUpRight size={11} />
@@ -658,25 +671,25 @@ export default function HomePage() {
         {/* CTA                                                           */}
         {/* ============================================================ */}
 
-        <motion.section className="relative mt-6 overflow-hidden rounded-[30px] border border-cyan-200/60 bg-gradient-to-br from-cyan-50 via-white to-violet-50 p-7 text-slate-800 shadow-[0_25px_70px_rgba(34,211,238,0.08)] sm:p-9">
-          <motion.div className="absolute -right-20 -top-32 h-72 w-72 rounded-full bg-cyan-300/35 blur-[90px]" />
+        <motion.section className="relative mt-6 overflow-hidden rounded-[30px] border border-[var(--accent-soft-strong)] bg-[var(--gradient-soft)] p-7 text-[var(--text-primary)] shadow-[var(--shadow-lg)] sm:p-9">
+          <motion.div className="absolute -right-20 -top-32 h-72 w-72 rounded-full bg-[var(--hero-glow-primary)] blur-[90px]" />
 
-          <motion.div className="absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-violet-300/30 blur-[90px]" />
+          <motion.div className="absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-[var(--hero-glow-secondary)] blur-[90px]" />
 
-          <motion.div className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-pink-300/25 blur-[80px]" />
+          <motion.div className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-[var(--hero-glow-tertiary)] blur-[80px]" />
 
           <div className="relative flex flex-col justify-between gap-7 md:flex-row md:items-center">
             <div>
-              <div className="mb-3 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-cyan-500">
+              <div className="mb-3 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent)]">
                 <Sparkles size={11} />
                 Got an idea?
               </div>
 
-              <h2 className="max-w-xl text-[27px] font-black tracking-[-0.05em] text-slate-800 sm:text-[34px]">
+              <h2 className="max-w-xl text-[27px] font-black tracking-[-0.05em] text-[var(--text-primary)] sm:text-[34px]">
                 Your next project could start right now.
               </h2>
 
-              <p className="mt-2 max-w-lg text-[10px] font-medium leading-5 text-slate-400">
+              <p className="mt-2 max-w-lg text-[10px] font-medium leading-5 text-[var(--text-muted)]">
                 Tell us what you&apos;re thinking. We&apos;ll help turn the idea
                 into something tangible.
               </p>
@@ -684,7 +697,7 @@ export default function HomePage() {
 
             <Link
               href="/build"
-              className="group relative flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-400 via-violet-500 to-pink-500 px-6 py-4 text-[10px] font-black uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(139,92,246,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(139,92,246,0.25)]"
+              className="group relative flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-2xl bg-[var(--gradient-primary)] px-6 py-4 text-[10px] font-black uppercase tracking-[0.12em] text-[var(--text-inverse)] shadow-[var(--shadow-md)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Start building
@@ -694,7 +707,7 @@ export default function HomePage() {
                 />
               </span>
 
-              <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-full" />
+              <span className="absolute inset-0 -translate-x-full bg-[var(--surface)]/20 transition-transform duration-500 group-hover:translate-x-full" />
             </Link>
           </div>
         </motion.section>

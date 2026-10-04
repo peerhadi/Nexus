@@ -121,7 +121,7 @@ export default function SignupForm() {
         <ProgressBar step={step} />
       </div>
 
-      <div className="relative overflow-hidden rounded-[30px] border border-black/[0.07] bg-white/80 shadow-[0_30px_100px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
+      <div className="relative overflow-hidden rounded-[30px] border border-[var(--border)] bg-[var(--surface)] shadow-[0_30px_100px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
         <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,#ff00cc,#00e5ff,#a8ff00,#ffe600,#ff4d00,#ff00cc)] bg-[length:200%_100%] animate-[gradient_5s_linear_infinite]" />
 
         <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl animate-[pulse_4s_ease-in-out_infinite]" />
@@ -158,7 +158,7 @@ export default function SignupForm() {
             </div>
           )}
 
-          <div className="mt-10 flex items-center justify-between border-t border-black/[0.06] pt-6">
+          <div className="mt-10 flex items-center justify-between border-t border-[var(--border-subtle)] pt-6">
             <button
               type="button"
               onClick={back}
@@ -167,7 +167,7 @@ export default function SignupForm() {
                 "flex items-center gap-2 rounded-xl px-3 py-2.5 text-[10px] font-semibold transition-all",
                 step === 0
                   ? "pointer-events-none opacity-0"
-                  : "text-black/45 hover:bg-black/[0.04] hover:text-black",
+                  : "text-[var(--text-tertiary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]",
               ].join(" ")}
             >
               <ArrowLeft size={13} />
@@ -181,8 +181,8 @@ export default function SignupForm() {
               className={[
                 "group relative flex h-11 items-center gap-3 overflow-hidden rounded-xl px-5 text-[11px] font-semibold text-white transition-all duration-300",
                 !canContinue || finishing
-                  ? "cursor-not-allowed bg-black/20"
-                  : "bg-black hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.16)]",
+                  ? "cursor-not-allowed bg-[var(--overlay)]"
+                  : "bg-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.16)]",
               ].join(" ")}
             >
               <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,#00e5ff,#ff00cc,transparent)] opacity-40 transition-transform duration-700 group-hover:translate-x-full" />

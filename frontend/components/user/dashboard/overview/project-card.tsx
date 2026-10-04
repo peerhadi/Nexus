@@ -34,48 +34,53 @@ export default function OverviewProjectCard({
     >
       <Link
         href={`/dashboard/projects/${project.id}`}
-        className={`group relative block overflow-hidden rounded-[22px] border border-black/5 bg-gradient-to-br ${project.soft} p-5 shadow-sm transition hover:shadow-xl`}
+        style={{ background: project.soft }}
+        className="group relative block overflow-hidden rounded-[22px] border border-[var(--border-subtle)] p-5 shadow-[var(--shadow-sm)] transition hover:shadow-[var(--shadow-xl)]"
       >
         <motion.div
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
-          className={`pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-gradient-to-br ${project.color} opacity-15 blur-3xl`}
+          style={{ background: project.color }}
+          className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full opacity-15 blur-3xl"
         />
 
         <div className="relative flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             <motion.div
               whileHover={{ rotate: 7, scale: 1.08 }}
-              className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${project.color} text-white shadow-lg`}
+              style={{ background: project.color }}
+              className="flex h-11 w-11 items-center justify-center rounded-xl text-[var(--text-inverse)] shadow-[var(--shadow-lg)]"
             >
               <FolderKanban size={18} />
             </motion.div>
 
             <div>
-              <div className="text-[13px] font-black text-slate-800">
+              <div className="text-[13px] font-black text-[var(--text-primary)]">
                 {project.name}
               </div>
 
-              <div className="mt-1 text-[10px] font-bold text-slate-500/60">
+              <div className="mt-1 text-[10px] font-bold text-[var(--text-tertiary)]">
                 {project.type}
               </div>
             </div>
           </div>
 
-          <div className="rounded-full border border-white bg-white/70 px-2.5 py-1 text-[9px] font-black text-slate-500 backdrop-blur">
+          <div className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 text-[9px] font-black text-[var(--text-tertiary)] backdrop-blur">
             {project.status}
           </div>
         </div>
 
         <div className="relative mt-6 flex items-center justify-between text-[10px]">
-          <span className="font-bold text-slate-500/70">
+          <span className="font-bold text-[var(--text-tertiary)]">
             {project.milestone}
           </span>
 
-          <span className="font-black text-slate-700">{project.progress}%</span>
+          <span className="font-black text-[var(--text-secondary)]">
+            {project.progress}%
+          </span>
         </div>
 
-        <div className="relative mt-2 h-2 overflow-hidden rounded-full bg-white/80">
+        <div className="relative mt-2 h-2 overflow-hidden rounded-full bg-[var(--surface)]">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${project.progress}%` }}
@@ -84,19 +89,21 @@ export default function OverviewProjectCard({
               delay: 0.4,
               ease: "easeOut",
             }}
-            className={`h-full rounded-full bg-gradient-to-r ${project.color}`}
+            style={{ background: project.color }}
+            className="h-full rounded-full"
           />
         </div>
 
         <div className="relative mt-4 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-[9px] font-bold text-slate-500/60">
+          <div className="flex items-center gap-1.5 text-[9px] font-bold text-[var(--text-tertiary)]">
             <Clock3 size={12} />
             Next milestone {project.due}
           </div>
 
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
-            className={`flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br ${project.color} text-white shadow-md`}
+            style={{ background: project.color }}
+            className="flex h-8 w-8 items-center justify-center rounded-xl text-[var(--text-inverse)] shadow-[var(--shadow-md)]"
           >
             <ArrowUpRight size={12} />
           </motion.div>
