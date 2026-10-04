@@ -1,11 +1,13 @@
 "use client";
+
 import { AnimatePresence, motion } from "framer-motion";
+import { Activity, Check, Flag, Menu, Target, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Activity, Check, Flag, Sparkles, Target } from "lucide-react";
-import type { Project, ProjectFilter } from "@/lib/inbox/progress-types";
+
 import Summary from "@/components/admin/inbox/progress/summary";
 import ProjectList from "@/components/admin/inbox/progress/project-list";
 import ProjectDetail from "@/components/admin/inbox/progress/project-detail";
+import type { Project, ProjectFilter } from "@/lib/inbox/progress-types";
 import { API_URL } from "@/lib/api";
 
 const statusOptions: ProjectFilter[] = [
@@ -41,6 +43,7 @@ export default function ProgressPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const [stats, setStats] = useState({
     totalProjects: 0,
@@ -94,6 +97,8 @@ export default function ProgressPage() {
     } catch (requestError) {
       console.error(requestError);
       setError("Failed to load projects.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -196,6 +201,19 @@ export default function ProgressPage() {
     };
   }, [token]);
 
+  useEffect(() => {
+    if (!mobileDrawerOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   const selectedProject = projects.find((project) => project.id === selectedId);
 
   const visibleProjects = useMemo(() => {
@@ -208,6 +226,7 @@ export default function ProgressPage() {
 
   function selectProject(project: Project) {
     setSelectedId(project.id);
+    setMobileDrawerOpen(false);
   }
 
   async function updateProject(
@@ -237,7 +256,6 @@ export default function ProgressPage() {
     }
 
     const data = await response.json();
-
     const updatedProject = data.project ?? data;
 
     setProjects((current) =>
@@ -346,13 +364,13 @@ export default function ProgressPage() {
   }
 
   return (
-    <main className="flex h-dvh min-h-0 min-w-0 w-[calc(100vw_-_250px)] flex-col overflow-hidden bg-[#f7f7f5] text-[#111]">
+    <main className="flex h-dvh w-full min-w-0 flex-col overflow-hidden bg-[#f7f7f5] text-[#111]">
       <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white px-5 sm:px-7"
+          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white px-4 sm:px-7"
         >
           <div>
             <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-black/25">
@@ -391,7 +409,7 @@ export default function ProgressPage() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.18 }}
-              className="shrink-0 overflow-hidden border-b border-red-500/10 bg-red-50 px-5 py-2 text-[8px] font-semibold text-red-500"
+              className="shrink-0 overflow-hidden border-b border-red-500/10 bg-red-50 px-4 py-2 text-[8px] font-semibold text-red-500 sm:px-5"
             >
               {error}
             </motion.div>
@@ -406,7 +424,7 @@ export default function ProgressPage() {
             delay: 0.04,
             ease: "easeOut",
           }}
-          className="grid h-[68px] shrink-0 grid-cols-2 border-b border-black/[0.08] bg-white sm:grid-cols-4"
+          className="grid h-auto shrink-0 grid-cols-2 border-b border-black/[0.08] bg-white sm:h-[68px] sm:grid-cols-4 py-2 gap-2"
         >
           <Summary
             label="Active projects"
@@ -433,8 +451,9 @@ export default function ProgressPage() {
           />
         </motion.div>
 
-        <div className="flex min-h-0 flex-1 overflow-hidden">
-          <motion.div
+        <div className="relative flex min-h-0 min-w-0 flex-1 overflow-hidden">
+          {/* Desktop project list */}
+          <motion.aside
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
@@ -442,7 +461,7 @@ export default function ProgressPage() {
               delay: 0.08,
               ease: "easeOut",
             }}
-            className="min-h-0"
+            className="hidden min-h-0 shrink-0 lg:flex"
           >
             <ProjectList
               projects={visibleProjects}
@@ -453,7 +472,71 @@ export default function ProgressPage() {
               statusOptions={statusOptions}
               getStatusLabel={getStatusLabel}
             />
-          </motion.div>
+          </motion.aside>
+
+          {/* Mobile drawer */}
+          <AnimatePresence>
+            {mobileDrawerOpen && (
+              <>
+                <motion.button
+                  type="button"
+                  aria-label="Close project menu"
+                  className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  onClick={() => setMobileDrawerOpen(false)}
+                />
+
+                <motion.aside
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 340,
+                    damping: 32,
+                    mass: 0.8,
+                  }}
+                  className="fixed inset-y-0 left-0 z-50 flex w-[min(90vw,400px)] min-w-0 flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                >
+                  <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-black/[0.08] px-4">
+                    <div>
+                      <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-black/25">
+                        Nexus
+                      </div>
+
+                      <div className="mt-0.5 text-[13px] font-bold tracking-[-0.03em]">
+                        Projects
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      aria-label="Close project menu"
+                      onClick={() => setMobileDrawerOpen(false)}
+                      className="flex h-8 w-8 items-center justify-center rounded-xl border border-black/[0.08] bg-[#f7f7f5] text-black/50 transition hover:bg-black hover:text-white"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+
+                  <div className="min-h-0 flex-1 overflow-hidden">
+                    <ProjectList
+                      projects={visibleProjects}
+                      selectedId={selectedProject?.id ?? ""}
+                      filter={filter}
+                      onFilterChange={setFilter}
+                      onSelect={selectProject}
+                      statusOptions={statusOptions}
+                      getStatusLabel={getStatusLabel}
+                    />
+                  </div>
+                </motion.aside>
+              </>
+            )}
+          </AnimatePresence>
 
           <AnimatePresence mode="wait" initial={false}>
             {selectedProject ? (
@@ -466,15 +549,39 @@ export default function ProgressPage() {
                   duration: 0.18,
                   ease: "easeOut",
                 }}
-                className="flex min-h-0 min-w-0 flex-1"
+                className="flex min-h-0 min-w-0 flex-1 flex-col overflow-auto"
               >
-                <ProjectDetail
-                  project={selectedProject}
-                  onProgressChange={updateProgress}
-                  onStatusChange={updateStatus}
-                  onDeadlineChange={updateDeadline}
-                  onAddUpdate={addUpdate}
-                />
+                {/* Mobile detail toolbar */}
+                <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                  <button
+                    type="button"
+                    aria-label="Open project menu"
+                    onClick={() => setMobileDrawerOpen(true)}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-[#f7f7f5] text-black/50 transition hover:bg-black hover:text-white"
+                  >
+                    <Menu size={15} />
+                  </button>
+
+                  <div className="min-w-0">
+                    <div className="truncate text-[11px] font-bold">
+                      {selectedProject.name}
+                    </div>
+
+                    <div className="mt-0.5 truncate text-[8px] text-black/35">
+                      {getStatusLabel(selectedProject.status)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="min-h-0 flex-1">
+                  <ProjectDetail
+                    project={selectedProject}
+                    onProgressChange={updateProgress}
+                    onStatusChange={updateStatus}
+                    onDeadlineChange={updateDeadline}
+                    onAddUpdate={addUpdate}
+                  />
+                </div>
               </motion.div>
             ) : (
               <motion.section
@@ -485,7 +592,7 @@ export default function ProgressPage() {
                 transition={{ duration: 0.2 }}
                 className="flex min-h-0 min-w-0 flex-1 items-center justify-center bg-[#f7f7f5]"
               >
-                <div className="text-center">
+                <div className="px-6 text-center">
                   <div className="text-[11px] font-bold">
                     No project selected
                   </div>

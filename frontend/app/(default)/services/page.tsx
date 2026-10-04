@@ -720,7 +720,7 @@ export default function ServicesPage() {
             <h2 className="mx-auto mt-10 max-w-6xl text-[clamp(4rem,9vw,9.5rem)] font-black leading-[0.88] tracking-[-0.095em]">
               GOT A
               <br />
-              <span className="text-white/35">PROBLEM?</span>
+              <span className="text-white/35 text-[90%]">PROBLEM?</span>
             </h2>
 
             <p className="mx-auto mt-12 max-w-xl text-base leading-7 text-white/65 sm:text-lg">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -15,6 +16,8 @@ import {
   Trash2,
   Eye,
   Pencil,
+  Menu,
+  X,
 } from "lucide-react";
 
 type Note = {
@@ -67,7 +70,10 @@ function formatDate(date: string) {
 
 function getToken() {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("nexus_token");
+
+  return (
+    localStorage.getItem("nexus_token") ?? sessionStorage.getItem("nexus_token")
+  );
 }
 
 async function apiRequest<T>(
@@ -114,15 +120,15 @@ export default function NotesPage() {
 
   const [error, setError] = useState("");
   const [editorMode, setEditorMode] = useState<"write" | "preview">("write");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
 
   const selectedNote = useMemo(
     () => notes.find((note) => note.id === selectedId) ?? null,
     [notes, selectedId],
   );
-
-  const requestIdRef = useRef(0);
 
   const loadNotes = useCallback(async () => {
     const requestId = ++requestIdRef.current;
@@ -142,11 +148,11 @@ export default function NotesPage() {
 
       const query = params.toString();
 
-      const data = await apiRequest<{ success: boolean; notes: Note[] }>(
-        `/notes${query ? `?${query}` : ""}`,
-      );
+      const data = await apiRequest<{
+        success: boolean;
+        notes: Note[];
+      }>(`/notes${query ? `?${query}` : ""}`);
 
-      // Ignore stale responses from older requests.
       if (requestId !== requestIdRef.current) {
         return;
       }
@@ -175,7 +181,7 @@ export default function NotesPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      loadNotes();
+      void loadNotes();
     }, 250);
 
     return () => clearTimeout(timer);
@@ -196,22 +202,23 @@ export default function NotesPage() {
       setCreating(true);
       setError("");
 
-      const data = await apiRequest<{ success: boolean; note: Note }>(
-        "/notes",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            title: "",
-            content: "",
-            category: activeCategory !== "All" ? activeCategory : "General",
-            starred: false,
-          }),
-        },
-      );
+      const data = await apiRequest<{
+        success: boolean;
+        note: Note;
+      }>("/notes", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "",
+          content: "",
+          category: activeCategory !== "All" ? activeCategory : "General",
+          starred: false,
+        }),
+      });
 
       setNotes((current) => [data.note, ...current]);
       setSelectedId(data.note.id);
       setEditorMode("write");
+      setMenuOpen(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create note");
     } finally {
@@ -220,7 +227,6 @@ export default function NotesPage() {
   };
 
   const updateNoteLocally = (id: string, changes: Partial<Note>) => {
-    console.log(id, changes);
     setNotes((current) =>
       current.map((note) =>
         note.id === id
@@ -247,14 +253,14 @@ export default function NotesPage() {
       try {
         setError("");
 
-        const data = await apiRequest<{ success: boolean; note: Note }>(
-          `/notes/${id}`,
-          {
-            method: "PATCH",
-            body: JSON.stringify(changes),
-          },
-        );
-        console.log(data.note);
+        const data = await apiRequest<{
+          success: boolean;
+          note: Note;
+        }>(`/notes/${id}`, {
+          method: "PATCH",
+          body: JSON.stringify(changes),
+        });
+
         updateNoteLocally(id, data.note);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to save note");
@@ -269,6 +275,7 @@ export default function NotesPage() {
     value: string,
   ) => {
     if (!selectedNote) return;
+
     updateNoteLocally(selectedNote.id, {
       [field]: value,
     });
@@ -279,25 +286,29 @@ export default function NotesPage() {
   };
 
   const toggleStar = async (id: string) => {
+    const note = notes.find((item) => item.id === id);
+
+    if (!note) return;
+
     try {
       setError("");
 
       updateNoteLocally(id, {
-        starred: !notes.find((note) => note.id === id)?.starred,
+        starred: !note.starred,
       });
 
-      const data = await apiRequest<{ success: boolean; note: Note }>(
-        `/notes/${id}/star`,
-        {
-          method: "PATCH",
-        },
-      );
+      const data = await apiRequest<{
+        success: boolean;
+        note: Note;
+      }>(`/notes/${id}/star`, {
+        method: "PATCH",
+      });
 
       updateNoteLocally(id, data.note);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update star");
 
-      await loadNotes();
+      void loadNotes();
     }
   };
 
@@ -307,6 +318,13 @@ export default function NotesPage() {
     try {
       setDeleting(true);
       setError("");
+
+      if (saveTimer.current) {
+        clearTimeout(saveTimer.current);
+        saveTimer.current = null;
+      }
+
+      requestIdRef.current++;
 
       await apiRequest<{ success: boolean }>(`/notes/${id}`, {
         method: "DELETE",
@@ -318,6 +336,7 @@ export default function NotesPage() {
 
       if (selectedId === id) {
         setSelectedId(remaining[0]?.id ?? null);
+        setEditorMode("write");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete note");
@@ -332,10 +351,16 @@ export default function NotesPage() {
     updateSelectedNote("category", category);
   };
 
+  const selectNote = (note: Note) => {
+    setSelectedId(note.id);
+    setEditorMode("write");
+    setMenuOpen(false);
+  };
+
   return (
     <main className="flex h-[calc(100vh-70px)] min-h-0 overflow-hidden bg-[#fafafa] text-slate-800">
-      {/* Sidebar */}
-      <aside className="flex w-[280px] shrink-0 flex-col border-r border-black/[0.05] bg-white/80">
+      {/* Desktop sidebar */}
+      <aside className="hidden w-[280px] shrink-0 flex-col border-r border-black/[0.05] bg-white/80 md:flex">
         {/* Header */}
         <div className="border-b border-black/[0.05] p-4">
           <div className="flex items-center justify-between">
@@ -420,7 +445,7 @@ export default function NotesPage() {
           </div>
         )}
 
-        {/* Notes list */}
+        {/* Notes */}
         <div className="min-h-0 flex-1 overflow-y-auto p-3">
           {loading && notes.length === 0 ? (
             <div className="flex items-center justify-center py-10">
@@ -432,10 +457,7 @@ export default function NotesPage() {
                 <button
                   key={note.id}
                   type="button"
-                  onClick={() => {
-                    setSelectedId(note.id);
-                    setEditorMode("write");
-                  }}
+                  onClick={() => selectNote(note)}
                   className={`group w-full rounded-xl p-3 text-left transition ${
                     selectedId === note.id
                       ? "bg-cyan-50"
@@ -451,7 +473,7 @@ export default function NotesPage() {
                             : "text-slate-700"
                         }`}
                       >
-                        {note.title || ""}
+                        {note.title || "Untitled"}
                       </div>
 
                       <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-slate-400">
@@ -495,29 +517,266 @@ export default function NotesPage() {
         </div>
       </aside>
 
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {menuOpen && (
+          <div className="fixed inset-0 z-[60] md:hidden">
+            {/* Backdrop */}
+            <motion.button
+              type="button"
+              aria-label="Close notes menu"
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut",
+              }}
+              className="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px]"
+            />
+
+            {/* Drawer */}
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{
+                type: "spring",
+                stiffness: 380,
+                damping: 34,
+                mass: 0.8,
+              }}
+              className="absolute inset-y-0 left-0 flex w-[88%] max-w-[360px] flex-col overflow-hidden border-r border-black/[0.05] bg-white shadow-[20px_0_60px_rgba(15,23,42,0.14)]"
+            >
+              {/* Drawer header */}
+              <div className="shrink-0 border-b border-black/[0.05] p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400">
+                      <FileText size={12} />
+                      Workspace
+                    </div>
+
+                    <h2 className="mt-1 text-xl font-black tracking-[-0.04em] text-slate-800">
+                      Notes
+                    </h2>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={createNote}
+                      disabled={creating}
+                      aria-label="Create note"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 text-white transition-colors hover:bg-cyan-500 disabled:opacity-50"
+                    >
+                      {creating ? (
+                        <Loader2 size={14} className="animate-spin" />
+                      ) : (
+                        <Plus size={16} />
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setMenuOpen(false)}
+                      aria-label="Close notes"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 active:scale-[0.97]"
+                    >
+                      <X size={15} strokeWidth={2.5} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Search */}
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-black/[0.06] bg-slate-50 px-3">
+                  <Search size={13} className="shrink-0 text-slate-300" />
+
+                  <input
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                    placeholder="Search notes..."
+                    className="h-9 min-w-0 flex-1 bg-transparent text-[9px] font-medium text-slate-600 outline-none placeholder:text-slate-300"
+                  />
+
+                  {loading && (
+                    <Loader2 size={12} className="animate-spin text-cyan-400" />
+                  )}
+                </div>
+              </div>
+
+              {/* Categories */}
+              <div className="shrink-0 border-b border-black/[0.05] p-3">
+                <div className="grid grid-cols-2 gap-1">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => setActiveCategory(category)}
+                      className={`flex items-center gap-2 rounded-xl px-3 py-2.5 text-left text-[9px] font-black transition-colors ${
+                        activeCategory === category
+                          ? "bg-cyan-50 text-cyan-500"
+                          : "text-slate-400 hover:bg-black/[0.025] hover:text-slate-600"
+                      }`}
+                    >
+                      {category === "All" ? (
+                        <FileText size={13} />
+                      ) : (
+                        <Folder size={13} />
+                      )}
+
+                      {category}
+
+                      {category === "All" && (
+                        <span className="ml-auto text-[8px] text-slate-300">
+                          {notes.length}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Error */}
+              {error && (
+                <div className="shrink-0 border-b border-red-100 bg-red-50 px-4 py-2.5 text-[8px] font-bold leading-4 text-red-500">
+                  {error}
+                </div>
+              )}
+
+              {/* Notes list */}
+              <div className="min-h-0 flex-1 overflow-y-auto p-3">
+                {loading && notes.length === 0 ? (
+                  <div className="flex items-center justify-center py-10">
+                    <Loader2 size={18} className="animate-spin text-cyan-400" />
+                  </div>
+                ) : (
+                  <div className="space-y-1">
+                    {notes.map((note) => (
+                      <button
+                        key={note.id}
+                        type="button"
+                        onClick={() => selectNote(note)}
+                        className={`w-full rounded-xl p-3 text-left transition ${
+                          selectedId === note.id
+                            ? "bg-cyan-50"
+                            : "hover:bg-black/[0.025]"
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          <div className="min-w-0 flex-1">
+                            <div
+                              className={`truncate text-[10px] font-black ${
+                                selectedId === note.id
+                                  ? "text-cyan-600"
+                                  : "text-slate-700"
+                              }`}
+                            >
+                              {note.title || "Untitled"}
+                            </div>
+
+                            <div className="mt-1 line-clamp-2 text-[8px] font-medium leading-4 text-slate-400">
+                              {note.content || "No content yet..."}
+                            </div>
+                          </div>
+
+                          {note.starred && (
+                            <Star
+                              size={11}
+                              className="mt-0.5 shrink-0 fill-yellow-400 text-yellow-400"
+                            />
+                          )}
+                        </div>
+
+                        <div className="mt-2 text-[7px] font-bold uppercase tracking-[0.1em] text-slate-300">
+                          {formatDate(note.updatedAt)}
+                        </div>
+                      </button>
+                    ))}
+
+                    {notes.length === 0 && (
+                      <div className="px-3 py-8 text-center">
+                        <FileText
+                          size={18}
+                          className="mx-auto text-slate-200"
+                        />
+
+                        <p className="mt-3 text-[9px] font-black text-slate-400">
+                          No notes found
+                        </p>
+
+                        <button
+                          type="button"
+                          onClick={createNote}
+                          className="mt-3 text-[8px] font-black uppercase tracking-[0.1em] text-cyan-500"
+                        >
+                          Create one
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Editor */}
       <section className="flex min-w-0 flex-1 flex-col bg-white">
         {selectedNote ? (
           <>
-            {/* Editor header */}
-            <header className="flex h-[68px] shrink-0 items-center justify-between border-b border-black/[0.05] px-5 sm:px-8">
+            {/* Mobile toolbar */}
+            <header className="flex shrink-0 items-center justify-between border-b border-black/[0.05] px-3 py-3 sm:px-5 md:hidden">
+              <div className="flex min-w-0 items-center gap-3">
+                <motion.button
+                  type="button"
+                  onClick={() => setMenuOpen(true)}
+                  aria-label="Open notes"
+                  whileTap={{ scale: 0.94 }}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-100 bg-cyan-50 text-cyan-500 transition-colors hover:bg-cyan-100"
+                >
+                  <Menu size={16} strokeWidth={2.5} />
+                </motion.button>
+
+                <div className="min-w-0">
+                  <div className="truncate text-[10px] font-black text-slate-700">
+                    {selectedNote.title || "Untitled"}
+                  </div>
+
+                  <div className="mt-0.5 flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+
+                    <span className="text-[8px] font-bold text-slate-400">
+                      {saving ? "Saving..." : "Saved"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ml-3 shrink-0 rounded-full bg-cyan-50 px-2.5 py-1 text-[7px] font-black uppercase tracking-[0.12em] text-cyan-500">
+                Notes
+              </div>
+            </header>
+
+            {/* Desktop editor header */}
+            <header className="hidden h-[68px] shrink-0 items-center justify-between border-b border-black/[0.05] px-5 sm:px-8 md:flex">
               <div className="flex min-w-0 items-center gap-3">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-500">
                   <FileText size={15} />
                 </div>
 
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <select
-                      value={selectedNote.category}
-                      onChange={(event) => changeCategory(event.target.value)}
-                      className="max-w-[150px] cursor-pointer truncate bg-transparent text-[10px] font-black uppercase tracking-[0.15em] text-slate-300 outline-none"
-                    >
-                      <option value="General">General</option>
-                      <option value="Projects">Projects</option>
-                      <option value="Ideas">Ideas</option>
-                    </select>
-                  </div>
+                  <select
+                    value={selectedNote.category}
+                    onChange={(event) => changeCategory(event.target.value)}
+                    className="max-w-[150px] cursor-pointer truncate bg-transparent text-[10px] font-black uppercase tracking-[0.15em] text-slate-300 outline-none"
+                  >
+                    <option value="General">General</option>
+                    <option value="Projects">Projects</option>
+                    <option value="Ideas">Ideas</option>
+                  </select>
 
                   <div className="mt-0.5 flex items-center gap-1.5 text-[8px] font-medium text-slate-400">
                     {saving ? (
@@ -538,32 +797,53 @@ export default function NotesPage() {
                 </div>
               </div>
 
+              <EditorActions
+                editorMode={editorMode}
+                setEditorMode={setEditorMode}
+                selectedNote={selectedNote}
+                toggleStar={toggleStar}
+                deleteNote={deleteNote}
+                deleting={deleting}
+              />
+            </header>
+
+            {/* Mobile actions */}
+            <div className="flex shrink-0 items-center justify-between border-b border-black/[0.04] px-3 py-2 md:hidden">
+              <select
+                value={selectedNote.category}
+                onChange={(event) => changeCategory(event.target.value)}
+                className="max-w-[110px] truncate bg-transparent text-[8px] font-black uppercase tracking-[0.12em] text-slate-300 outline-none"
+              >
+                <option value="General">General</option>
+                <option value="Projects">Projects</option>
+                <option value="Ideas">Ideas</option>
+              </select>
+
               <div className="flex items-center gap-1">
-                {/* Write / Preview */}
-                <div className="mr-2 flex rounded-xl border border-black/[0.05] bg-slate-50 p-0.5">
+                <div className="flex rounded-xl border border-black/[0.05] bg-slate-50 p-0.5">
                   <button
                     type="button"
                     onClick={() => setEditorMode("write")}
-                    className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
+                    className={`flex h-8 items-center gap-1 rounded-lg px-2 text-[7px] font-black uppercase tracking-[0.05em] transition ${
                       editorMode === "write"
                         ? "bg-white text-slate-700 shadow-sm"
-                        : "text-slate-300 hover:text-slate-500"
+                        : "text-slate-300"
                     }`}
                   >
-                    <Pencil size={10} />
+                    <Pencil size={9} />
                     Write
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setEditorMode("preview")}
-                    className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
+                    className={`flex h-8 items-center gap-1 rounded-lg px-2 text-[7px] font-black uppercase tracking-[0.05em] transition ${
                       editorMode === "preview"
                         ? "bg-white text-cyan-500 shadow-sm"
-                        : "text-slate-300 hover:text-slate-500"
+                        : "text-slate-300"
                     }`}
                   >
-                    <Eye size={10} />
+                    <Eye size={9} />
                     Preview
                   </button>
                 </div>
@@ -571,61 +851,53 @@ export default function NotesPage() {
                 <button
                   type="button"
                   onClick={() => toggleStar(selectedNote.id)}
-                  className={`flex h-9 w-9 items-center justify-center rounded-xl hover:bg-yellow-50 ${
-                    selectedNote.starred
-                      ? "text-yellow-400"
-                      : "text-slate-300 hover:text-yellow-400"
+                  className={`flex h-8 w-8 items-center justify-center rounded-xl ${
+                    selectedNote.starred ? "text-yellow-400" : "text-slate-300"
                   }`}
                 >
                   <Star
-                    size={15}
+                    size={14}
                     className={selectedNote.starred ? "fill-yellow-400" : ""}
                   />
                 </button>
 
                 <button
                   type="button"
-                  className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 hover:bg-black/[0.03] hover:text-slate-500"
-                >
-                  <MoreHorizontal size={16} />
-                </button>
-
-                <button
-                  type="button"
                   onClick={() => deleteNote(selectedNote.id)}
                   disabled={deleting}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
+                  className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
                 >
                   {deleting ? (
-                    <Loader2 size={14} className="animate-spin" />
+                    <Loader2 size={13} className="animate-spin" />
                   ) : (
-                    <Trash2 size={15} />
+                    <Trash2 size={14} />
                   )}
                 </button>
               </div>
-            </header>
+            </div>
 
-            {/* Writing / preview area */}
+            {/* Writing / Preview */}
             <div className="min-h-0 flex-1 overflow-y-auto">
-              <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10 sm:py-16">
+              <div className="mx-auto w-full max-w-3xl px-5 py-8 sm:px-10 sm:py-16">
                 <input
                   value={selectedNote.title}
                   onChange={(event) =>
                     updateSelectedNote("title", event.target.value)
                   }
-                  className="w-full bg-transparent text-4xl font-black tracking-[-0.055em] text-slate-800 outline-none placeholder:text-slate-200 sm:text-5xl"
+                  placeholder="Untitled"
+                  className="w-full bg-transparent text-3xl font-black tracking-[-0.055em] text-slate-800 outline-none placeholder:text-slate-200 sm:text-5xl"
                 />
 
                 <div className="mt-4 h-px w-12 bg-cyan-400" />
 
                 {editorMode === "write" ? (
-                  <div className="mt-8">
-                    <div className="mb-3 flex items-center justify-between">
+                  <div className="mt-7 sm:mt-8">
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                       <span className="text-[8px] font-black uppercase tracking-[0.15em] text-slate-300">
                         Markdown supported
                       </span>
 
-                      <span className="text-[8px] font-medium text-slate-300">
+                      <span className="text-[7px] font-medium text-slate-300 sm:text-[8px]">
                         **bold** · *italic* · # headings · - lists
                       </span>
                     </div>
@@ -640,11 +912,11 @@ export default function NotesPage() {
 # Example heading
 
 Write **bold**, *italic*, lists, links, code, and more.`}
-                      className="min-h-[500px] w-full resize-none bg-transparent text-[13px] font-medium leading-7 text-slate-600 outline-none placeholder:text-slate-300"
+                      className="min-h-[55vh] w-full resize-none bg-transparent text-[13px] font-medium leading-7 text-slate-600 outline-none placeholder:text-slate-300"
                     />
                   </div>
                 ) : (
-                  <article className="prose prose-slate mt-8 max-w-none text-[13px] leading-7">
+                  <article className="prose prose-slate mt-7 max-w-none text-[13px] leading-7 sm:mt-8">
                     {selectedNote.content.trim() ? (
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
@@ -759,9 +1031,9 @@ Write **bold**, *italic*, lists, links, code, and more.`}
               </div>
             </div>
 
-            {/* Bottom status */}
-            <footer className="flex h-10 shrink-0 items-center justify-between border-t border-black/[0.04] px-5 text-[8px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-8">
-              <div className="flex items-center gap-4">
+            {/* Footer */}
+            <footer className="flex min-h-10 shrink-0 flex-wrap items-center justify-between gap-2 border-t border-black/[0.04] px-4 py-2 text-[7px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-8 sm:text-[8px]">
+              <div className="flex items-center gap-3">
                 <span>{selectedNote.content.length} characters</span>
 
                 <span>
@@ -778,7 +1050,7 @@ Write **bold**, *italic*, lists, links, code, and more.`}
             </footer>
           </>
         ) : (
-          <div className="flex flex-1 items-center justify-center">
+          <div className="flex flex-1 items-center justify-center px-6">
             <div className="text-center">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-300">
                 <FileText size={20} />
@@ -804,5 +1076,89 @@ Write **bold**, *italic*, lists, links, code, and more.`}
         )}
       </section>
     </main>
+  );
+}
+
+function EditorActions({
+  editorMode,
+  setEditorMode,
+  selectedNote,
+  toggleStar,
+  deleteNote,
+  deleting,
+}: {
+  editorMode: "write" | "preview";
+  setEditorMode: (mode: "write" | "preview") => void;
+  selectedNote: Note;
+  toggleStar: (id: string) => void;
+  deleteNote: (id: string) => void;
+  deleting: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-1">
+      {/* Write / Preview */}
+      <div className="mr-2 flex rounded-xl border border-black/[0.05] bg-slate-50 p-0.5">
+        <button
+          type="button"
+          onClick={() => setEditorMode("write")}
+          className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
+            editorMode === "write"
+              ? "bg-white text-slate-700 shadow-sm"
+              : "text-slate-300 hover:text-slate-500"
+          }`}
+        >
+          <Pencil size={10} />
+          Write
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setEditorMode("preview")}
+          className={`flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[8px] font-black uppercase tracking-[0.08em] transition ${
+            editorMode === "preview"
+              ? "bg-white text-cyan-500 shadow-sm"
+              : "text-slate-300 hover:text-slate-500"
+          }`}
+        >
+          <Eye size={10} />
+          Preview
+        </button>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => toggleStar(selectedNote.id)}
+        className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors hover:bg-yellow-50 ${
+          selectedNote.starred
+            ? "text-yellow-400"
+            : "text-slate-300 hover:text-yellow-400"
+        }`}
+      >
+        <Star
+          size={15}
+          className={selectedNote.starred ? "fill-yellow-400" : ""}
+        />
+      </button>
+
+      <button
+        type="button"
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-black/[0.03] hover:text-slate-500"
+      >
+        <MoreHorizontal size={16} />
+      </button>
+
+      <button
+        type="button"
+        onClick={() => deleteNote(selectedNote.id)}
+        disabled={deleting}
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-red-50 hover:text-red-400 disabled:opacity-50"
+      >
+        {deleting ? (
+          <Loader2 size={14} className="animate-spin" />
+        ) : (
+          <Trash2 size={15} />
+        )}
+      </button>
+    </div>
   );
 }

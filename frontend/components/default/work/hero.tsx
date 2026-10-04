@@ -80,7 +80,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="block"
+            className="block text-[70%] lg:text-[100%]"
           >
             BUILT
           </motion.span>
@@ -89,7 +89,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08, duration: 0.8 }}
-            className="block"
+            className="block text-[70%] lg:text-[100%]"
           >
             TO BE
           </motion.span>
@@ -98,7 +98,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16, duration: 0.8 }}
-            className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text pb-2 text-transparent"
+            className="block bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 bg-clip-text pb-2 text-transparent text-[70%] lg:text-[100%]"
           >
             REMEMBERED.
           </motion.span>

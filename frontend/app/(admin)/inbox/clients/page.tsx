@@ -1,7 +1,8 @@
 "use client";
+
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, Users, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Users } from "lucide-react";
 
 import { ClientDetail } from "@/components/admin/inbox/clients/ClientDetail";
 import { ClientList } from "@/components/admin/inbox/clients/ClientList";
@@ -16,6 +17,7 @@ export default function ClientsPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   useEffect(() => {
     const loadClients = async () => {
@@ -75,6 +77,14 @@ export default function ClientsPage() {
     void loadClients();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileDrawerOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   const filteredClients = useMemo(() => {
     const query = search.trim().toLowerCase();
 
@@ -107,27 +117,36 @@ export default function ClientsPage() {
 
   const clientFilters: ClientFilter[] = ["All"];
 
+  const handleSelectClient = (id: string) => {
+    setSelectedId(id);
+    setMobileDrawerOpen(false);
+  };
+
   if (error) {
     return (
-      <main className="flex h-dvh w-full items-center justify-center bg-[#f7f7f5] text-[#111]">
-        <div className="rounded-2xl border border-black/[0.08] bg-white px-8 py-7 text-center shadow-sm">
+      <main className="flex h-dvh w-full items-center justify-center bg-[#f7f7f5] px-5 text-[#111]">
+        <div className="w-full max-w-md rounded-2xl border border-black/[0.08] bg-white px-6 py-7 text-center shadow-sm sm:px-8">
           <div className="text-sm font-bold">Failed to load clients</div>
 
-          <div className="mt-2 text-[10px] text-black/40">{error}</div>
+          <div className="mt-2 break-words text-[10px] text-black/40">
+            {error}
+          </div>
         </div>
       </main>
     );
   }
+
   return (
-    <main className="h-[calc(100vh-0px)] min-h-0 overflow-hidden bg-[#f7f7f5] text-[#111]">
+    <main className="h-dvh w-full min-w-0 overflow-hidden bg-[#f7f7f5] text-[#111]">
       <div className="flex h-full min-h-0 flex-col">
+        {/* Header */}
         <motion.header
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white/85 px-5 backdrop-blur-xl sm:px-8"
+          className="flex h-[74px] shrink-0 items-center justify-between border-b border-black/[0.08] bg-white/85 px-4 backdrop-blur-xl sm:px-8"
         >
-          <div>
+          <div className="min-w-0">
             <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-black/30">
               Communication
             </div>
@@ -141,7 +160,7 @@ export default function ClientsPage() {
             initial={{ opacity: 0, x: 8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.2, delay: 0.05 }}
-            className="flex items-center gap-2"
+            className="flex shrink-0 items-center gap-2"
           >
             <div className="hidden items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-3 py-2 sm:flex">
               <Users size={14} className="text-black/30" />
@@ -150,11 +169,21 @@ export default function ClientsPage() {
                 {clients.length} clients
               </span>
             </div>
+
+            {/* Mobile client count */}
+            <div className="flex items-center gap-1.5 rounded-xl border border-black/[0.08] bg-white px-2.5 py-2 sm:hidden">
+              <Users size={13} className="text-black/30" />
+
+              <span className="text-[10px] font-semibold text-black/50">
+                {clients.length}
+              </span>
+            </div>
           </motion.div>
         </motion.header>
 
-        <div className="min-h-0 min-w-[85vw] flex-1 overflow-y-auto">
-          <div className="mx-auto w-full max-w-[1500px] p-5">
+        <div className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+          <div className="mx-auto w-full max-w-[1500px] p-3 sm:p-5">
+            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -167,6 +196,9 @@ export default function ClientsPage() {
               <ClientStats clients={clients} />
             </motion.div>
 
+            {/* =========================
+                MAIN CLIENT WORKSPACE
+            ========================== */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,8 +207,11 @@ export default function ClientsPage() {
                 delay: 0.08,
                 ease: "easeOut",
               }}
-              className="mt-5 grid min-h-[560px] grid-cols-1 overflow-hidden rounded-2xl border border-black/[0.08] bg-white lg:grid-cols-[minmax(360px,0.8fr)_minmax(0,1.2fr)]"
+              className="relative mt-3 grid min-h-[560px] grid-cols-1 overflow-hidden rounded-2xl border border-black/[0.08] bg-white sm:mt-5 lg:grid-cols-[minmax(360px,0.8fr)_minmax(0,1.2fr)]"
             >
+              {/* =========================
+                  DESKTOP CLIENT LIST
+              ========================== */}
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -185,7 +220,7 @@ export default function ClientsPage() {
                   delay: 0.1,
                   ease: "easeOut",
                 }}
-                className="min-h-0"
+                className="hidden min-h-0 lg:block"
               >
                 <ClientList
                   clients={filteredClients}
@@ -195,10 +230,85 @@ export default function ClientsPage() {
                   filters={clientFilters}
                   onSearchChange={setSearch}
                   onFilterChange={setFilter}
-                  onSelect={setSelectedId}
+                  onSelect={handleSelectClient}
                 />
               </motion.div>
 
+              {/* =========================
+                  MOBILE CLIENT DRAWER
+              ========================== */}
+              <AnimatePresence>
+                {mobileDrawerOpen && (
+                  <>
+                    {/* Backdrop */}
+                    <motion.button
+                      type="button"
+                      aria-label="Close client menu"
+                      className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] lg:hidden"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.18 }}
+                      onClick={() => setMobileDrawerOpen(false)}
+                    />
+
+                    {/* Drawer */}
+                    <motion.aside
+                      initial={{ x: "-100%" }}
+                      animate={{ x: 0 }}
+                      exit={{ x: "-100%" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 340,
+                        damping: 32,
+                        mass: 0.8,
+                      }}
+                      className="fixed inset-y-0 left-0 z-50 flex w-[min(88vw,380px)] flex-col border-r border-black/[0.08] bg-white shadow-2xl lg:hidden"
+                    >
+                      {/* Drawer header */}
+                      <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-black/[0.07] px-4">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/30">
+                            Clients
+                          </p>
+
+                          <p className="text-sm font-semibold text-black/75">
+                            {filteredClients.length} client
+                            {filteredClients.length === 1 ? "" : "s"}
+                          </p>
+                        </div>
+
+                        <button
+                          type="button"
+                          aria-label="Close client menu"
+                          onClick={() => setMobileDrawerOpen(false)}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/55 transition hover:bg-black/[0.06] hover:text-black"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      {/* Client list */}
+                      <div className="min-h-0 flex-1 overflow-hidden">
+                        <ClientList
+                          clients={filteredClients}
+                          selectedId={selectedClient?.id ?? ""}
+                          search={search}
+                          filter={filter}
+                          filters={clientFilters}
+                          onSearchChange={setSearch}
+                          onFilterChange={setFilter}
+                          onSelect={handleSelectClient}
+                        />
+                      </div>
+                    </motion.aside>
+                  </>
+                )}
+              </AnimatePresence>
+
+              {/* =========================
+                  CLIENT DETAIL
+              ========================== */}
               <AnimatePresence mode="wait" initial={false}>
                 {selectedClient ? (
                   <motion.div
@@ -210,9 +320,33 @@ export default function ClientsPage() {
                       duration: 0.18,
                       ease: "easeOut",
                     }}
-                    className="min-w-0"
+                    className="flex min-h-[560px] min-w-0 flex-col lg:min-h-0"
                   >
-                    <ClientDetail client={selectedClient} />
+                    {/* Mobile toolbar */}
+                    <div className="flex h-[58px] shrink-0 items-center gap-3 border-b border-black/[0.07] bg-white px-4 lg:hidden">
+                      <button
+                        type="button"
+                        aria-label="Open client menu"
+                        onClick={() => setMobileDrawerOpen(true)}
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-black/[0.08] bg-black/[0.025] text-black/60 transition hover:bg-black/[0.06] hover:text-black"
+                      >
+                        <Menu className="h-4 w-4" />
+                      </button>
+
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-black/80">
+                          {selectedClient.name}
+                        </p>
+
+                        <p className="truncate text-[11px] text-black/35">
+                          {selectedClient.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="min-h-0 flex-1 overflow-y-auto">
+                      <ClientDetail client={selectedClient} />
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -221,7 +355,7 @@ export default function ClientsPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="flex min-h-[560px] items-center justify-center p-8 text-center"
+                    className="flex min-h-[560px] min-w-0 items-center justify-center p-6 text-center lg:min-h-0"
                   >
                     <div>
                       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04]">

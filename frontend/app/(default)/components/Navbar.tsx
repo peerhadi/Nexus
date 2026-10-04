@@ -11,6 +11,9 @@ import {
   FileText,
   Settings,
   Inbox,
+  Home,
+  LockOpen,
+  Lock,
 } from "lucide-react";
 
 type UserRole = "CLIENT" | "ADMIN";
@@ -24,12 +27,20 @@ type User = {
 
 const menuLinks = [
   {
+    name: "Home",
+    href: "/",
+    desc: "Go back home",
+    icon: Home,
+    noAuth: true,
+  },
+  {
     name: "Build",
     href: "/build",
     desc: "Start something new",
     icon: FileText,
-    requiresAuth: false,
+    requiresAuth: true,
   },
+
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -66,18 +77,34 @@ const menuLinks = [
     requiresAuth: false,
   },
   {
+    name: "Services",
+    href: "/services",
+    desc: "Digital products, tools and solutions",
+    icon: LayoutDashboard,
+    requiresAuth: false,
+  },
+  {
     name: "Work",
     href: "/work",
     desc: "Explore our latest projects and work",
     icon: Briefcase,
     requiresAuth: false,
   },
+
   {
-    name: "Services",
-    href: "/services",
-    desc: "Digital products, tools and solutions",
-    icon: LayoutDashboard,
-    requiresAuth: false,
+    name: "Sign up",
+    href: "/signup",
+    desc: "Sign up and create new projects",
+    icon: LockOpen,
+    noAuth: true,
+  },
+
+  {
+    name: "Log In",
+    href: "/login",
+    desc: "Log back in and start working",
+    icon: Lock,
+    noAuth: true,
   },
   {
     name: "Inbox",
@@ -157,6 +184,9 @@ export default function Navbar() {
   const isAdmin = userRole === "ADMIN";
 
   const visibleMenuLinks = menuLinks.filter((item) => {
+    if (item.noAuth && isLoggedIn) {
+      return false;
+    }
     if (!item.requiresAuth) {
       return true;
     }
@@ -257,21 +287,25 @@ export default function Navbar() {
                   </span>
                 </Link>
               ) : (
-                <div className="ml-auto hidden items-center justify-end gap-2 md:flex">
-                  <Link
-                    href="/signup"
-                    className="rounded-xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 px-5 py-3 text-[13px] font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#111]"
-                  >
-                    Sign up
-                  </Link>
+                <>
+                  <div className="ml-auto items-center justify-end gap-2 flex">
+                    <Link
+                      href="/signup"
+                      className="rounded-xl bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 px-5 py-3 text-[13px] font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#111]"
+                    >
+                      Sign up
+                    </Link>
 
-                  <Link
-                    href="/login"
-                    className="rounded-xl border border-black/10 bg-white px-5 py-3 text-[13px] font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[4px_4px_0_#a78bfa]"
-                  >
-                    Sign in
-                  </Link>
-                </div>
+                    <div className="ml-auto hidden items-center justify-end gap-2 md:flex">
+                      <Link
+                        href="/login"
+                        className="rounded-xl border border-black/10 bg-white px-5 py-3 text-[13px] font-semibold text-black transition-all duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[4px_4px_0_#a78bfa]"
+                      >
+                        Sign in
+                      </Link>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           </div>

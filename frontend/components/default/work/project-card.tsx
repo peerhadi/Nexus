@@ -45,7 +45,7 @@ export default function ProjectCard({
       <div className="relative flex min-h-[700px] flex-col p-7 sm:p-10 lg:p-12">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.25em] text-black/30">
+            <p className="text-[10px] font-bold tracking-[0.25em] text-black/30 ">
               {project.number} / {project.type}
             </p>
 
@@ -77,10 +77,10 @@ export default function ProjectCard({
           </p>
 
           <h3
-            className={`font-black leading-[0.9] tracking-[-0.075em] ${
+            className={`font-black leading-[0.9] tracking-[-0.075em] lg:text-[100%] text-[50px]! ${
               large
                 ? "text-[clamp(4rem,7vw,7.5rem)]"
-                : "text-[clamp(3.5rem,6vw,6rem)]"
+                : "text-[clamp(3rem,5vw,6rem)]"
             }`}
           >
             {project.title}
