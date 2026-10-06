@@ -10,7 +10,7 @@ export default function CookiePolicyPage() {
       title={
         <>
           Cookies,{" "}
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             explained.
           </span>
         </>

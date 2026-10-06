@@ -258,7 +258,7 @@ export default function ServicesPage() {
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
-                  className="block bg-[var(--gradient-primary)] bg-clip-text pb-2 text-transparent"
+                  className="block bg-[var(--gradient-primary)] bg-clip-text pb-2 "
                 >
                   WE BUILD THE FIX.
                 </motion.span>
@@ -412,7 +412,7 @@ export default function ServicesPage() {
             <h2 className="mt-8 text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.88] tracking-[-0.09em]">
               ALMOST
               <br />
-              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text ">
                 ANYTHING.
               </span>
               <br />
@@ -518,7 +518,7 @@ export default function ServicesPage() {
                 <br />
                 <span className="text-[var(--text-disabled)]">MYSTERY.</span>
                 <br />
-                <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+                <span className="bg-[var(--gradient-primary)] bg-clip-text ">
                   JUST BUILD.
                 </span>
               </h2>
@@ -597,7 +597,7 @@ export default function ServicesPage() {
             <h2 className="mt-8 text-[clamp(3.5rem,7vw,7rem)] font-black leading-[0.88] tracking-[-0.09em]">
               SIMPLE
               <br />
-              <span className="bg-gradient-to-r from-orange-400 via-pink-500 to-violet-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-400 via-pink-500 to-violet-500 bg-clip-text ">
                 & FAIR.
               </span>
             </h2>

@@ -11,7 +11,7 @@ export default function TermsPage() {
         <>
           Simple rules.
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             No weird surprises.
           </span>
         </>
