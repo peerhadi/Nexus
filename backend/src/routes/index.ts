@@ -10,6 +10,8 @@ import statsRoutes from "./stats.js";
 import eventRoutes from "./events.js";
 import { aiRoutes } from "./ai.js";
 import { notesRoutes } from "./notes.js";
+import { prisma } from "../plugins/db.js";
+
 export default async function routes(app: FastifyInstance) {
   app.get("/", async () => {
     return {
@@ -19,18 +21,34 @@ export default async function routes(app: FastifyInstance) {
     };
   });
 
-  app.get("/health", async () => {
-    return {
-      status: "ok",
-    };
+  // Public health check
+  // Checks both the Fastify server AND PostgreSQL through Prisma.
+  app.get("/health", async (_request, reply) => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+
+      return reply.send({
+        status: "ok",
+        database: "connected",
+      });
+    } catch (error) {
+      app.log.error(error, "Health check database query failed");
+
+      return reply.status(503).send({
+        status: "error",
+        database: "disconnected",
+      });
+    }
   });
 
   app.register(authRoutes, { prefix: "/auth" });
   app.register(userRoutes, { prefix: "/users" });
   app.register(requestRoutes, { prefix: "/requests" });
+
   app.register(conversationRoutes, {
     prefix: "/conversations",
   });
+
   app.register(messageRoutes, { prefix: "/messages" });
   app.register(projectRoutes, { prefix: "/projects" });
   app.register(statsRoutes, { prefix: "/stats" });
