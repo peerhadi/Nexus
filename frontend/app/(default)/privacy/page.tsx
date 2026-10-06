@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         <>
           Your data.
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             Your business.
           </span>
         </>

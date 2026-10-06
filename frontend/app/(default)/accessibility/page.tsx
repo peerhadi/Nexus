@@ -10,7 +10,7 @@ export default function AccessibilityPage() {
       title={
         <>
           Built for{" "}
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             more people.
           </span>
         </>

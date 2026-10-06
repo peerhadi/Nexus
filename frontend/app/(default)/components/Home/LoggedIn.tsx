@@ -350,7 +350,7 @@ export default function HomePage() {
 
             <h1 className="text-[42px] font-black leading-[0.95] tracking-[-0.06em] text-[var(--text-primary)] sm:text-[58px] lg:text-[72px]">
               Hey,{" "}
-              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text ">
                 {firstName}.
               </span>
               <br />
