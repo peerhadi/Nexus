@@ -45,7 +45,7 @@ export default function Values() {
               <br />
               <span className="text-[var(--text-disabled)]">LIKE TO</span>
               <br />
-              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text ">
                 WORK.
               </span>
             </h2>

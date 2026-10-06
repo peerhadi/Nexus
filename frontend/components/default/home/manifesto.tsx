@@ -24,7 +24,7 @@ export default function Manifesto() {
           <br />
           <span className="text-[var(--text-disabled)]">SHOULD FEEL</span>
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             LIKE MAGIC.
           </span>
         </p>

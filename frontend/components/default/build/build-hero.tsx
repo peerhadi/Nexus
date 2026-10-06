@@ -13,7 +13,7 @@ export default function BuildHero() {
         <br />
         what you're
         <br />
-        <span className="bg-[linear-gradient(90deg,#ff0080,#ff7a00,#ffd600,#00c853,#00b8ff,#7c3aed)] bg-clip-text text-transparent">
+        <span className="bg-[linear-gradient(90deg,#ff0080,#ff7a00,#ffd600,#00c853,#00b8ff,#7c3aed)] bg-clip-text ">
           thinking.
         </span>
       </h1>
