@@ -33,7 +33,7 @@ export default function Submitted() {
               <h1 className="text-4xl font-black leading-[1.05] tracking-[-0.055em] sm:text-6xl">
                 You just started
                 <br />
-                <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00c8ff,#00c853)] bg-clip-text text-transparent">
+                <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00c8ff,#00c853)] bg-clip-text ">
                   something.
                 </span>
               </h1>

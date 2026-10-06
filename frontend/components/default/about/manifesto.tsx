@@ -29,7 +29,7 @@ export default function Manifesto() {
           <br />
           <span className="text-[var(--text-disabled)]">MAKING</span>
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             THINGS REAL.
           </span>
         </h2>

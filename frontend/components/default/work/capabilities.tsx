@@ -51,7 +51,7 @@ export default function Capabilities() {
               <br />
               <span className="text-[var(--text-disabled)]">WAYS TO</span>
               <br />
-              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text ">
                 BUILD.
               </span>
             </h2>

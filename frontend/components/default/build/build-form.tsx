@@ -215,7 +215,7 @@ export default function BuildForm() {
               Tell us what
               <br />
               you're{" "}
-              <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00b8ff)] bg-clip-text text-transparent">
+              <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00b8ff)] bg-clip-text ">
                 thinking.
               </span>
             </h1>

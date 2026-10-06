@@ -27,7 +27,7 @@ export default function BigStatement() {
           <br />
           <span className="text-[var(--text-disabled)]">MAKE IT</span>
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             INCREDIBLE.
           </span>
         </h2>

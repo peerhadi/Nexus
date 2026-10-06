@@ -29,7 +29,7 @@ export default function InternetEnergy() {
         <h2 className="mt-8 text-[clamp(3.5rem,7vw,7rem)] font-black leading-[0.9] tracking-[-0.09em]">
           WE ARE
           <br />
-          <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+          <span className="bg-[var(--gradient-primary)] bg-clip-text ">
             VERY NORMAL.
           </span>
         </h2>

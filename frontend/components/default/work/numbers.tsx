@@ -17,7 +17,7 @@ export default function Numbers() {
             <br />
             <span className="text-[var(--text-disabled)]">NUMBERS</span> THAT
             <br />
-            <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+            <span className="bg-[var(--gradient-primary)] bg-clip-text ">
               LOOK GOOD.
             </span>
           </h2>
