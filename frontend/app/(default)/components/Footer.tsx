@@ -3,7 +3,7 @@ import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 const navigation = [
-  { label: "Home", href: "/home" },
+  { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
@@ -28,22 +28,22 @@ const resources = [
 const socials = [
   {
     label: "GitHub",
-    href: "#",
+    href: "https://github.com/peerhadi/Nexus",
     icon: FaGithub,
   },
   {
     label: "Instagram",
-    href: "#",
+    href: "https://www.instagram.com/nexus_.js",
     icon: FaInstagram,
   },
   {
     label: "LinkedIn",
-    href: "#",
+    href: "https://www.instagram.com/nexus_.js",
     icon: FaLinkedin,
   },
   {
     label: "X",
-    href: "#",
+    href: "https://www.instagram.com/nexus_.js",
     icon: FaXTwitter,
   },
 ];

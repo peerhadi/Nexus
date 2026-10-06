@@ -14,7 +14,7 @@ export default function SettingsSidebar({
     <aside className="flex h-full w-[255px] shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
       <div className="flex h-[74px] items-center border-b border-[var(--border-subtle)] px-4">
         <a
-          href="/home"
+          href="/"
           className="group flex w-full items-center gap-3 rounded-xl px-2.5 py-2 transition-all duration-200 hover:bg-[var(--surface-hover)]"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-contrast)] transition-transform duration-300 group-hover:-translate-x-0.5">
@@ -26,7 +26,9 @@ export default function SettingsSidebar({
               Back to Nexus
             </p>
 
-            <p className="mt-0.5 text-[9px] text-[var(--text-muted)]">Return to home</p>
+            <p className="mt-0.5 text-[9px] text-[var(--text-muted)]">
+              Return to home
+            </p>
           </div>
         </a>
       </div>

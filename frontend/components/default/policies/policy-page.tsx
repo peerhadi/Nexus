@@ -51,7 +51,7 @@ export function PolicyPage({
 
       <div className="relative mx-auto max-w-5xl px-6 py-10 sm:px-8 lg:px-10 lg:py-14">
         <Link
-          href="/home"
+          href="/"
           className="mb-12 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-[var(--surface)] px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-tertiary)] transition hover:border-violet-200 hover:bg-violet-50 hover:text-violet-600"
         >
           <ArrowLeft size={13} />

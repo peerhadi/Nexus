@@ -51,7 +51,7 @@ export const nav = [
   },
   {
     label: "Back",
-    href: "/home",
+    href: "/",
     description: "Go back to home page",
     icon: ArrowLeft,
   },

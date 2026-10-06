@@ -33,7 +33,7 @@ export default function Sidebar() {
       {/* Desktop sidebar */}
       <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[235px] border-r border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-5 backdrop-blur-2xl lg:flex lg:flex-col">
         <Link
-          href="/home"
+          href="/"
           className="group mb-8 flex items-center gap-3 rounded-xl px-2 py-2.5 transition-all duration-300 hover:bg-[var(--surface-hover)]"
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-hover)] transition-all duration-300 group-hover:bg-[var(--accent-soft)]">

@@ -12,7 +12,7 @@ export default function LoginFooter() {
 
       <span className="mx-1 text-[var(--text-disabled)]">·</span>
 
-      <Link href="/home" className="transition hover:text-[var(--text-secondary)]">
+      <Link href="/" className="transition hover:text-[var(--text-secondary)]">
         Back to Nexus
       </Link>
     </div>
