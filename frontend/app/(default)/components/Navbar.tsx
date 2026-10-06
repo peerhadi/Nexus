@@ -245,10 +245,7 @@ export default function Navbar() {
               </button>
 
               {/* LOGO */}
-              <Link
-                href="/home"
-                className="group flex items-center justify-center"
-              >
+              <Link href="/" className="group flex items-center justify-center">
                 <span className="flex h-12 w-30 items-center justify-center rounded-[11px] transition-all duration-300 group-hover:-rotate-6 group-hover:scale-105">
                   <img src="/logo.png" alt="Nexus" />
                 </span>

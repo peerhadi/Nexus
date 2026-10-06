@@ -49,7 +49,7 @@ export default function SidebarNav() {
         const Icon = item.icon;
 
         const active =
-          item.href !== "/home" &&
+          item.href !== "/" &&
           (pathname === item.href ||
             (item.href !== "/dashboard" && pathname.startsWith(item.href)));
 

@@ -221,12 +221,12 @@ export default function HomePage() {
 
         <div className="relative flex flex-col items-center">
           <div className="relative mb-7 flex h-16 w-16 items-center justify-center rounded-[20px] border border-[var(--card-border)] bg-[var(--surface)] shadow-[var(--shadow-lg)] backdrop-blur-xl">
-            <div className="absolute inset-2 rounded-[14px] bg-[var(--gradient-primary)] opacity-15" />
+            <div className="absolute inset-2 rounded-[14px] bg-[var(--accent)] opacity-15" />
 
             <div className="relative flex flex-col gap-[4px]">
-              <span className="h-[3px] w-7 rounded-full bg-[var(--gradient-primary)]" />
-              <span className="ml-2 h-[3px] w-5 rounded-full bg-[var(--gradient-primary)]" />
-              <span className="h-[3px] w-7 rounded-full bg-[var(--gradient-primary)]" />
+              <span className="h-[3px] w-7 rounded-full bg-[var(--accent)]" />
+              <span className="ml-2 h-[3px] w-5 rounded-full bg-[var(--accent)]" />
+              <span className="h-[3px] w-7 rounded-full bg-[var(--accent)]" />
             </div>
           </div>
 

@@ -52,7 +52,7 @@ export default function Hero() {
                 />
               </span>
               <br />
-              <span className="bg-[var(--gradient-primary)] bg-clip-text text-transparent text-[90%]">
+              <span className="bg-[var(--gradient-primary)] bg-clip-text text-[90%]">
                 DISAPPEAR.
               </span>
             </motion.h1>

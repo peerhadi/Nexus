@@ -45,7 +45,7 @@ export default function Submitted() {
 
               <div className="mt-9 grid w-full gap-3 sm:grid-cols-2">
                 <a
-                  href="/home"
+                  href="/"
                   className="group flex h-12 items-center justify-center gap-2 rounded-2xl bg-[var(--accent)] text-xs font-black text-[var(--accent-contrast)] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
                 >
                   Back to Nexus
