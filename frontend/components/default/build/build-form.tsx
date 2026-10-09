@@ -21,7 +21,10 @@ export default function BuildForm() {
 
   const [type, setType] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [Gmail, setGmail] = useState("");
+  const [GmailError, setGmailError] = useState("");
+  const [GmailTouched, setGmailTouched] = useState(false);
+
   const [company, setCompany] = useState("");
   const [message, setMessage] = useState("");
   const [budget, setBudget] = useState("");
@@ -31,21 +34,70 @@ export default function BuildForm() {
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const { showAlert } = useAlert();
+
+  const validateGmail = (value: string): string => {
+    const normalized = value.trim();
+
+    if (!normalized) {
+      return "Company Gmail is required.";
+    }
+
+    const GmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+
+    if (!GmailRegex.test(normalized)) {
+      return "Please enter a valid Gmail address ending in @gmail.com.";
+    }
+
+    return "";
+  };
+
+  const handleGmailChange = (value: string) => {
+    setGmail(value);
+
+    if (GmailTouched) {
+      setGmailError(validateGmail(value));
+    }
+  };
+
   const canContinue = useMemo(() => {
     if (step === 0) return !!type;
+
     if (step === 1) {
-      return name.trim().length >= 2 && email.includes("@");
+      return (
+        name.trim().length >= 2 &&
+        Gmail.trim().length > 0 &&
+        validateGmail(Gmail) === ""
+      );
     }
+
     if (step === 2) return message.trim().length >= 10;
     if (step === 3) return !!budget;
 
     return true;
-  }, [step, type, name, email, message, budget]);
-  const { showAlert } = useAlert();
+  }, [step, type, name, Gmail, message, budget]);
+
   const submitRequest = async () => {
     if (submitting) return;
 
+    // Final validation before submitting.
+    const validationError = validateGmail(Gmail);
+    setGmailTouched(true);
+    setGmailError(validationError);
+
+    if (validationError) {
+      setStep(1);
+      return;
+    }
+
+    if (name.trim().length < 2) {
+      setStep(1);
+      setError("Please enter your company name.");
+      return;
+    }
+
     setSubmitting(true);
+    setError("");
 
     try {
       const token =
@@ -64,11 +116,8 @@ export default function BuildForm() {
 
       const fullMessage = [
         message.trim(),
-
         website.trim() ? `\n\nWebsite / link:\n${website.trim()}` : "",
-
         `\n\nProject type:\n${selectedProject?.title ?? type}`,
-
         `\nBudget:\n${budget}`,
       ].join("");
 
@@ -80,7 +129,7 @@ export default function BuildForm() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          email: email.trim(),
+          email: Gmail.trim(),
           company: company.trim() || undefined,
           subject,
           message: fullMessage,
@@ -120,10 +169,27 @@ export default function BuildForm() {
       setSubmitting(false);
     }
   };
+
   const next = () => {
-    if (!canContinue || submitting) return;
+    if (submitting) return;
 
     setError("");
+
+    if (step === 1) {
+      setGmailTouched(true);
+
+      const validationError = validateGmail(Gmail);
+      setGmailError(validationError);
+
+      if (name.trim().length < 2) {
+        setError("Please enter a company name with at least 2 characters.");
+        return;
+      }
+
+      if (validationError) return;
+    } else if (!canContinue) {
+      return;
+    }
 
     if (step < 3) {
       setStep((current) => current + 1);
@@ -143,6 +209,21 @@ export default function BuildForm() {
     }
   };
 
+  const resetForm = () => {
+    setSubmitted(false);
+    setStep(0);
+    setType("");
+    setName("");
+    setGmail("");
+    setGmailError("");
+    setGmailTouched(false);
+    setCompany("");
+    setMessage("");
+    setBudget("");
+    setWebsite("");
+    setError("");
+  };
+
   if (submitted) {
     return (
       <section className="w-full">
@@ -159,28 +240,17 @@ export default function BuildForm() {
             </div>
 
             <h1 className="mt-3 text-4xl font-black tracking-[-0.05em]">
-              We're on it.
+              We&apos;re on it.
             </h1>
 
             <p className="mt-4 max-w-md text-sm leading-6 text-[var(--text-muted)]">
-              Your project request has been sent to the Nexus team. We'll review
-              everything and get back to you soon.
+              Your project request has been sent to the Nexus team. We&apos;ll
+              review everything and get back to you soon.
             </p>
 
             <button
               type="button"
-              onClick={() => {
-                setSubmitted(false);
-                setStep(0);
-                setType("");
-                setName("");
-                setEmail("");
-                setCompany("");
-                setMessage("");
-                setBudget("");
-                setWebsite("");
-                setError("");
-              }}
+              onClick={resetForm}
               className="mt-8 rounded-xl bg-[var(--accent)] px-5 py-3 text-[10px] font-black text-white transition hover:-translate-y-0.5 hover:shadow-xl"
             >
               Send another request
@@ -214,8 +284,8 @@ export default function BuildForm() {
             <h1 className="text-4xl font-black leading-[0.95] tracking-[-0.055em]">
               Tell us what
               <br />
-              you're{" "}
-              <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00b8ff)] bg-clip-text ">
+              you&apos;re{" "}
+              <span className="bg-[linear-gradient(90deg,#ff0080,#7c3aed,#00b8ff)] bg-clip-text">
                 thinking.
               </span>
             </h1>
@@ -266,14 +336,11 @@ export default function BuildForm() {
                       onClick={() => setType(item.id)}
                       className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ${
                         selected
-                          ? "border-[#06b6d44d] bg-[#06b6d414] shadow-[0_12px_30px_rgba(0,0,0,0.15)] "
+                          ? "border-[#06b6d44d] bg-[#06b6d414] shadow-[0_12px_30px_rgba(0,0,0,0.15)]"
                           : "border-[var(--border)] bg-[var(--surface)] hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:shadow-lg"
                       }`}
                     >
-                      <div
-                        className={`mb-4 flex h-9 w-9 items-center justify-center rounded-xl
-                         bg-[var(--surface)]/15`}
-                      >
+                      <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--surface)]/15">
                         <Icon size={17} />
                       </div>
 
@@ -318,18 +385,35 @@ export default function BuildForm() {
                   label="Company name"
                   icon={<MessageSquare size={14} />}
                   value={name}
-                  onChange={setName}
+                  onChange={(value) => {
+                    setName(value);
+                    setError("");
+                  }}
                   placeholder="Prism Inc."
                 />
 
-                <BuildField
-                  label="Company Email"
-                  icon={<Mail size={14} />}
-                  value={email}
-                  onChange={setEmail}
-                  placeholder="company@example.com"
-                  type="email"
-                />
+                <div>
+                  <BuildField
+                    label="Company Gmail"
+                    icon={<Mail size={14} />}
+                    value={Gmail}
+                    onChange={handleGmailChange}
+                    placeholder="company@example.com"
+                    type="Gmail"
+                  />
+
+                  {GmailError && GmailTouched && (
+                    <p
+                      className="mt-2 flex items-center gap-2 text-xs font-medium text-[var(--danger)]"
+                      role="alert"
+                    >
+                      <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[var(--danger)] text-[10px]">
+                        !
+                      </span>
+                      {GmailError}
+                    </p>
+                  )}
+                </div>
 
                 <BuildField
                   label="Company / project"
@@ -351,8 +435,8 @@ export default function BuildForm() {
                 </div>
 
                 <p className="text-xs leading-5 text-[var(--text-muted)]">
-                  Don't worry about making it sound professional. Explain it
-                  like you're talking to us.
+                  Don&apos;t worry about making it sound professional. Explain
+                  it like you&apos;re talking to us.
                 </p>
               </div>
 
@@ -393,12 +477,12 @@ export default function BuildForm() {
             <div className="animate-[slideIn_.45s_ease-out]">
               <div className="mb-6">
                 <div className="mb-1 text-xl font-black tracking-tight">
-                  What's the rough budget?
+                  What&apos;s the rough budget?
                 </div>
 
                 <p className="text-xs leading-5 text-[var(--text-muted)]">
-                  This isn't a commitment. It just helps us understand the shape
-                  of the project.
+                  This isn&apos;t a commitment. It just helps us understand the
+                  shape of the project.
                 </p>
               </div>
 
@@ -434,18 +518,21 @@ export default function BuildForm() {
                 />
 
                 <p className="text-[10px] leading-5 text-[var(--text-muted)]">
-                  Don't know yet? That's completely fine. Choose{" "}
+                  Don&apos;t know yet? That&apos;s completely fine. Choose{" "}
                   <span className="font-black text-[var(--text-secondary)]">
                     Not sure yet
                   </span>{" "}
-                  and we'll figure it out together.
+                  and we&apos;ll figure it out together.
                 </p>
               </div>
             </div>
           )}
 
           {error && (
-            <div className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[10px] font-bold text-red-500">
+            <div
+              className="mt-5 rounded-xl border border-[var(--danger)]/20 bg-[var(--danger-soft)] px-4 py-3 text-[10px] font-bold text-[var(--danger)]"
+              role="alert"
+            >
               {error}
             </div>
           )}
@@ -468,16 +555,24 @@ export default function BuildForm() {
             <button
               type="button"
               onClick={next}
-              disabled={!canContinue || submitting}
+              disabled={
+                submitting ||
+                (step !== 1 && !canContinue) ||
+                (step === 1 && name.trim().length < 2)
+              }
               className={`group relative flex h-11 min-w-[130px] items-center justify-center gap-2 overflow-hidden rounded-xl px-5 text-[10px] font-black transition-all ${
-                canContinue && !submitting
+                !submitting &&
+                ((step === 1 && name.trim().length >= 2) ||
+                  (step !== 1 && canContinue))
                   ? "bg-[var(--accent)] text-[var(--accent-contrast)] shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
                   : "cursor-not-allowed bg-neutral-100 text-[var(--text-disabled)]"
               }`}
             >
-              {canContinue && !submitting && (
-                <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] transition-transform duration-700 group-hover:translate-x-full" />
-              )}
+              {!submitting &&
+                ((step === 1 && name.trim().length >= 2) ||
+                  (step !== 1 && canContinue)) && (
+                  <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] transition-transform duration-700 group-hover:translate-x-full" />
+                )}
 
               <span className="relative">
                 {submitting

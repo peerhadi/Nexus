@@ -49,7 +49,7 @@ function applyAppearance(mode: Mode, theme: ThemeId) {
 }
 
 export default function AppearanceSettings() {
-  const [mode, setMode] = useState<Mode>("light");
+  const [mode, setMode] = useState<Mode>("dark");
   const [theme, setTheme] = useState<ThemeId>("neon");
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function AppearanceSettings() {
     const savedTheme = localStorage.getItem("nexus_theme");
 
     const nextMode: Mode =
-      savedMode === "dark" || savedMode === "light" ? savedMode : "light";
+      savedMode === "dark" || savedMode === "light" ? savedMode : "dark";
 
     const nextTheme: ThemeId = themes.some((item) => item.id === savedTheme)
       ? (savedTheme as ThemeId)

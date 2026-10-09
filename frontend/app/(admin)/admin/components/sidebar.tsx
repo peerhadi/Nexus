@@ -2,11 +2,15 @@
 
 import {
   Archive,
+  ChartPie,
   ChartPieIcon,
   Clock3,
+  Database,
+  LayoutDashboard,
   Mail,
   Menu,
   Settings,
+  SettingsIcon,
   UserRound,
   X,
 } from "lucide-react";
@@ -16,11 +20,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Inbox", href: "/inbox", icon: Mail },
-  { label: "Requests", href: "/inbox/requests", icon: Clock3 },
-  { label: "Clients", href: "/inbox/clients", icon: UserRound },
-  { label: "Archive", href: "/inbox/archive", icon: Archive },
-  { label: "Progress", href: "/inbox/progress", icon: ChartPieIcon },
+  {
+    label: "Dashboard",
+    href: "/admin/dashboard",
+    icon: LayoutDashboard,
+  },
+  { label: "Inbox", href: "/admin/inbox", icon: Mail },
+  { label: "Requests", href: "/admin/requests", icon: Clock3 },
+  { label: "Clients", href: "/admin/clients", icon: UserRound },
+  { label: "Archive", href: "/admin/archive", icon: Archive },
+  { label: "Progress", href: "/admin/progress", icon: ChartPie },
+  { label: "Data Center", href: "/admin/data-center", icon: Database },
+  { label: "Settings", href: "/admin/settings", icon: SettingsIcon },
 ];
 
 export default function Sidebar() {
@@ -138,7 +149,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         aria-label="Nexus home"
         className="group flex items-center"
       >
-        <span className="flex h-22 px-5 w-[160px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02]">
+        <span className="flex h-17 px-5 w-[160px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02] hidden lg:flex">
           <img
             src="/logo.png"
             alt="Nexus"
@@ -147,7 +158,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         </span>
       </Link>
       <div className="min-h-0 flex-1 overflow-y-auto px-3 pb-5">
-        <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+        <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mt-5">
           Communication
         </div>
 
@@ -199,7 +210,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
       {/* Account */}
       <div className="shrink-0 border-t border-[var(--border)] p-3">
         <Link
-          href="/settings"
+          href="/admin/settings"
           onClick={onNavigate}
           className="group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[var(--surface-hover)]"
         >

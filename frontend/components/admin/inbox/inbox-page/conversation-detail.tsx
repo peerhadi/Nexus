@@ -174,8 +174,8 @@ export default function ConversationDetail({
               </div>
 
               <div className="rounded-full bg-[var(--surface-hover)] px-2.5 py-1 text-[8px] font-semibold text-[var(--text-tertiary)]">
-                {conversation.messages.length}{" "}
-                {conversation.messages.length === 1 ? "message" : "messages"}
+                {conversation.messages?.length}{" "}
+                {conversation.messages?.length === 1 ? "message" : "messages"}
               </div>
             </div>
 

@@ -603,7 +603,10 @@ export default function RequestsPage() {
                   className="flex min-h-[600px] flex-1 items-center justify-center px-6 text-center"
                 >
                   <div>
-                    <Mail size={22} className="mx-auto text-[var(--text-disabled)]" />
+                    <Mail
+                      size={22}
+                      className="mx-auto text-[var(--text-disabled)]"
+                    />
 
                     <div className="mt-3 text-[12px] font-bold">
                       No requests yet

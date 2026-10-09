@@ -163,7 +163,7 @@ export default function Footer() {
                 className="group mt-2 flex w-fit items-center gap-2 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
               >
                 <Mail size={14} />
-                hello@nexus.dev
+                nexusdevs.js@gmail.com
               </a>
             </div>
 
