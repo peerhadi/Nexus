@@ -101,7 +101,7 @@ export default function MessagesPage() {
         </div>
 
         {/* Messaging workspace */}
-        <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-[24px] bg-[var(--surface)] shadow-[0_20px_70px_rgba(139,92,246,0.08)] sm:rounded-[28px]">
+        <div className="relative flex flex-1 overflow-hidden rounded-[24px] bg-[var(--surface)] shadow-[0_20px_70px_rgba(139,92,246,0.08)] sm:rounded-[28px]">
           {loading ? (
             <div className="flex flex-1 items-center justify-center text-[11px] font-semibold text-[var(--text-muted)]">
               Loading conversations...
