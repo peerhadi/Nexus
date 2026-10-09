@@ -105,8 +105,10 @@ export default function HeroVisual() {
         </div>
 
         <div className="mt-4 flex items-center justify-between rounded-2xl bg-[var(--accent)] px-4 py-3 text-white">
-          <span className="text-[10px] text-white">NEXT RUN</span>
-          <span className="text-xs font-bold">08:30 AM</span>
+          <span className="text-[10px] font-semibold text-[#083344]">
+            NEXT RUN
+          </span>
+          <span className="text-xs font-bold text-[#083344]">08:30 AM</span>
         </div>
       </motion.div>
 
@@ -120,7 +122,9 @@ export default function HeroVisual() {
 
           <div>
             <p className="text-xs font-bold">Email received</p>
-            <p className="text-[10px] text-[var(--text-muted)]">Nexus is handling it</p>
+            <p className="text-[10px] text-[var(--text-muted)]">
+              Nexus is handling it
+            </p>
           </div>
         </div>
       </motion.div>
@@ -137,7 +141,9 @@ export default function HeroVisual() {
 
           <div>
             <p className="text-xs font-bold">Task completed</p>
-            <p className="text-[10px] text-[var(--text-muted)]">4.2 seconds ago</p>
+            <p className="text-[10px] text-[var(--text-muted)]">
+              4.2 seconds ago
+            </p>
           </div>
         </div>
       </motion.div>
