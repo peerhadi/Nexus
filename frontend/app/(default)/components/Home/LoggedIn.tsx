@@ -102,10 +102,6 @@ export default function HomePage() {
           return;
         }
 
-        if (!meResponse.ok) {
-          throw new Error("Unable to verify your account.");
-        }
-
         const meData = await meResponse.json();
 
         const currentUser: User = meData.user ?? meData;
@@ -313,8 +309,6 @@ export default function HomePage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)]">
-      <Navbar />
-
       {/* ================================================================ */}
       {/* BACKGROUND                                                       */}
       {/* ================================================================ */}
@@ -712,8 +706,6 @@ export default function HomePage() {
           </div>
         </motion.section>
       </div>
-
-      <Footer />
     </main>
   );
 }

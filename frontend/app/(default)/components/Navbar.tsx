@@ -104,9 +104,9 @@ const menuLinks = [
     noAuth: true,
   },
   {
-    name: "Inbox",
-    href: "/inbox",
-    desc: "Manage incoming client messages",
+    name: "Dashboard",
+    href: "/admin/dashboard",
+    desc: "Admin Dashboard",
     icon: Inbox,
     requiresAuth: true,
     adminOnly: true,
@@ -227,12 +227,10 @@ export default function Navbar() {
             {/* LEFT */}
             <div className="flex items-center gap-3">
               {/* MENU BUTTON */}
-              <button
-                type="button"
+              <div
                 aria-label="Open menu"
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen(true)}
-                disabled={!authChecked}
                 className="group flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--surface)] transition-all duration-300 hover:bg-[var(--surface-hover)]"
               >
                 <span className="flex flex-col gap-[5px]">
@@ -242,7 +240,7 @@ export default function Navbar() {
 
                   <span className="h-[2px] w-[18px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[21px]" />
                 </span>
-              </button>
+              </div>
 
               {/* LOGO */}
               <Link href="/" className="group flex items-center justify-center">
