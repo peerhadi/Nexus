@@ -28,9 +28,11 @@
   --text-primary: #111111;
   --text-secondary: #292929;
   --text-tertiary: #525252;
-  --text-muted: #737373;
-  --text-disabled: #a3a3a3;
+  --text-muted: #595959;
+  --text-disabled: #666666;
   --text-inverse: #ffffff;
+  --input-placeholder: #666666;
+  --nav-active-text: #08738a;
 
   /* ----------------------------------------------------------
      BORDERS
@@ -76,7 +78,6 @@
   --input: #f7f7f5;
   --input-hover: #f1f1ef;
   --input-focus: #ffffff;
-  --input-placeholder: #a3a3a3;
 
   /* ----------------------------------------------------------
      NAVIGATION
@@ -85,7 +86,6 @@
   --nav: #ffffff;
   --nav-hover: #f5f5f3;
   --nav-active: rgba(6, 182, 212, 0.1);
-  --nav-active-text: #0891b2;
 
   /* ----------------------------------------------------------
      CARDS
@@ -416,12 +416,15 @@
   --surface-hover: #202024;
   --surface-active: #29292e;
 
+  /* DARK THEME — TEXT */
   --text-primary: #fafafa;
   --text-secondary: #e4e4e7;
   --text-tertiary: #c4c4c8;
   --text-muted: #a1a1aa;
-  --text-disabled: #71717a;
+  --text-disabled: #a1a1aa;
   --text-inverse: #09090b;
+  --input-placeholder: #a1a1aa;
+  --nav-active-text: #67e8f9;
 
   --border: #303036;
   --border-subtle: #242428;
@@ -430,11 +433,9 @@
   --input: #151517;
   --input-hover: #1c1c1f;
   --input-focus: #111113;
-  --input-placeholder: #71717a;
 
   --nav: #101012;
   --nav-hover: #1a1a1d;
-  --nav-active: rgba(6, 182, 212, 0.14);
 
   --card: #111113;
   --card-hover: #171719;

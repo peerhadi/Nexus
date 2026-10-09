@@ -378,14 +378,20 @@ export default function Navbar() {
       </header>
 
       <aside
+        id="nexus-navigation-drawer"
+        aria-label="Main navigation"
         aria-hidden={!menuOpen}
+        inert={!menuOpen}
         className={`fixed left-0 top-0 z-[100] h-screen w-full max-w-[360px] overflow-hidden bg-[var(--surface)] shadow-[20px_0_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           menuOpen
             ? "translate-x-0 opacity-100"
             : "-translate-x-full opacity-0 pointer-events-none"
         }`}
       >
-        <div className="pointer-events-none absolute inset-0">
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+        >
           <div className="absolute left-0 top-0 h-[280px] w-[280px] rounded-full bg-cyan-400/10 blur-[110px]" />
           <div className="absolute bottom-0 right-0 h-[240px] w-[240px] rounded-full bg-violet-400/10 blur-[110px]" />
           <div className="absolute inset-0 opacity-[0.035]">
@@ -401,13 +407,18 @@ export default function Navbar() {
             type="button"
             aria-label="Close menu"
             onClick={() => setMenuOpen(false)}
-            className="group flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface)] transition-all duration-300 hover:bg-[var(--surface-hover)]"
+            tabIndex={menuOpen ? 0 : -1}
+            className="group flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--surface)] transition-all duration-300 hover:bg-[var(--surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
           >
-            <X className="h-4 w-4 text-[var(--text-tertiary)] transition-colors duration-300 group-hover:text-cyan-500" />
+            <X
+              aria-hidden="true"
+              className="h-4 w-4 text-[var(--text-tertiary)] transition-colors duration-300 group-hover:text-cyan-500"
+            />
           </button>
         </div>
 
         <nav
+          aria-label="Main menu"
           className={`relative z-10 flex h-full flex-col overflow-y-auto px-4 pb-6 pt-20 transition-all duration-500 ${
             menuOpen ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
           }`}
@@ -421,11 +432,15 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className="group flex items-center justify-between rounded-2xl px-4 py-4 transition-all duration-300 hover:bg-[var(--surface-hover)]"
+                  tabIndex={menuOpen ? 0 : -1}
+                  className="group flex items-center justify-between rounded-2xl px-4 py-4 transition-all duration-300 hover:bg-[var(--surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-hover)] transition-all duration-300 group-hover:bg-[var(--accent-soft)]">
-                      <Icon className="h-4 w-4 text-[var(--text-muted)] transition-colors duration-300 group-hover:text-[var(--accent)]" />
+                      <Icon
+                        aria-hidden="true"
+                        className="h-4 w-4 text-[var(--text-muted)] transition-colors duration-300 group-hover:text-[var(--accent)]"
+                      />
                     </div>
                     <div>
                       <h3 className="text-[12px] font-black uppercase tracking-[0.14em] text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-[var(--accent)]">
@@ -436,7 +451,10 @@ export default function Navbar() {
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-[var(--text-disabled)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent)]" />
+                  <ChevronRight
+                    aria-hidden="true"
+                    className="h-4 w-4 shrink-0 text-[var(--text-disabled)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent)]"
+                  />
                 </Link>
               );
             })}
