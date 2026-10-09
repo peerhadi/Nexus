@@ -47,7 +47,7 @@ export default function FinalCta() {
             005 — Your turn
           </p>
 
-          <h2 className="mx-auto mt-10 max-w-6xl text-[clamp(4rem,9vw,9.5rem)] font-black leading-[0.88] tracking-[-0.095em] lg:text-[400%] text-[300%]!">
+          <h2 className="mx-auto mt-10 max-w-6xl text-[clamp(4rem,9vw,9.5rem)] font-black leading-[0.88] tracking-[-0.095em] text-[300%] lg:text-[full]">
             BRING US
             <br />
             SOMETHING

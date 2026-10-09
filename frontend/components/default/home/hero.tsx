@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -11,11 +12,8 @@ export default function Hero() {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.9fr] lg:gap-8">
           <div className="relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl"
+            <div
+              className="nexus-rise nexus-fade mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-40" />
@@ -25,13 +23,17 @@ export default function Hero() {
               <span className="text-xs font-bold tracking-wide text-[var(--text-secondary)]">
                 We build useful things.
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.9 }}
-              className="max-w-5xl text-[clamp(4rem,9.5vw,9.5rem)] font-black leading-[0.79] tracking-[-0.09em]"
+            <h1
+              className="nexus-rise max-w-5xl text-[clamp(4rem,9.5vw,9.5rem)] font-black leading-[0.79] tracking-[-0.09em]"
+              style={
+                {
+                  "--nexus-rise-y": "40px",
+                  animationDelay: "0.1s",
+                  animationDuration: "0.9s",
+                } as React.CSSProperties
+              }
             >
               MAKE
               <br />
@@ -55,23 +57,19 @@ export default function Hero() {
               <span className="bg-[var(--gradient-primary)] bg-clip-text text-[90%]">
                 DISAPPEAR.
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.55, duration: 0.8 }}
-              className="mt-10 max-w-xl text-lg leading-8 text-[var(--text-secondary)] sm:text-xl"
+            <p
+              className="nexus-fade mt-10 max-w-xl text-lg leading-8 text-[var(--text-secondary)] sm:text-xl"
+              style={{ animationDelay: "0.55s" }}
             >
               Nexus builds automations, applications, and intelligent systems
               that take annoying work out of your day.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="mt-10 flex items-center gap-4"
+            <div
+              className="nexus-rise nexus-fade mt-10 flex items-center gap-4"
+              style={{ animationDelay: "0.7s" }}
             >
               <Link
                 href="build"
@@ -89,7 +87,7 @@ export default function Hero() {
                   </span>
                 </span>
               </Link>
-            </motion.div>
+            </div>
           </div>
 
           <HeroVisual />

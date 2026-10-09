@@ -708,6 +708,42 @@ svg {
 }
 
 /* ============================================================
+   HERO ENTRANCE
+   ------------------------------------------------------------
+   One-shot reveal animations for the above-the-fold hero. These
+   run on the compositor as soon as the SSR HTML is parsed, so the
+   hero heading paints immediately instead of waiting for hydration.
+   ============================================================ */
+
+@keyframes nexus-rise {
+  from {
+    transform: translateY(var(--nexus-rise-y, 20px));
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes nexus-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.nexus-rise {
+  animation: nexus-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nexus-fade {
+  animation: nexus-fade 0.8s ease-out both;
+}
+
+/* ============================================================
    FORM FOCUS
    ============================================================ */
 

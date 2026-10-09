@@ -327,7 +327,13 @@ export default function Navbar() {
 
               <Link href="/" className="group flex items-center justify-center">
                 <span className="flex h-12 w-30 items-center justify-center rounded-[11px] transition-all duration-300 group-hover:-rotate-6 group-hover:scale-105">
-                  <img src="/logo.png" alt="Nexus" />
+                  <img
+                    src="/logo.webp"
+                    alt="Nexus"
+                    width={256}
+                    height={256}
+                    className="h-auto w-full"
+                  />
                 </span>
               </Link>
             </div>
