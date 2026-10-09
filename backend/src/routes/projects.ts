@@ -13,7 +13,6 @@ export default async function projectRoutes(app: FastifyInstance) {
   app.addHook("preHandler", requireAuth);
 
   app.get("/", getProjectsController);
-
   app.get("/:id", getProjectController);
 
   app.post("/", {
@@ -31,7 +30,5 @@ export default async function projectRoutes(app: FastifyInstance) {
     handler: createUpdateController,
   });
 
-  app.post("/updates/:updateId/comments", {
-    handler: createCommentController,
-  });
+  app.post("/updates/:updateId/comments", createCommentController);
 }
