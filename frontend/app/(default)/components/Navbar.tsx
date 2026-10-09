@@ -104,7 +104,7 @@ const menuLinks = [
     noAuth: true,
   },
   {
-    name: "Dashboard",
+    name: "Admin Dashboard",
     href: "/admin/dashboard",
     desc: "Admin Dashboard",
     icon: Inbox,
@@ -290,7 +290,7 @@ export default function Navbar() {
                   <div className="ml-auto hidden items-center justify-end gap-2 md:flex">
                     <Link
                       href="/login"
-                      className="rounded-xl bg-[var(--surface)] px-5 py-3 text-[13px] font-semibold text-[var(--text-primary)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#a78bfa]"
+                      className="rounded-xl bg-[var(--gradient-primary)] px-5 py-3 text-[13px] font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#111]"
                     >
                       Sign in
                     </Link>

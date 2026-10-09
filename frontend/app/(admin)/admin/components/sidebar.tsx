@@ -149,7 +149,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         aria-label="Nexus home"
         className="group flex items-center"
       >
-        <span className="flex h-22 px-5 w-[160px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02]">
+        <span className="flex h-17 px-5 w-[160px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02] hidden lg:flex">
           <img
             src="/logo.png"
             alt="Nexus"
@@ -158,7 +158,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         </span>
       </Link>
       <div className="min-h-0 flex-1 overflow-y-auto px-3 pb-5">
-        <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+        <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mt-5">
           Communication
         </div>
 

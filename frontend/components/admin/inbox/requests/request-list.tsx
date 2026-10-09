@@ -79,7 +79,7 @@ export function RequestList({
   onSelect,
 }: RequestListProps) {
   return (
-    <section className="flex h-full w-[360px] shrink-0 min-h-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
+    <section className="flex h-full min-w-[360px] shrink-0 min-h-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
       <div className="shrink-0 border-b border-[var(--border)] p-3">
         <div className="relative">
           <Search
@@ -140,7 +140,9 @@ export function RequestList({
                 type="button"
                 onClick={() => onSelect(request)}
                 className={`w-full border-b border-[var(--border-subtle)] px-4 py-4 text-left transition-colors ${
-                  active ? "bg-[var(--surface-hover)]" : "hover:bg-[var(--surface-hover)]"
+                  active
+                    ? "bg-[var(--surface-hover)]"
+                    : "hover:bg-[var(--surface-hover)]"
                 }`}
               >
                 <div className="flex items-start gap-3">

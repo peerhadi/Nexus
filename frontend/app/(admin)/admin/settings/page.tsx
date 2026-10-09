@@ -77,7 +77,7 @@ function getSavedTheme() {
 }
 
 function getSavedAppearance() {
-  if (typeof window === "undefined") return "light";
+  if (typeof window === "undefined") return "dark";
 
   return localStorage.getItem("nexus_appearance") === "dark" ? "dark" : "light";
 }
@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
   const [accountState, setAccountState] = useState<ConnectionState>("checking");
   const [apiState, setApiState] = useState<ConnectionState>("checking");
   const [theme, setTheme] = useState("neon");
-  const [appearance, setAppearance] = useState("light");
+  const [appearance, setAppearance] = useState("dark");
   const [showEmail, setShowEmail] = useState(true);
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
   const [message, setMessage] = useState("");

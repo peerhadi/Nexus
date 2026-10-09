@@ -14,7 +14,7 @@ const themeScript = `
 
     if (mode !== "dark" && mode !== "light") {
       mode = "light";
-      localStorage.setItem("nexus_mode", "light");
+      localStorage.setItem("nexus_mode", "dark");
     }
 
     var theme = localStorage.getItem("nexus_theme");

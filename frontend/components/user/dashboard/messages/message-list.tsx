@@ -275,15 +275,12 @@ export default function MessageList({ conversationId }: MessageListProps) {
                           className={`rounded-[20px] px-5 py-4 ${
                             isUser
                               ? "rounded-br-sm bg-[var(--gradient-primary)] text-[var(--text-inverse)] shadow-lg"
-                              : "rounded-bl-sm border border-[var(--border)] bg-[var(--surface)] text-[var(--text-primary)] shadow-sm"
+                              : "rounded-bl-sm  bg-[var(--surface)] text-[var(--text-primary)] shadow-sm"
                           }`}
                         >
                           <p
-                            className={`text-[11px] leading-6 ${
-                              isUser
-                                ? "text-[var(--text-inverse)]"
-                                : "text-[var(--text-primary)]"
-                            }`}
+                            className={`text-[11px] leading-6 
+                                text-[var(--text-primary)]`}
                           >
                             {item.content}
                           </p>

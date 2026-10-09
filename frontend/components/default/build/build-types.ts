@@ -28,9 +28,9 @@ export const projectTypes = [
 ];
 
 export const budgets = [
-  "Under $500",
-  "$500 – $1,500",
-  "$1,500 – $5,000",
-  "$5,000+",
+  "Under ₹5000",
+  "₹5000 – ₹15,000",
+  "₹15,000 – ₹50,000",
+  "₹50,000+",
   "Not sure yet",
 ];

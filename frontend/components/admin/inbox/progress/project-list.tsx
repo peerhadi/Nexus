@@ -65,7 +65,7 @@ export default function ProjectList({
   getStatusLabel,
 }: ProjectListProps) {
   return (
-    <aside className="flex min-h-0 w-[360px] shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
+    <aside className="flex min-h-0 min-w-[360px] shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
       <div className="shrink-0 border-b border-[var(--border)] p-3">
         <div className="mb-3 flex items-center justify-between px-1">
           <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">

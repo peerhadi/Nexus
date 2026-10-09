@@ -374,7 +374,7 @@ export default function AdminDashboardPage() {
       href: "/admin/requests",
       icon: ClipboardList,
     })),
-    ...conversations.map((item) => ({
+    ...conversations?.map((item) => ({
       item,
       type: "Conversation",
       href: "/admin/inbox",
@@ -424,15 +424,13 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
-          <button
-            type="button"
+          <div
             onClick={() => void loadDashboard(true)}
-            disabled={loading || refreshing}
-            className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-primary)] transition hover:bg-[var(--surface-hover)] disabled:cursor-not-allowed disabled:opacity-60 sm:self-auto"
+            className="cursor-pointer inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-primary)] transition hover:bg-[var(--surface-hover)] disabled:cursor-not-allowed disabled:opacity-60 sm:self-auto"
           >
             <RefreshCw size={15} className={refreshing ? "animate-spin" : ""} />
             Refresh data
-          </button>
+          </div>
         </motion.header>
 
         {/* API connection */}
@@ -579,7 +577,7 @@ export default function AdminDashboardPage() {
         </section>
 
         {/* Activity and navigation */}
-        <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.25fr_0.85fr]">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.25fr_0.85fr] max-h-[fit-content]">
           <section className="overflow-hidden rounded-2xl border border-[var(--card-border)] bg-[var(--card)]">
             <div className="flex items-center justify-between border-b border-[var(--border-subtle)] px-5 py-4 sm:px-6">
               <div>
@@ -660,16 +658,6 @@ export default function AdminDashboardPage() {
                 })}
               </div>
             )}
-
-            <div className="border-t border-[var(--border-subtle)] px-5 py-3 sm:px-6">
-              <Link
-                href="/admin/inbox"
-                className="inline-flex items-center gap-2 text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--accent)]"
-              >
-                Go to inbox
-                <ArrowRight size={14} />
-              </Link>
-            </div>
           </section>
 
           <section className="rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-5 sm:p-6">
