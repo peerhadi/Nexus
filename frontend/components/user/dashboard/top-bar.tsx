@@ -145,15 +145,30 @@ export default function TopBar() {
   return (
     <>
       <header className="sticky top-0 z-30 flex h-[66px] items-center border-b border-[var(--border-subtle)] bg-[var(--surface)] px-4 backdrop-blur-2xl sm:px-5 lg:px-7">
-        {/* Mobile logo */}
-        <Link
-          href="/dashboard"
-          className="ml-3 flex items-center gap-2.5 lg:hidden"
-        >
-          <span className="text-[12px] font-black tracking-[-0.02em] text-[var(--text-primary)]">
-            NEXUS
-          </span>
-        </Link>
+        <div className="ml-3 flex items-center gap-2.5 lg:hidden">
+          {/* Mobile menu */}
+          <button
+            type="button"
+            onClick={openSidebar}
+            aria-label="Open navigation"
+            className="group flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--surface)] transition-all duration-300 hover:border-cyan-200 hover:bg-cyan-50"
+          >
+            <span className="flex flex-col gap-[4px]">
+              <span className="h-[2px] w-[18px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[21px]" />
+
+              <span className="h-[2px] w-[14px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[18px]" />
+
+              <span className="h-[2px] w-[18px] rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)] transition-all duration-300 group-hover:w-[21px]" />
+            </span>
+          </button>
+
+          {/* Mobile logo */}
+          <Link href="/dashboard">
+            <span className="text-[12px] font-black tracking-[-0.02em] text-[var(--text-primary)]">
+              NEXUS
+            </span>
+          </Link>
+        </div>
 
         {/* Desktop identity */}
         <div className="hidden items-center gap-3 lg:flex">

@@ -78,9 +78,9 @@ export default function ConversationList({
         </div>
       </div>
 
-      <div ref={listRef} className="min-h-0 flex-1 overflow-y-auto ">
+      <div ref={listRef} className="min-h-screen flex-1 overflow-y-auto ">
         {conversations.length === 0 ? (
-          <div className="flex h-full items-center justify-center px-8 text-center">
+          <div className="flex h-full items-center justify-center px-8 text-center flex min-h-[calc(100vh-208px)] justify-center items-center">
             <div>
               <Mail size={20} className="mx-auto text-[var(--text-disabled)]" />
 
@@ -103,7 +103,9 @@ export default function ConversationList({
                 type="button"
                 onClick={() => onSelect(conversation)}
                 className={`w-full border-b border-[var(--border-subtle)] px-4 py-4 text-left transition-colors ${
-                  isSelected ? "bg-[var(--surface-hover)]" : "hover:bg-[var(--surface-hover)]"
+                  isSelected
+                    ? "bg-[var(--surface-hover)]"
+                    : "hover:bg-[var(--surface-hover)]"
                 }`}
               >
                 <div className="flex items-start gap-3">
