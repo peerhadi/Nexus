@@ -3,35 +3,30 @@
 import {
   Archive,
   ChartPie,
-  ChartPieIcon,
   Clock3,
   Database,
   LayoutDashboard,
+  LogOut,
   Mail,
   Menu,
   Settings,
-  SettingsIcon,
   UserRound,
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  {
-    label: "Dashboard",
-    href: "/admin/dashboard",
-    icon: LayoutDashboard,
-  },
+  { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Inbox", href: "/admin/inbox", icon: Mail },
   { label: "Requests", href: "/admin/requests", icon: Clock3 },
   { label: "Clients", href: "/admin/clients", icon: UserRound },
   { label: "Archive", href: "/admin/archive", icon: Archive },
   { label: "Progress", href: "/admin/progress", icon: ChartPie },
   { label: "Data Center", href: "/admin/data-center", icon: Database },
-  { label: "Settings", href: "/admin/settings", icon: SettingsIcon },
+  { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export default function Sidebar() {
@@ -57,12 +52,10 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden h-dvh w-[250px] flex-col overflow-hidden border-r border-[var(--border)] bg-[var(--surface)] lg:flex">
         <SidebarContent onNavigate={() => {}} />
       </aside>
 
-      {/* Mobile menu trigger */}
       <button
         type="button"
         aria-label="Open admin menu"
@@ -72,7 +65,6 @@ export default function Sidebar() {
         <Menu size={17} />
       </button>
 
-      {/* Mobile sidebar */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -99,7 +91,6 @@ export default function Sidebar() {
               }}
               className="fixed inset-y-0 left-0 z-50 flex w-[min(88vw,320px)] flex-col overflow-hidden border-r border-[var(--border)] bg-[var(--surface)] shadow-2xl lg:hidden"
             >
-              {/* Mobile drawer header */}
               <div className="flex h-[74px] shrink-0 items-center justify-between border-b border-[var(--border)] px-5">
                 <Link
                   href="/"
@@ -139,17 +130,27 @@ export default function Sidebar() {
 
 function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  function handleLogout() {
+    localStorage.removeItem("nexus_token");
+    localStorage.removeItem("nexus_user");
+    sessionStorage.removeItem("nexus_token");
+    sessionStorage.removeItem("nexus_user");
+    onNavigate();
+    router.replace("/login");
+    router.refresh();
+  }
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      {/* Navigation */}
-
       <Link
         href="/"
         aria-label="Nexus home"
+        onClick={onNavigate}
         className="group flex items-center"
       >
-        <span className="flex h-17 px-5 w-[160px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02] hidden lg:flex">
+        <span className="hidden h-[68px] w-[160px] items-center justify-start overflow-hidden px-5 transition-all duration-300 group-hover:scale-[1.02] lg:flex">
           <img
             src="/logo.png"
             alt="Nexus"
@@ -157,15 +158,19 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
           />
         </span>
       </Link>
+
       <div className="min-h-0 flex-1 overflow-y-auto px-3 pb-5">
-        <div className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mt-5">
-          Communication
+        <div className="mb-2 mt-5 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+          Administration
         </div>
 
         <nav className="space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href;
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/admin/dashboard" &&
+                pathname.startsWith(`${item.href}/`));
 
             return (
               <Link
@@ -194,7 +199,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
                   <span
                     className={`shrink-0 rounded-full px-1.5 py-0.5 text-[9px] ${
                       isActive
-                        ? "bg-[var(--surface)]/15 text-white"
+                        ? "bg-white/15 text-white"
                         : "bg-[var(--surface-hover)] text-[var(--text-tertiary)]"
                     }`}
                   >
@@ -207,8 +212,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
         </nav>
       </div>
 
-      {/* Account */}
-      <div className="shrink-0 border-t border-[var(--border)] p-3">
+      <div className="shrink-0 space-y-1 border-t border-[var(--border)] p-3">
         <Link
           href="/admin/settings"
           onClick={onNavigate}
@@ -220,7 +224,6 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
 
           <div className="min-w-0 flex-1">
             <div className="truncate text-[11px] font-bold">Nexus</div>
-
             <div className="truncate text-[9px] text-[var(--text-muted)]">
               Administrator
             </div>
@@ -231,6 +234,19 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
             className="shrink-0 text-[var(--text-muted)] transition-transform duration-200 group-hover:rotate-45 group-hover:text-[var(--text-secondary)]"
           />
         </Link>
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[12px] font-semibold text-[var(--text-tertiary)] transition-colors hover:bg-red-500/10 hover:text-red-600"
+        >
+          <LogOut
+            size={16}
+            strokeWidth={1.8}
+            className="text-[var(--text-muted)] transition-colors group-hover:text-red-600"
+          />
+          <span className="flex-1">Log out</span>
+        </button>
       </div>
     </div>
   );

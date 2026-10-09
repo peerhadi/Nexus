@@ -13,16 +13,29 @@ import {
 import { useAlert } from "@/lib/alert";
 import { API_URL } from "@/lib/api";
 
+interface LoginResponse {
+  token?: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: "CLIENT" | "ADMIN";
+  };
+  error?: string;
+}
+
 export default function LoginForm() {
   const router = useRouter();
   const { showAlert } = useAlert();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const canLogin = email.includes("@") && password.length > 0;
+  const canLogin =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) && password.length > 0;
 
   const handleLogin = async () => {
     if (!canLogin || loading) return;
@@ -41,11 +54,27 @@ export default function LoginForm() {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response
+        .json()
+        .catch(() => null)) as LoginResponse | null;
 
       if (!response.ok) {
-        throw new Error(data.error ?? "Invalid email or password");
+        throw new Error(data?.error ?? "Invalid email or password");
       }
+
+      if (
+        !data?.token ||
+        !data.user?.id ||
+        !data.user.email ||
+        !["CLIENT", "ADMIN"].includes(data.user.role)
+      ) {
+        throw new Error("The server returned an invalid login response.");
+      }
+
+      localStorage.removeItem("nexus_token");
+      localStorage.removeItem("nexus_user");
+      sessionStorage.removeItem("nexus_token");
+      sessionStorage.removeItem("nexus_user");
 
       const storage = remember ? localStorage : sessionStorage;
 
@@ -58,14 +87,16 @@ export default function LoginForm() {
         "You've been successfully signed in.",
       );
 
-      router.push("/dashboard");
+      router.replace(
+        data.user.role === "ADMIN" ? "/admin/dashboard" : "/dashboard",
+      );
     } catch (error) {
       showAlert(
         "error",
         "Login failed",
         error instanceof Error ? error.message : "Unable to log in.",
       );
-
+    } finally {
       setLoading(false);
     }
   };
@@ -86,7 +117,13 @@ export default function LoginForm() {
           <div className="text-[30px]">Log In</div>
         </div>
 
-        <div className="space-y-5">
+        <form
+          className="space-y-5"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void handleLogin();
+          }}
+        >
           <label className="block">
             <span className="mb-2 block text-[10px] font-semibold text-[var(--text-secondary)]">
               Email address
@@ -101,13 +138,11 @@ export default function LoginForm() {
               <input
                 autoFocus
                 type="email"
+                autoComplete="email"
+                required
+                maxLength={254}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    void handleLogin();
-                  }
-                }}
                 placeholder="you@example.com"
                 className="h-13 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] pl-11 pr-4 text-[12px] outline-none transition-all duration-300 placeholder:text-[var(--text-disabled)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)] focus:shadow-[0_0_0_5px_rgba(0,229,255,0.06),0_10px_30px_rgba(0,0,0,0.04)]"
               />
@@ -122,12 +157,12 @@ export default function LoginForm() {
                 Password
               </span>
 
-              <button
-                type="button"
+              <div
+                onClick={() => router.push("/forgot-password")}
                 className="text-[9px] font-medium text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
               >
                 Forgot password?
-              </button>
+              </div>
             </div>
 
             <div className="group relative">
@@ -138,20 +173,19 @@ export default function LoginForm() {
 
               <input
                 type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                required
+                maxLength={128}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    void handleLogin();
-                  }
-                }}
                 placeholder="Your password"
                 className="h-13 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] pl-11 pr-12 text-[12px] outline-none transition-all duration-300 placeholder:text-[var(--text-disabled)] focus:border-[var(--border-strong)] focus:bg-[var(--surface)] focus:shadow-[0_0_0_5px_rgba(255,0,204,0.05),0_10px_30px_rgba(0,0,0,0.04)]"
               />
 
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((current) => !current)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
               >
                 {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
@@ -160,65 +194,62 @@ export default function LoginForm() {
               <div className="pointer-events-none absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[linear-gradient(90deg,#00e5ff,#7c3aed,#ff00cc)] transition-all duration-500 group-focus-within:w-[92%]" />
             </div>
           </label>
-        </div>
 
-        <div className="mt-5 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => setRemember(!remember)}
-            className="flex items-center gap-2 text-[9px] text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
-          >
-            <span
-              className={[
-                "flex h-4 w-4 items-center justify-center rounded-md border transition-all duration-200",
-                remember
-                  ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-contrast)]"
-                  : "border-[var(--border)] bg-[var(--surface)]",
-              ].join(" ")}
+          <div className="mt-5 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => setRemember((current) => !current)}
+              aria-pressed={remember}
+              className="flex items-center gap-2 text-[9px] text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
             >
-              {remember && <Sparkles size={9} />}
-            </span>
-            Remember me
+              <span
+                className={[
+                  "flex h-4 w-4 items-center justify-center rounded-md border transition-all duration-200",
+                  remember
+                    ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-contrast)]"
+                    : "border-[var(--border)] bg-[var(--surface)]",
+                ].join(" ")}
+              >
+                {remember && <Sparkles size={9} />}
+              </span>
+              Remember me
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            disabled={!canLogin || loading}
+            className={[
+              "group relative mt-7 flex h-12 w-full items-center justify-center gap-3 overflow-hidden rounded-2xl text-[11px] font-semibold text-white transition-all duration-300",
+              !canLogin || loading
+                ? "cursor-not-allowed bg-[var(--overlay)]"
+                : "bg-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]",
+            ].join(" ")}
+          >
+            <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,#00e5ff,#ff00cc,#a8ff00,transparent)] opacity-50 transition-transform duration-1000 group-hover:translate-x-full" />
+
+            {loading ? (
+              <>
+                <span className="relative h-4 w-4 animate-spin rounded-full border-2 border-white/25 border-t-white" />
+                <span className="relative">Entering Nexus...</span>
+              </>
+            ) : (
+              <>
+                <span className="relative">Enter Nexus</span>
+                <ArrowRight
+                  size={14}
+                  className="relative transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </>
+            )}
           </button>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => void handleLogin()}
-          disabled={!canLogin || loading}
-          className={[
-            "group relative mt-7 flex h-12 w-full items-center justify-center gap-3 overflow-hidden rounded-2xl text-[11px] font-semibold text-white transition-all duration-300",
-            !canLogin || loading
-              ? "cursor-not-allowed bg-[var(--overlay)]"
-              : "bg-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]",
-          ].join(" ")}
-        >
-          <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(90deg,transparent,#00e5ff,#ff00cc,#a8ff00,transparent)] opacity-50 transition-transform duration-1000 group-hover:translate-x-full" />
-
-          {loading ? (
-            <>
-              <span className="relative h-4 w-4 animate-spin rounded-full border-2 border-white/25 border-t-white" />
-              <span className="relative">Entering Nexus...</span>
-            </>
-          ) : (
-            <>
-              <span className="relative">Enter Nexus</span>
-
-              <ArrowRight
-                size={14}
-                className="relative transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </>
-          )}
-        </button>
+        </form>
 
         <div className="my-7 flex items-center gap-3">
           <div className="h-px flex-1 bg-[var(--surface-hover)]" />
-
           <span className="text-[8px] font-medium uppercase tracking-[0.15em] text-[var(--text-muted)]">
             or
           </span>
-
           <div className="h-px flex-1 bg-[var(--surface-hover)]" />
         </div>
 
