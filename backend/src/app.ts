@@ -86,7 +86,7 @@ export function buildApp() {
     prefix: "/api",
   });
 
-  app.setErrorHandler((error, request, reply) => {
+  app.setErrorHandler((error: any, request, reply) => {
     request.log.error(
       {
         err: error,

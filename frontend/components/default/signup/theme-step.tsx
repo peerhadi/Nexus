@@ -45,7 +45,7 @@ interface ThemeStepProps {
 export default function ThemeStep({ theme, setTheme }: ThemeStepProps) {
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-8 bg-[var(--primary)]">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-[var(--accent-contrast)]">
           <Palette size={20} />
         </div>
@@ -69,7 +69,7 @@ export default function ThemeStep({ theme, setTheme }: ThemeStepProps) {
               type="button"
               onClick={() => setTheme(item.id)}
               className={[
-                "relative overflow-hidden rounded-2xl border p-4 text-left",
+                "relative overflow-hidden rounded-2xl border p-4 text-left bg-[var(--surface)]",
                 item.className,
                 selected ? "border-cyan-400 ring-2 ring-cyan-400/20" : "",
               ].join(" ")}
