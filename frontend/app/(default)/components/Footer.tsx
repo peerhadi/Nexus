@@ -38,12 +38,12 @@ const socials = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.instagram.com/nexus_.js",
+    href: "https://www.linkedin.com/in/nexus-made-3a7864442",
     icon: FaLinkedin,
   },
   {
     label: "X",
-    href: "https://www.instagram.com/nexus_.js",
+    href: "https://x.com/nexusmadeofc",
     icon: FaXTwitter,
   },
 ];
