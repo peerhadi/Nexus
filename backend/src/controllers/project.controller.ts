@@ -13,23 +13,9 @@ export async function getProjectsController(
   reply: FastifyReply,
 ) {
   const isAdmin = request.user.role === "ADMIN";
-
   const projects = await getProjects(request.user.id, isAdmin);
 
-  console.log("PROJECT DEBUG");
-  console.log("JWT user:", request.user);
-  console.log(
-    "Projects:",
-    projects.map((project) => ({
-      id: project.id,
-      name: project.name,
-      clientId: project.clientId,
-    })),
-  );
-
-  return reply.send({
-    projects,
-  });
+  return reply.send({ projects });
 }
 
 export async function getProjectController(
@@ -57,16 +43,16 @@ export async function createProjectController(
   }>,
   reply: FastifyReply,
 ) {
-  const project = await createProject({
-    ...request.body,
-    startDate: request.body.startDate
-      ? new Date(request.body.startDate)
-      : undefined,
-    deadline: request.body.deadline
-      ? new Date(request.body.deadline)
-      : undefined,
-  });
+  const body = request.body;
 
+  const project = await createProject(
+    {
+      ...body,
+      startDate: body.startDate ? new Date(body.startDate) : undefined,
+      deadline: body.deadline ? new Date(body.deadline) : undefined,
+    },
+    request.user.role,
+  );
   return reply.code(201).send({ project });
 }
 
@@ -87,13 +73,16 @@ export async function updateProjectController(
 ) {
   const body = request.body;
 
-  const project = await updateProject(request.params.id, {
-    ...body,
-    startDate: body.startDate ? new Date(body.startDate) : undefined,
-    deadline: body.deadline ? new Date(body.deadline) : undefined,
-    completedAt: body.completedAt ? new Date(body.completedAt) : undefined,
-  });
-
+  const project = await updateProject(
+    request.params.id,
+    {
+      ...body,
+      startDate: body.startDate ? new Date(body.startDate) : undefined,
+      deadline: body.deadline ? new Date(body.deadline) : undefined,
+      completedAt: body.completedAt ? new Date(body.completedAt) : undefined,
+    },
+    request.user.role,
+  );
   return reply.send({ project });
 }
 
@@ -113,6 +102,7 @@ export async function createUpdateController(
     request.params.id,
     request.user.id,
     request.body,
+    request.user.role,
   );
 
   return reply.code(201).send({ update });
@@ -127,10 +117,13 @@ export async function createCommentController(
   }>,
   reply: FastifyReply,
 ) {
+  const isAdmin = request.user.role === "ADMIN";
+
   const comment = await createComment(
     request.params.updateId,
     request.user.id,
     request.body.content,
+    isAdmin,
   );
 
   return reply.code(201).send({ comment });
