@@ -100,8 +100,10 @@ export default function Sidebar() {
                 >
                   <span className="flex h-24 w-[120px] items-center justify-start overflow-hidden rounded-[11px] transition-all duration-300 group-hover:scale-[1.02]">
                     <img
-                      src="/logo.png"
+                      src="/logo.webp"
                       alt="Nexus"
+                      width={256}
+                      height={256}
                       className="h-full w-full object-contain object-left"
                     />
                   </span>
@@ -152,8 +154,10 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
       >
         <span className="hidden h-[68px] w-[160px] items-center justify-start overflow-hidden px-5 transition-all duration-300 group-hover:scale-[1.02] lg:flex">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Nexus"
+            width={256}
+            height={256}
             className="h-full w-full object-contain object-left"
           />
         </span>

@@ -59,10 +59,11 @@ export default function Footer() {
             <Link href="/" className="group flex w-fit items-center">
               <span className="h-20 flex items-center justify-center rounded-[11px] transition-all duration-300 group-hover:-rotate-3 group-hover:scale-105">
                 <img
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="Nexus"
-                  className="object-contain"
+                  className="h-auto w-[150px] object-contain"
                   width={150}
+                  height={150}
                 />
               </span>
             </Link>
