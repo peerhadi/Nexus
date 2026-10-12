@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LucideIcon } from "lucide-react";
 
 type ActivityItemProps = {
   item: {
-    icon: React.ElementType;
+    icon: LucideIcon;
     title: string;
     text: string;
     time: string;
@@ -14,7 +15,6 @@ type ActivityItemProps = {
   index: number;
   total: number;
 };
-
 export default function ActivityItem({
   item,
   index,

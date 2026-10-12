@@ -1,5 +1,5 @@
 "use client";
-
+import type { LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
@@ -33,7 +33,7 @@ type Project = {
 };
 
 type Activity = {
-  icon: React.ElementType;
+  icon: LucideIcon;
   title: string;
   text: string;
   time: string;
