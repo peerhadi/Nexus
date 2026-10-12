@@ -4,6 +4,7 @@ import {
   deleteAIConversation,
   getAIConversation,
   getAIConversations,
+  publicChatWithAI,
 } from "../controllers/ai.controller.js";
 import { requireAuth } from "../middleware/auth.js";
 
@@ -26,5 +27,8 @@ export async function aiRoutes(app: FastifyInstance) {
   app.post("/chat", {
     preHandler: requireAuth,
     handler: chatWithAI,
+  });
+  app.post("/public-chat", {
+    handler: publicChatWithAI,
   });
 }

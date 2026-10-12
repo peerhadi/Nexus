@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PublicAIChat from "./components/PublicAIChat";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -7,6 +8,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <Navbar />
       {children}
       <Footer />
+      <PublicAIChat />
     </>
   );
 }

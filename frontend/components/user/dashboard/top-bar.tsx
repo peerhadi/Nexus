@@ -186,7 +186,7 @@ export default function TopBar() {
 
           <div className="ml-2 h-5 w-px bg-[var(--surface-hover)]" />
 
-          <div className="text-[8px] font-black uppercase tracking-[0.18em] text-[var(--text-disabled)]">
+          <div className="text-[8px] font-black uppercase tracking-[0.18em] text-white!">
             Dashboard
           </div>
         </div>
