@@ -1781,37 +1781,28 @@ img {
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="sticky top-0 h-screen min-h-0 overflow-y-auto rounded-2xl border"
-            style={{
-              borderColor: "var(--accent)",
-              background: "var(--background)",
-            }}
+            className="sticky top-4 flex h-[calc(100vh-2rem)] min-h-0 flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-[var(--text-primary)] shadow-[var(--shadow-md)]"
           >
             <button
               onClick={() => setShowOptions(!showOptions)}
-              className="flex w-full items-center justify-between border-b p-5 text-left"
-              style={{ borderColor: "var(--accent)" }}
+              className="flex w-full shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] p-5 text-left transition-colors hover:bg-[var(--surface-hover)]"
             >
               <div className="flex items-center gap-3">
-                <span
-                  className="flex h-9 w-9 items-center justify-center rounded-xl"
-                  style={{ background: "var(--gradient-secondary)" }}
-                >
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent-active)]">
                   <Palette size={17} />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold">Design controls</p>
-                  <p
-                    className="mt-1 text-[11px]"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
+                  <p className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
+                    Design controls
+                  </p>
+                  <p className="mt-1 text-[11px] text-[var(--text-muted)]">
                     Make it yours
                   </p>
                 </div>
               </div>
               <ChevronDown
                 size={16}
-                className={`transition-transform ${showOptions ? "rotate-180" : ""}`}
+                className={`text-[var(--text-secondary)] transition-transform ${showOptions ? "rotate-180" : ""}`}
               />
             </button>
 
@@ -1821,18 +1812,15 @@ img {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden"
+                  className="min-h-0 flex-1 overflow-hidden"
                 >
-                  <div className="space-y-6 p-5">
+                  <div className="h-full space-y-6 overflow-y-auto overscroll-contain p-5">
                     <section>
                       <div className="mb-3 flex items-center justify-between">
-                        <label className="text-xs font-semibold">
+                        <label className="text-xs font-semibold text-[var(--text-primary)]">
                           01 / Website type
                         </label>
-                        <span
-                          className="text-[10px]"
-                          style={{ color: "var(--text-secondary)" }}
-                        >
+                        <span className="text-[10px] text-[var(--text-muted)]">
                           Required
                         </span>
                       </div>
@@ -1845,23 +1833,18 @@ img {
                             <button
                               key={item.id}
                               onClick={() => setSiteType(item.id)}
-                              className="group flex items-center gap-3 rounded-xl border p-3 text-left transition duration-200 hover:-translate-y-0.5"
-                              style={{
-                                borderColor: active
-                                  ? "var(--accent)"
-                                  : "var(--background)",
-                                background: active
-                                  ? "var(--gradient-secondary)"
-                                  : "transparent",
-                              }}
+                              className={`group flex items-center gap-3 rounded-xl border p-3 text-left transition-all duration-200 ${
+                                active
+                                  ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                                  : "border-[var(--border)] bg-[var(--surface)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-hover)]"
+                              }`}
                             >
                               <span
-                                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                                style={{
-                                  background: active
-                                    ? "var(--gradient-primary)"
-                                    : "var(--background)",
-                                }}
+                                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
+                                  active
+                                    ? "bg-[var(--surface)] text-[var(--accent-active)]"
+                                    : "bg-[var(--surface-secondary)] text-[var(--text-secondary)]"
+                                }`}
                               >
                                 {item.id === "ecommerce" ? (
                                   <Layers3 size={16} />
@@ -1875,27 +1858,20 @@ img {
                               </span>
 
                               <span className="min-w-0 flex-1">
-                                <span className="block text-xs font-semibold">
+                                <span className="block text-xs font-semibold text-[var(--text-primary)]">
                                   {item.label}
                                 </span>
-                                <span
-                                  className="mt-1 block text-[10px] leading-relaxed"
-                                  style={{ color: "var(--text-secondary)" }}
-                                >
+                                <span className="mt-1 block text-[10px] leading-relaxed text-[var(--text-secondary)]">
                                   {item.description}
                                 </span>
                               </span>
 
                               <span
-                                className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border"
-                                style={{
-                                  borderColor: active
-                                    ? "var(--accent)"
-                                    : "var(--text-secondary)",
-                                  background: active
-                                    ? "var(--accent)"
-                                    : "transparent",
-                                }}
+                                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                                  active
+                                    ? "border-[var(--accent-active)] bg-[var(--accent-active)] text-[var(--text-inverse)]"
+                                    : "border-[var(--border-strong)] bg-[var(--surface)] text-transparent"
+                                }`}
                               >
                                 {active && <Check size={12} />}
                               </span>
@@ -1905,21 +1881,18 @@ img {
                       </div>
                     </section>
 
-                    <div
-                      className="h-px"
-                      style={{ background: "var(--accent)", opacity: 0.6 }}
-                    />
+                    <div className="h-px bg-[var(--border-subtle)]" />
 
                     <section>
-                      <label className="mb-3 block text-xs font-semibold">
+                      <label className="mb-3 block text-xs font-semibold text-[var(--text-primary)]">
                         02 / Brand identity
                       </label>
+
                       <div className="space-y-3">
                         <div>
                           <label
                             htmlFor="site-name"
-                            className="mb-1.5 block text-[11px]"
-                            style={{ color: "var(--text-secondary)" }}
+                            className="mb-1.5 block text-[11px] text-[var(--text-secondary)]"
                           >
                             Website name
                           </label>
@@ -1931,19 +1904,14 @@ img {
                             }
                             maxLength={28}
                             placeholder="e.g. Forma Studio"
-                            className="w-full rounded-xl border px-3 py-2.5 text-xs outline-none transition focus:ring-2"
-                            style={{
-                              borderColor: "var(--accent)",
-                              background: "var(--background)",
-                              color: "var(--text-primary)",
-                            }}
+                            className="w-full rounded-xl border border-[var(--border)] bg-[var(--input)] px-3 py-2.5 text-xs text-[var(--text-primary)] outline-none placeholder:text-[var(--input-placeholder)] transition focus:border-[var(--border-focus)] focus:bg-[var(--input-focus)] focus:ring-2 focus:ring-[var(--focus-ring)]"
                           />
                         </div>
+
                         <div>
                           <label
                             htmlFor="site-keywords"
-                            className="mb-1.5 block text-[11px]"
-                            style={{ color: "var(--text-secondary)" }}
+                            className="mb-1.5 block text-[11px] text-[var(--text-secondary)]"
                           >
                             Keywords and mood
                           </label>
@@ -1956,32 +1924,22 @@ img {
                             rows={3}
                             maxLength={180}
                             placeholder="modern, playful, premium..."
-                            className="w-full resize-y rounded-xl border px-3 py-2.5 text-xs leading-relaxed outline-none transition focus:ring-2"
-                            style={{
-                              borderColor: "var(--accent)",
-                              background: "var(--background)",
-                              color: "var(--text-primary)",
-                            }}
+                            className="w-full resize-y rounded-xl border border-[var(--border)] bg-[var(--input)] px-3 py-2.5 text-xs leading-relaxed text-[var(--text-primary)] outline-none placeholder:text-[var(--input-placeholder)] transition focus:border-[var(--border-focus)] focus:bg-[var(--input-focus)] focus:ring-2 focus:ring-[var(--focus-ring)]"
                           />
-                          <p
-                            className="mt-1.5 text-[10px]"
-                            style={{ color: "var(--text-secondary)" }}
-                          >
+                          <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
                             Separate keywords with commas.
                           </p>
                         </div>
                       </div>
                     </section>
 
-                    <div
-                      className="h-px"
-                      style={{ background: "var(--accent)", opacity: 0.6 }}
-                    />
+                    <div className="h-px bg-[var(--border-subtle)]" />
 
                     <section>
-                      <label className="mb-3 block text-xs font-semibold">
+                      <label className="mb-3 block text-xs font-semibold text-[var(--text-primary)]">
                         03 / Colour theme
                       </label>
+
                       <div className="grid grid-cols-3 gap-2">
                         {(Object.entries(themes) as [ThemeType, Theme][]).map(
                           ([id, item]) => {
@@ -1991,18 +1949,14 @@ img {
                               <button
                                 key={id}
                                 onClick={() => setThemeType(id)}
-                                className="rounded-xl border p-2 text-left transition duration-200 hover:-translate-y-0.5"
-                                style={{
-                                  borderColor: active
-                                    ? "var(--accent)"
-                                    : "var(--background)",
-                                  background: active
-                                    ? "var(--gradient-secondary)"
-                                    : "transparent",
-                                }}
+                                className={`rounded-xl border p-2 text-left transition-all duration-200 hover:-translate-y-0.5 ${
+                                  active
+                                    ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                                    : "border-[var(--border)] bg-[var(--surface)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-hover)]"
+                                }`}
                               >
                                 <span
-                                  className="mb-2 flex h-9 items-end gap-1 overflow-hidden rounded-lg p-1"
+                                  className="mb-2 flex h-9 items-end gap-1 overflow-hidden rounded-lg border border-[var(--border)] p-1"
                                   style={{ background: item.background }}
                                 >
                                   <span
@@ -2015,10 +1969,15 @@ img {
                                   />
                                 </span>
                                 <span className="flex items-center justify-between gap-1">
-                                  <span className="text-[10px] font-medium">
+                                  <span className="text-[10px] font-medium text-[var(--text-primary)]">
                                     {item.name}
                                   </span>
-                                  {active && <Check size={11} />}
+                                  {active && (
+                                    <Check
+                                      size={11}
+                                      className="shrink-0 text-[var(--accent-active)]"
+                                    />
+                                  )}
                                 </span>
                               </button>
                             );
@@ -2027,15 +1986,13 @@ img {
                       </div>
                     </section>
 
-                    <div
-                      className="h-px"
-                      style={{ background: "var(--accent)", opacity: 0.6 }}
-                    />
+                    <div className="h-px bg-[var(--border-subtle)]" />
 
                     <section>
-                      <label className="mb-3 block text-xs font-semibold">
+                      <label className="mb-3 block text-xs font-semibold text-[var(--text-primary)]">
                         04 / Motion style
                       </label>
+
                       <div className="space-y-2">
                         {animationOptions.map((item) => {
                           const active = animation === item.id;
@@ -2044,19 +2001,18 @@ img {
                             <button
                               key={item.id}
                               onClick={() => setAnimation(item.id)}
-                              className="flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition"
-                              style={{
-                                borderColor: active
-                                  ? "var(--accent)"
-                                  : "var(--background)",
-                                background: active
-                                  ? "var(--gradient-secondary)"
-                                  : "transparent",
-                              }}
+                              className={`flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all ${
+                                active
+                                  ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                                  : "border-[var(--border)] bg-[var(--surface)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-hover)]"
+                              }`}
                             >
                               <span
-                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                                style={{ background: "var(--background)" }}
+                                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                                  active
+                                    ? "bg-[var(--surface)] text-[var(--accent-active)]"
+                                    : "bg-[var(--surface-secondary)] text-[var(--text-secondary)]"
+                                }`}
                               >
                                 <motion.span
                                   animate={
@@ -2076,38 +2032,36 @@ img {
                                   <Sparkles size={14} />
                                 </motion.span>
                               </span>
+
                               <span className="min-w-0 flex-1">
-                                <span className="block text-xs font-medium">
+                                <span className="block text-xs font-medium text-[var(--text-primary)]">
                                   {item.label}
                                 </span>
-                                <span
-                                  className="mt-0.5 block text-[10px]"
-                                  style={{ color: "var(--text-secondary)" }}
-                                >
+                                <span className="mt-0.5 block text-[10px] text-[var(--text-secondary)]">
                                   {item.description}
                                 </span>
                               </span>
-                              {active && <Check size={13} />}
+
+                              {active && (
+                                <Check
+                                  size={13}
+                                  className="text-[var(--accent-active)]"
+                                />
+                              )}
                             </button>
                           );
                         })}
                       </div>
                     </section>
 
-                    <div
-                      className="h-px"
-                      style={{ background: "var(--accent)", opacity: 0.6 }}
-                    />
+                    <div className="h-px bg-[var(--border-subtle)]" />
 
                     <section>
                       <div className="mb-3 flex items-center justify-between gap-2">
-                        <label className="text-xs font-semibold">
+                        <label className="text-xs font-semibold text-[var(--text-primary)]">
                           05 / Your imagery
                         </label>
-                        <span
-                          className="text-[10px]"
-                          style={{ color: "var(--text-secondary)" }}
-                        >
+                        <span className="text-[10px] text-[var(--text-muted)]">
                           {uploadedImages.length}/4 images
                         </span>
                       </div>
@@ -2116,8 +2070,7 @@ img {
                         {uploadedImages.map((src, index) => (
                           <div
                             key={src}
-                            className="group relative aspect-square overflow-hidden rounded-lg border"
-                            style={{ borderColor: "var(--accent)" }}
+                            className="group relative aspect-square overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)]"
                           >
                             <img
                               src={src}
@@ -2127,7 +2080,7 @@ img {
                             <button
                               onClick={() => removeImage(index)}
                               aria-label={`Remove image ${index + 1}`}
-                              className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/70 text-white opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100"
+                              className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--text-primary)]/80 text-[var(--text-inverse)] opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100"
                             >
                               <X size={11} />
                             </button>
@@ -2135,13 +2088,7 @@ img {
                         ))}
 
                         {uploadedImages.length < 4 && (
-                          <label
-                            className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed transition hover:opacity-70"
-                            style={{
-                              borderColor: "var(--accent)",
-                              background: "var(--background)",
-                            }}
-                          >
+                          <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-[var(--border-strong)] bg-[var(--surface-secondary)] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent-active)]">
                             <ImagePlus size={17} />
                             <span className="text-[9px]">Add image</span>
                             <input
@@ -2154,67 +2101,59 @@ img {
                           </label>
                         )}
                       </div>
-                      <p
-                        className="mt-2 text-[10px] leading-relaxed"
-                        style={{ color: "var(--text-secondary)" }}
-                      >
+
+                      <p className="mt-2 text-[10px] leading-relaxed text-[var(--text-muted)]">
                         Uploaded images appear in the preview. Images keep their
                         aspect ratio and crop cleanly inside their frames.
                       </p>
                     </section>
 
-                    <div
-                      className="h-px"
-                      style={{ background: "var(--accent)", opacity: 0.6 }}
-                    />
+                    <div className="h-px bg-[var(--border-subtle)]" />
 
                     <section>
-                      <label className="mb-3 block text-xs font-semibold">
+                      <label className="mb-3 block text-xs font-semibold text-[var(--text-primary)]">
                         06 / Conversion
                       </label>
+
                       <button
                         onClick={() => setShowCta(!showCta)}
-                        className="flex w-full items-center justify-between gap-3 rounded-xl border p-3 text-left"
-                        style={{
-                          borderColor: "var(--accent)",
-                          background: showCta
-                            ? "var(--gradient-secondary)"
-                            : "transparent",
-                        }}
+                        className={`flex w-full items-center justify-between gap-3 rounded-xl border p-3 text-left transition-all ${
+                          showCta
+                            ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                            : "border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+                        }`}
                       >
                         <span className="flex items-center gap-3">
                           <span
-                            className="flex h-8 w-8 items-center justify-center rounded-lg"
-                            style={{ background: "var(--background)" }}
+                            className={`flex h-8 w-8 items-center justify-center rounded-lg ${
+                              showCta
+                                ? "bg-[var(--surface)] text-[var(--accent-active)]"
+                                : "bg-[var(--surface-secondary)] text-[var(--text-secondary)]"
+                            }`}
                           >
                             <ArrowUpRight size={15} />
                           </span>
                           <span>
-                            <span className="block text-xs font-medium">
+                            <span className="block text-xs font-medium text-[var(--text-primary)]">
                               Call-to-action buttons
                             </span>
-                            <span
-                              className="mt-1 block text-[10px]"
-                              style={{ color: "var(--text-secondary)" }}
-                            >
+                            <span className="mt-1 block text-[10px] text-[var(--text-secondary)]">
                               Hero and contact section
                             </span>
                           </span>
                         </span>
+
                         <span
-                          className="relative h-5 w-9 rounded-full transition-colors"
-                          style={{
-                            background: showCta
-                              ? "var(--accent)"
-                              : "var(--text-secondary)",
-                          }}
+                          className={`relative h-5 w-9 rounded-full transition-colors ${
+                            showCta
+                              ? "bg-[var(--accent-active)]"
+                              : "bg-[var(--surface-muted)]"
+                          }`}
                         >
                           <span
-                            className="absolute top-0.5 h-4 w-4 rounded-full transition-all"
-                            style={{
-                              left: showCta ? "18px" : "2px",
-                              background: "var(--background)",
-                            }}
+                            className={`absolute top-0.5 h-4 w-4 rounded-full bg-[var(--text-inverse)] shadow-sm transition-all ${
+                              showCta ? "left-[18px]" : "left-0.5"
+                            }`}
                           />
                         </span>
                       </button>
@@ -2224,17 +2163,10 @@ img {
               )}
             </AnimatePresence>
 
-            <div
-              className="border-t p-4"
-              style={{ borderColor: "var(--accent)" }}
-            >
+            <div className="shrink-0 border-t border-[var(--border)] bg-[var(--surface)] p-4">
               <button
                 onClick={() => setGenerated((current) => current + 1)}
-                className="group flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-semibold transition duration-200 hover:-translate-y-0.5"
-                style={{
-                  background: "var(--gradient-primary)",
-                  color: "var(--text-primary)",
-                }}
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent-active)] px-4 py-3.5 text-sm font-semibold text-white shadow-[var(--shadow-sm)] transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] hover:shadow-[var(--shadow-md)]"
               >
                 <WandSparkles
                   size={16}
@@ -2246,10 +2178,7 @@ img {
                   className="transition-transform group-hover:translate-x-1"
                 />
               </button>
-              <p
-                className="mt-2 text-center text-[10px]"
-                style={{ color: "var(--text-secondary)" }}
-              >
+              <p className="mt-2 text-center text-[10px] text-[var(--text-muted)]">
                 Instant preview · No account needed
               </p>
             </div>
@@ -2259,25 +2188,18 @@ img {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.12 }}
-            className="min-w-0"
+            className="min-w-0 text-[var(--text-primary)]"
           >
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border"
-                  style={{
-                    borderColor: "var(--accent)",
-                    background: "var(--gradient-secondary)",
-                  }}
-                >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--accent-soft)] text-[var(--accent-active)]">
                   <Eye size={18} />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold">Live preview</h2>
-                  <p
-                    className="mt-1 text-[11px]"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
+                  <h2 className="text-sm font-semibold text-[var(--text-primary)]">
+                    Live preview
+                  </h2>
+                  <p className="mt-1 text-[11px] text-[var(--text-secondary)]">
                     {currentSite.label} · {theme.name} theme ·{" "}
                     {
                       animationOptions.find((item) => item.id === animation)
@@ -2288,34 +2210,22 @@ img {
               </div>
 
               <div className="flex items-center gap-2">
-                <span
-                  className="hidden items-center gap-1.5 rounded-full border px-3 py-2 text-[10px] sm:inline-flex"
-                  style={{
-                    borderColor: "var(--accent)",
-                    color: "var(--text-secondary)",
-                  }}
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="hidden items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface-secondary)] px-3 py-2 text-[10px] text-[var(--text-secondary)] sm:inline-flex">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)]" />
                   Preview ready
                 </span>
+
                 <button
                   onClick={() => setGenerated((current) => current + 1)}
-                  className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-medium transition hover:-translate-y-0.5"
-                  style={{
-                    borderColor: "var(--accent)",
-                    background: "var(--background)",
-                  }}
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[10px] font-medium text-[var(--text-primary)] transition hover:-translate-y-0.5 hover:border-[var(--accent)] hover:bg-[var(--surface-hover)]"
                 >
                   <RotateCcw size={12} />
                   Refresh
                 </button>
+
                 <button
                   onClick={exportWebsite}
-                  className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-medium transition hover:-translate-y-0.5"
-                  style={{
-                    borderColor: "var(--accent)",
-                    background: "var(--background)",
-                  }}
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[10px] font-medium text-[var(--text-primary)] transition hover:-translate-y-0.5 hover:border-[var(--accent)] hover:bg-[var(--surface-hover)]"
                 >
                   <Code2 size={12} />
                   Export ZIP
@@ -2367,43 +2277,29 @@ img {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + index * 0.08 }}
-                  className="rounded-xl border p-4"
-                  style={{
-                    borderColor: "var(--accent)",
-                    background: "var(--background)",
-                  }}
+                  className="rounded-xl border border-[var(--card-border)] bg-[var(--card)] p-4 transition-colors hover:border-[var(--border-strong)]"
                 >
                   <div className="mb-3 flex items-center gap-2">
-                    <span
-                      className="flex h-7 w-7 items-center justify-center rounded-lg"
-                      style={{ background: "var(--gradient-secondary)" }}
-                    >
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-[var(--accent-active)]">
                       {item.icon}
                     </span>
-                    <h3 className="text-xs font-semibold">{item.title}</h3>
+                    <h3 className="text-xs font-semibold text-[var(--text-primary)]">
+                      {item.title}
+                    </h3>
                   </div>
-                  <p
-                    className="text-[11px] leading-relaxed"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
+                  <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
                     {item.description}
                   </p>
                 </motion.div>
               ))}
             </div>
 
-            <div
-              className="mt-4 flex items-start gap-3 rounded-xl border p-4"
-              style={{
-                borderColor: "var(--accent)",
-                background: "var(--gradient-secondary)",
-              }}
-            >
-              <CircleHelp size={16} className="mt-0.5 shrink-0" />
-              <p
-                className="text-[11px] leading-relaxed"
-                style={{ color: "var(--text-secondary)" }}
-              >
+            <div className="mt-4 flex items-start gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] p-4">
+              <CircleHelp
+                size={16}
+                className="mt-0.5 shrink-0 text-[var(--accent-active)]"
+              />
+              <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
                 This is a visual layout prototype, not a deployed website.
                 Navigation links jump to sections inside the preview; CTAs
                 demonstrate placement and can be connected to real destinations
