@@ -72,6 +72,13 @@ const menuLinks = [
   },
 
   {
+    name: "Design",
+    href: "/design-lab",
+    desc: "Tire yourself out with creating websites",
+    icon: Cuboid,
+    requiresAuth: false,
+  },
+  {
     name: "Playground",
     href: "/playground",
     desc: "Create a whole new object",
@@ -315,7 +322,7 @@ export default function Navbar() {
 
   const desktopLinks = visibleMenuLinks.filter((item) => {
     if (!isLoggedIn) {
-      return ["Services", "About", "Playground", "Guide"].includes(item.name);
+      return ["Services", "About", "Design", "Guide"].includes(item.name);
     }
 
     if (isAdmin) {
