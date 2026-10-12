@@ -5,27 +5,42 @@ import dynamic from "next/dynamic";
 import DefaultHome from "./Default";
 import { API_URL } from "@/lib/api";
 
-/*
- * ---------------------------------------------------------------------
- * The logged-in dashboard is a large, client-only tree that guests never
- * need, so it is code-split out of the initial homepage payload.
- * ---------------------------------------------------------------------
- */
-
-const HomePage = dynamic(() => import("./LoggedIn"), { ssr: false });
+const HomePage = dynamic(() => import("./LoggedIn"), {
+  ssr: false,
+  loading: () => <HomeLoading />,
+});
 
 type User = {
   id: string;
   role: "CLIENT" | "ADMIN";
 };
 
+function HomeLoading() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[var(--background)] text-[var(--text-primary)]">
+      <div className="flex flex-col items-center">
+        <div className="relative flex h-16 w-16 items-center justify-center rounded-[20px] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-md)]">
+          <div className="flex flex-col gap-1">
+            <span className="h-[3px] w-7 animate-pulse rounded-full bg-[var(--accent)]" />
+            <span className="h-[3px] w-7 animate-pulse rounded-full bg-[var(--accent-hover)]" />
+            <span className="h-[3px] w-7 animate-pulse rounded-full bg-[var(--accent-active)]" />
+          </div>
+        </div>
+
+        <p className="mt-5 text-[11px] font-semibold tracking-[0.3em]">NEXUS</p>
+
+        <p className="mt-3 text-xs text-[var(--text-muted)]">
+          Getting things ready
+        </p>
+      </div>
+    </main>
+  );
+}
+
 export default function Home() {
-  /*
-   * The marketing home is rendered immediately (and server-side) so the
-   * hero heading is present in the initial HTML. If a valid session is
-   * found we swap in the dashboard afterwards.
-   */
-  const [authenticated, setAuthenticated] = React.useState(false);
+  const [authenticated, setAuthenticated] = React.useState<boolean | null>(
+    null,
+  );
 
   React.useEffect(() => {
     let cancelled = false;
@@ -36,6 +51,7 @@ export default function Home() {
         sessionStorage.getItem("nexus_token");
 
       if (!token) {
+        if (!cancelled) setAuthenticated(false);
         return;
       }
 
@@ -53,6 +69,7 @@ export default function Home() {
           sessionStorage.removeItem("nexus_token");
           sessionStorage.removeItem("nexus_user");
 
+          if (!cancelled) setAuthenticated(false);
           return;
         }
 
@@ -64,14 +81,20 @@ export default function Home() {
           sessionStorage.removeItem("nexus_token");
           sessionStorage.removeItem("nexus_user");
 
+          if (!cancelled) setAuthenticated(false);
           return;
         }
 
-        localStorage.setItem("nexus_user", JSON.stringify(data.user));
+        const storage = localStorage.getItem("nexus_token")
+          ? localStorage
+          : sessionStorage;
+
+        storage.setItem("nexus_user", JSON.stringify(data.user));
 
         if (!cancelled) setAuthenticated(true);
       } catch {
-        /* Stay on the marketing home when the session cannot be verified. */
+        // If the backend is unavailable, show the public homepage.
+        if (!cancelled) setAuthenticated(false);
       }
     }
 
@@ -81,6 +104,10 @@ export default function Home() {
       cancelled = true;
     };
   }, []);
+
+  if (authenticated === null) {
+    return <HomeLoading />;
+  }
 
   if (authenticated) {
     return <HomePage />;

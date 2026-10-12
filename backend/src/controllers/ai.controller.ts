@@ -1,5 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { generateAIResponse } from "../services/ai.service.js";
+import {
+  generateAIResponse,
+  generatePublicAIResponse,
+} from "../services/ai.service.js";
 import { prisma } from "../plugins/db.js";
 
 type ChatBody = {
@@ -14,7 +17,65 @@ type ConversationParams = {
 function getUserId(request: FastifyRequest): string | null {
   return request.user?.id ?? null;
 }
+type PublicChatBody = {
+  message: string;
+  history?: Array<{
+    role: "user" | "assistant";
+    content: string;
+  }>;
+};
 
+export async function publicChatWithAI(
+  request: FastifyRequest<{ Body: PublicChatBody }>,
+  reply: FastifyReply,
+) {
+  try {
+    const { message, history = [] } = request.body ?? {};
+
+    if (
+      typeof message !== "string" ||
+      !message.trim() ||
+      message.trim().length > 2000
+    ) {
+      return reply.status(400).send({
+        success: false,
+        error: "Please provide a message between 1 and 2000 characters.",
+      });
+    }
+
+    const safeHistory = Array.isArray(history)
+      ? history
+          .filter(
+            (item) =>
+              item &&
+              (item.role === "user" || item.role === "assistant") &&
+              typeof item.content === "string",
+          )
+          .slice(-10)
+          .map((item) => ({
+            role: item.role,
+            content: item.content.slice(0, 2000),
+          }))
+      : [];
+
+    const replyText = await generatePublicAIResponse({
+      message: message.trim(),
+      history: safeHistory,
+    });
+
+    return reply.send({
+      success: true,
+      reply: replyText,
+    });
+  } catch (error) {
+    request.log.error(error);
+
+    return reply.status(500).send({
+      success: false,
+      error: "Nexus AI is temporarily unavailable. Please try again.",
+    });
+  }
+}
 export async function chatWithAI(
   request: FastifyRequest<{ Body: ChatBody }>,
   reply: FastifyReply,

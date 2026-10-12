@@ -93,7 +93,7 @@ export default function ProjectsPage() {
 
           <Link
             href="/build"
-            className="flex w-fit items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-[11px] font-black text-white shadow-lg transition hover:-translate-y-1"
+            className="flex w-fit items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-[11px] font-black text-white! shadow-lg transition hover:-translate-y-1"
           >
             <Plus size={14} />
             New project

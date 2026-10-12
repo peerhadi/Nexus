@@ -196,13 +196,15 @@ export default function Footer() {
                 href="/build"
                 className="group flex h-10 items-center gap-2 rounded-full bg-[var(--accent)] px-4 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--accent)]/85 hover:shadow-lg"
               >
-                <MessageCircle size={14} />
+                <MessageCircle size={14} className="text-white" />
 
-                <span className="text-[10px] font-bold">Talk to us</span>
+                <span className="text-[10px] font-bold text-white!">
+                  Talk to us
+                </span>
 
                 <ArrowUpRight
                   size={12}
-                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 text-white"
                 />
               </Link>
             </div>

@@ -20,8 +20,11 @@ import {
   Users,
   Activity,
   Archive,
+  Book,
+  Cuboid,
 } from "lucide-react";
 import { API_URL } from "@/lib/api";
+import { FaBook } from "react-icons/fa6";
 
 type UserRole = "CLIENT" | "ADMIN";
 
@@ -31,17 +34,65 @@ type User = {
   email: string;
   role: UserRole;
 };
-
 const menuLinks = [
-  { name: "Home", href: "/", desc: "Go back home", icon: Home, noAuth: true },
   {
-    name: "Build",
-    href: "/build",
-    desc: "Start something new",
-    icon: FileText,
-    requiresAuth: true,
-    clientOnly: true,
+    name: "Home",
+    href: "/",
+    desc: "Go back home",
+    icon: Home,
+    noAuth: true,
   },
+  {
+    name: "Services",
+    href: "/services",
+    desc: "Digital products, tools and solutions",
+    icon: LayoutDashboard,
+    requiresAuth: false,
+  },
+  {
+    name: "Work",
+    href: "/work",
+    desc: "Explore our latest projects and work",
+    icon: Briefcase,
+    requiresAuth: false,
+  },
+  {
+    name: "About",
+    href: "/about",
+    desc: "Learn more about Nexus",
+    icon: FileText,
+    requiresAuth: false,
+  },
+  {
+    name: "Guide",
+    href: "/guide",
+    desc: "See how nexus operates",
+    icon: Book,
+    requiresAuth: false,
+  },
+
+  {
+    name: "Playground",
+    href: "/playground",
+    desc: "Create a whole new object",
+    icon: Cuboid,
+    requiresAuth: false,
+  },
+  {
+    name: "Sign up",
+    href: "/signup",
+    desc: "Sign up and create new projects",
+    icon: LockOpen,
+    noAuth: true,
+  },
+  {
+    name: "Log In",
+    href: "/login",
+    desc: "Log back in and start working",
+    icon: Lock,
+    noAuth: true,
+  },
+
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -67,47 +118,21 @@ const menuLinks = [
     clientOnly: true,
   },
   {
+    name: "Build",
+    href: "/build",
+    desc: "Start something new",
+    icon: FileText,
+    requiresAuth: true,
+    clientOnly: true,
+  },
+  {
     name: "Settings",
     href: "/settings",
     desc: "Configure your workspace",
     icon: Settings,
     requiresAuth: true,
   },
-  {
-    name: "About",
-    href: "/about",
-    desc: "Learn more about Nexus",
-    icon: FileText,
-    requiresAuth: false,
-  },
-  {
-    name: "Services",
-    href: "/services",
-    desc: "Digital products, tools and solutions",
-    icon: LayoutDashboard,
-    requiresAuth: false,
-  },
-  {
-    name: "Work",
-    href: "/work",
-    desc: "Explore our latest projects and work",
-    icon: Briefcase,
-    requiresAuth: false,
-  },
-  {
-    name: "Sign up",
-    href: "/signup",
-    desc: "Sign up and create new projects",
-    icon: LockOpen,
-    noAuth: true,
-  },
-  {
-    name: "Log In",
-    href: "/login",
-    desc: "Log back in and start working",
-    icon: Lock,
-    noAuth: true,
-  },
+
   {
     name: "Inbox",
     href: "/admin/inbox",
@@ -135,6 +160,8 @@ const menuLinks = [
     adminOnly: true,
     section: "Workspace",
   },
+
+  // Admin workspace — Management
   {
     name: "Progress",
     href: "/admin/progress",
@@ -286,7 +313,17 @@ export default function Navbar() {
     return true;
   });
 
-  const desktopLinks = visibleMenuLinks.slice(0, 3);
+  const desktopLinks = visibleMenuLinks.filter((item) => {
+    if (!isLoggedIn) {
+      return ["Services", "About", "Playground", "Guide"].includes(item.name);
+    }
+
+    if (isAdmin) {
+      return ["Inbox", "Requests", "Clients", "Progress"].includes(item.name);
+    }
+
+    return ["Projects", "Messages", "Build"].includes(item.name);
+  });
   const dashboardHref = isAdmin ? "/admin/dashboard" : "/dashboard";
 
   return (
@@ -355,7 +392,7 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <Link
                   href={dashboardHref}
-                  className="group ml-auto hidden items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-5 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#a78bfa] md:flex"
+                  className="group ml-auto hidden items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-5 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#a78bfa] md:flex text-white!"
                 >
                   <span>{isAdmin ? "Admin Dashboard" : "Dashboard"}</span>
                   <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
