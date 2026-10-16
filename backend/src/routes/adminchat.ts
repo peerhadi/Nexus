@@ -1,23 +1,48 @@
 import type { FastifyInstance } from "fastify";
 import { requireAuth } from "../middleware/auth.js";
 import {
-  createAdminChatMessageController,
-  createAdminChatRoomController,
-  deleteAdminChatMessageController,
-  getAdminChatMessagesController,
-  getAdminChatRoomsController,
-  updateAdminChatMessageController,
+  createMessageController,
+  createRoomController,
+  deleteMessageController,
+  getMessagesController,
+  getRoomsController,
+  updateMessageController,
 } from "../controllers/adminchat.controller.js";
 
 export default async function adminChatRoutes(app: FastifyInstance) {
-  app.addHook("preHandler", requireAuth);
+  app.get("/rooms", {
+    preHandler: requireAuth,
+    handler: getRoomsController,
+  });
 
-  app.get("/rooms", getAdminChatRoomsController);
-  app.post("/rooms", createAdminChatRoomController);
+  app.post<{ Body: { name: string; description?: string } }>("/rooms", {
+    preHandler: requireAuth,
+    handler: createRoomController,
+  });
 
-  app.get("/rooms/:roomId/messages", getAdminChatMessagesController);
-  app.post("/rooms/:roomId/messages", createAdminChatMessageController);
+  app.get<{ Params: { roomId: string } }>("/rooms/:roomId/messages", {
+    preHandler: requireAuth,
+    handler: getMessagesController,
+  });
 
-  app.patch("/messages/:id", updateAdminChatMessageController);
-  app.delete("/messages/:id", deleteAdminChatMessageController);
+  app.post<{
+    Params: { roomId: string };
+    Body: { content: string };
+  }>("/rooms/:roomId/messages", {
+    preHandler: requireAuth,
+    handler: createMessageController,
+  });
+
+  app.patch<{
+    Params: { id: string };
+    Body: { content: string };
+  }>("/messages/:id", {
+    preHandler: requireAuth,
+    handler: updateMessageController,
+  });
+
+  app.delete<{ Params: { id: string } }>("/messages/:id", {
+    preHandler: requireAuth,
+    handler: deleteMessageController,
+  });
 }

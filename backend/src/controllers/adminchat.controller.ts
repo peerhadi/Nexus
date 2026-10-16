@@ -1,117 +1,120 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import {
-  createAdminChatMessage,
-  createAdminChatRoom,
-  deleteAdminChatMessage,
-  getAdminChatMessages,
-  getAdminChatRooms,
-  updateAdminChatMessage,
+  AdminChatError,
+  createMessage,
+  createRoom,
+  deleteMessage,
+  listMessages,
+  listRooms,
+  updateMessage,
 } from "../services/adminchat.service.js";
 
-export async function getAdminChatRoomsController(
+type RoomParams = {
+  roomId: string;
+};
+
+type MessageParams = {
+  id: string;
+};
+
+type CreateRoomBody = {
+  name: string;
+  description?: string;
+};
+
+type MessageBody = {
+  content: string;
+};
+
+function handleError(error: unknown, reply: FastifyReply) {
+  if (error instanceof AdminChatError) {
+    return reply.code(error.statusCode).send({
+      message: error.message,
+    });
+  }
+
+  throw error;
+}
+
+export async function getRoomsController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const rooms = await getAdminChatRooms(request.user.id);
-
-  return reply.send({ rooms });
-}
-
-export async function createAdminChatRoomController(
-  request: FastifyRequest<{
-    Body: {
-      name: string;
-      description?: string;
-    };
-  }>,
-  reply: FastifyReply,
-) {
-  const room = await createAdminChatRoom(
-    request.user.id,
-    request.body.name,
-    request.body.description,
-  );
-
-  return reply.code(201).send({ room });
-}
-
-export async function getAdminChatMessagesController(
-  request: FastifyRequest<{
-    Params: { roomId: string };
-  }>,
-  reply: FastifyReply,
-) {
-  const messages = await getAdminChatMessages(
-    request.params.roomId,
-    request.user.id,
-  );
-
-  return reply.send({ messages });
-}
-
-export async function createAdminChatMessageController(
-  request: FastifyRequest<{
-    Params: { roomId: string };
-    Body: { content: string };
-  }>,
-  reply: FastifyReply,
-) {
-  const content = request.body.content?.trim();
-
-  if (!content) {
-    return reply.code(400).send({ error: "Message content is required" });
+  try {
+    return await listRooms(request.user.id);
+  } catch (error) {
+    return handleError(error, reply);
   }
-
-  if (content.length > 5000) {
-    return reply.code(400).send({
-      error: "Message cannot exceed 5000 characters",
-    });
-  }
-
-  const message = await createAdminChatMessage(
-    request.params.roomId,
-    request.user.id,
-    content,
-  );
-
-  return reply.code(201).send({ message });
 }
 
-export async function updateAdminChatMessageController(
+export async function createRoomController(
+  request: FastifyRequest<{ Body: CreateRoomBody }>,
+  reply: FastifyReply,
+) {
+  try {
+    const room = await createRoom(request.user.id, request.body);
+    return reply.code(201).send(room);
+  } catch (error) {
+    return handleError(error, reply);
+  }
+}
+
+export async function getMessagesController(
+  request: FastifyRequest<{ Params: RoomParams }>,
+  reply: FastifyReply,
+) {
+  try {
+    return await listMessages(request.user.id, request.params.roomId);
+  } catch (error) {
+    return handleError(error, reply);
+  }
+}
+
+export async function createMessageController(
   request: FastifyRequest<{
-    Params: { id: string };
-    Body: { content: string };
+    Params: RoomParams;
+    Body: MessageBody;
   }>,
   reply: FastifyReply,
 ) {
-  const content = request.body.content?.trim();
+  try {
+    const message = await createMessage(
+      request.user.id,
+      request.params.roomId,
+      request.body,
+    );
 
-  if (!content) {
-    return reply.code(400).send({ error: "Message content is required" });
+    return reply.code(201).send(message);
+  } catch (error) {
+    return handleError(error, reply);
   }
-
-  if (content.length > 5000) {
-    return reply.code(400).send({
-      error: "Message cannot exceed 5000 characters",
-    });
-  }
-
-  const message = await updateAdminChatMessage(
-    request.params.id,
-    request.user.id,
-    content,
-  );
-
-  return reply.send({ message });
 }
 
-export async function deleteAdminChatMessageController(
+export async function updateMessageController(
   request: FastifyRequest<{
-    Params: { id: string };
+    Params: MessageParams;
+    Body: MessageBody;
   }>,
   reply: FastifyReply,
 ) {
-  await deleteAdminChatMessage(request.params.id, request.user.id);
+  try {
+    return await updateMessage(
+      request.user.id,
+      request.params.id,
+      request.body,
+    );
+  } catch (error) {
+    return handleError(error, reply);
+  }
+}
 
-  return reply.code(204).send();
+export async function deleteMessageController(
+  request: FastifyRequest<{ Params: MessageParams }>,
+  reply: FastifyReply,
+) {
+  try {
+    return await deleteMessage(request.user.id, request.params.id);
+  } catch (error) {
+    return handleError(error, reply);
+  }
 }
