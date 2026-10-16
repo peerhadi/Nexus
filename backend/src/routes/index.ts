@@ -1,4 +1,5 @@
 import type { FastifyInstance } from "fastify";
+import adminChatRoutes from "./adminchat.js";
 
 import authRoutes from "./auth.js";
 import userRoutes from "./users.js";
@@ -55,4 +56,5 @@ export default async function routes(app: FastifyInstance) {
   app.register(eventRoutes, { prefix: "/events" });
   app.register(aiRoutes, { prefix: "/ai" });
   app.register(notesRoutes, { prefix: "/notes" });
+  app.register(adminChatRoutes, { prefix: "/adminchat" });
 }
