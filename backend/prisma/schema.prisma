@@ -63,7 +63,8 @@ model User {
 
   clientConversations Conversation[] @relation("ClientConversations")
   adminConversations  Conversation[] @relation("AdminConversations")
-
+  adminChatRooms    AdminChatRoom[]
+  adminChatMessages AdminChatMessage[]
   messages Message[]
   projects Project[]
   logs     ActivityLog[]
@@ -276,4 +277,30 @@ model Note {
   @@index([userId, updatedAt])
   @@index([userId, category])
   @@index([userId, starred])
+}
+model AdminChatRoom {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdById String
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  messages    AdminChatMessage[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([updatedAt])
+}
+
+model AdminChatMessage {
+  id        String        @id @default(cuid())
+  roomId    String
+  room      AdminChatRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User          @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([roomId, createdAt])
+  @@index([senderId])
 }
