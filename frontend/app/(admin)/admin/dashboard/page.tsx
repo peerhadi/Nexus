@@ -18,6 +18,7 @@ import {
   LoaderCircle,
   RefreshCw,
   Settings,
+  Sparkles,
   Users,
   Wifi,
   WifiOff,
@@ -71,6 +72,19 @@ const sections = [
     description: "Previously closed conversations",
     href: "/admin/archive",
     icon: Archive,
+  },
+  {
+    title: "Team",
+    description: "Chat with the team",
+    href: "/admin/team",
+    icon: Users,
+  },
+
+  {
+    title: "Admin AI",
+    description: "Explore platform records",
+    href: "/admin/ai",
+    icon: Sparkles,
   },
   {
     title: "Data Center",
