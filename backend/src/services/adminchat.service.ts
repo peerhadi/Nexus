@@ -1,27 +1,29 @@
 import { prisma } from "../plugins/db.js";
-import { AppError } from "../utils/errors.js";
 import { emit } from "./event-stream.service.js";
 
-const ADMIN_CHAT_MEMBERS = [
-  "hadi@nexusmade.com",
-  "izhaan@nexusmade.com",
-  "ahmad@nexusmade.com",
-  "suwaid@nexusmade.com",
-];
+export class AdminChatError extends Error {
+  constructor(
+    message: string,
+    public readonly statusCode: number = 400,
+  ) {
+    super(message);
+    this.name = "AdminChatError";
+  }
+}
 
-async function requireAdmin(userId: string) {
+export async function requireAdmin(userId: string) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
       id: true,
-      role: true,
-      email: true,
       name: true,
+      email: true,
+      role: true,
     },
   });
 
   if (!user || user.role !== "ADMIN") {
-    throw new AppError("Admin access required", 403);
+    throw new AdminChatError("Admin access required.", 403);
   }
 
   return user;
@@ -30,19 +32,29 @@ async function requireAdmin(userId: string) {
 async function requireRoom(roomId: string) {
   const room = await prisma.adminChatRoom.findUnique({
     where: { id: roomId },
+    select: { id: true },
   });
 
   if (!room) {
-    throw new AppError("Admin chat room not found", 404);
+    throw new AdminChatError("Admin Chat room not found.", 404);
   }
 
   return room;
 }
 
-export async function getAdminChatRooms(userId: string) {
+function publish(roomId: string, type: string, data: Record<string, unknown>) {
+  emit(roomId, {
+    type,
+    conversationId: roomId,
+    data,
+  });
+}
+
+export async function listRooms(userId: string) {
   await requireAdmin(userId);
 
-  return prisma.adminChatRoom.findMany({
+  const rooms = await prisma.adminChatRoom.findMany({
+    orderBy: { updatedAt: "desc" },
     include: {
       createdBy: {
         select: {
@@ -52,8 +64,8 @@ export async function getAdminChatRooms(userId: string) {
         },
       },
       messages: {
-        orderBy: { createdAt: "desc" },
         take: 1,
+        orderBy: { createdAt: "desc" },
         include: {
           sender: {
             select: {
@@ -68,212 +80,207 @@ export async function getAdminChatRooms(userId: string) {
         select: { messages: true },
       },
     },
-    orderBy: { updatedAt: "desc" },
   });
+
+  return rooms.map(({ messages, ...room }) => ({
+    ...room,
+    lastMessage: messages[0] ?? null,
+  }));
 }
 
-export async function createAdminChatRoom(
+export async function createRoom(
   userId: string,
-  name: string,
-  description?: string,
+  input: { name: string; description?: string },
 ) {
-  await requireAdmin(userId);
+  const admin = await requireAdmin(userId);
+  const name = input.name.trim();
+  const description = input.description?.trim() || null;
 
-  const normalizedName = name?.trim();
-
-  if (!normalizedName) {
-    throw new AppError("Room name is required", 400);
-  }
-
-  if (normalizedName.length > 60) {
-    throw new AppError("Room name cannot exceed 60 characters", 400);
-  }
-
-  if (description && description.trim().length > 250) {
-    throw new AppError("Description cannot exceed 250 characters", 400);
-  }
-
-  const admins = await prisma.user.findMany({
-    where: {
-      role: "ADMIN",
-      email: { in: ADMIN_CHAT_MEMBERS },
-    },
-    select: { id: true },
-  });
-
-  if (admins.length !== ADMIN_CHAT_MEMBERS.length) {
-    throw new AppError(
-      "One or more configured Nexus admin accounts could not be found",
-      500,
+  if (!name || name.length > 80) {
+    throw new AdminChatError(
+      "Room name must contain between 1 and 80 characters.",
     );
   }
 
-  return prisma.adminChatRoom.create({
-    data: {
-      name: normalizedName,
-      description: description?.trim() || null,
-      createdById: userId,
-    },
-    include: {
-      createdBy: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
+  if (description && description.length > 300) {
+    throw new AdminChatError("Room description cannot exceed 300 characters.");
+  }
+
+  return prisma.adminChatRoom
+    .create({
+      data: {
+        name,
+        description,
+        createdById: admin.id,
+      },
+      include: {
+        createdBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        _count: {
+          select: { messages: true },
         },
       },
-    },
-  });
+    })
+    .then((room) => ({
+      ...room,
+      lastMessage: null,
+    }));
 }
 
-export async function getAdminChatMessages(roomId: string, userId: string) {
+export async function listMessages(userId: string, roomId: string) {
   await requireAdmin(userId);
   await requireRoom(roomId);
 
   return prisma.adminChatMessage.findMany({
     where: { roomId },
+    orderBy: { createdAt: "asc" },
     include: {
       sender: {
         select: {
           id: true,
           name: true,
           email: true,
-          role: true,
         },
       },
     },
-    orderBy: { createdAt: "asc" },
   });
 }
 
-export async function createAdminChatMessage(
+export async function createMessage(
+  userId: string,
   roomId: string,
-  senderId: string,
-  content: string,
+  input: { content: string },
 ) {
-  await requireAdmin(senderId);
+  const sender = await requireAdmin(userId);
   await requireRoom(roomId);
 
-  const normalizedContent = content.trim();
+  const content = input.content.trim();
 
-  if (!normalizedContent) {
-    throw new AppError("Message content is required", 400);
+  if (!content || content.length > 5000) {
+    throw new AdminChatError(
+      "Message must contain between 1 and 5000 characters.",
+    );
   }
 
-  if (normalizedContent.length > 5000) {
-    throw new AppError("Message cannot exceed 5000 characters", 400);
-  }
-
-  const message = await prisma.adminChatMessage.create({
-    data: {
-      roomId,
-      senderId,
-      content: normalizedContent,
-    },
-    include: {
-      sender: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
+  const message = await prisma.$transaction(async (tx) => {
+    const created = await tx.adminChatMessage.create({
+      data: {
+        roomId,
+        senderId: sender.id,
+        content,
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
         },
       },
-    },
+    });
+
+    await tx.adminChatRoom.update({
+      where: { id: roomId },
+      data: { updatedAt: new Date() },
+    });
+
+    return created;
   });
 
-  await prisma.adminChatRoom.update({
-    where: { id: roomId },
-    data: { updatedAt: new Date() },
-  });
-
-  emit(roomId, {
-    type: "adminchat.message.created",
-    conversationId: roomId,
-    data: message,
-  });
+  publish(roomId, "adminchat.message.created", { message });
 
   return message;
 }
 
-export async function updateAdminChatMessage(
-  messageId: string,
+export async function updateMessage(
   userId: string,
-  content: string,
+  messageId: string,
+  input: { content: string },
 ) {
-  await requireAdmin(userId);
+  const admin = await requireAdmin(userId);
+  const content = input.content.trim();
 
-  const message = await prisma.adminChatMessage.findUnique({
+  if (!content || content.length > 5000) {
+    throw new AdminChatError(
+      "Message must contain between 1 and 5000 characters.",
+    );
+  }
+
+  const existing = await prisma.adminChatMessage.findUnique({
     where: { id: messageId },
+    select: {
+      id: true,
+      roomId: true,
+      senderId: true,
+    },
   });
 
-  if (!message) {
-    throw new AppError("Message not found", 404);
+  if (!existing) {
+    throw new AdminChatError("Message not found.", 404);
   }
 
-  if (message.senderId !== userId) {
-    throw new AppError("You can only edit your own messages", 403);
+  if (existing.senderId !== admin.id) {
+    throw new AdminChatError("You can only edit your own messages.", 403);
   }
 
-  const normalizedContent = content.trim();
-
-  if (!normalizedContent) {
-    throw new AppError("Message content is required", 400);
-  }
-
-  if (normalizedContent.length > 5000) {
-    throw new AppError("Message cannot exceed 5000 characters", 400);
-  }
-
-  const updatedMessage = await prisma.adminChatMessage.update({
+  const message = await prisma.adminChatMessage.update({
     where: { id: messageId },
-    data: { content: normalizedContent },
+    data: { content },
     include: {
       sender: {
         select: {
           id: true,
           name: true,
           email: true,
-          role: true,
         },
       },
     },
   });
 
-  emit(message.roomId, {
-    type: "adminchat.message.updated",
-    conversationId: message.roomId,
-    data: updatedMessage,
-  });
+  publish(existing.roomId, "adminchat.message.updated", { message });
 
-  return updatedMessage;
+  return message;
 }
 
-export async function deleteAdminChatMessage(
-  messageId: string,
-  userId: string,
-) {
-  await requireAdmin(userId);
+export async function deleteMessage(userId: string, messageId: string) {
+  const admin = await requireAdmin(userId);
 
-  const message = await prisma.adminChatMessage.findUnique({
+  const existing = await prisma.adminChatMessage.findUnique({
     where: { id: messageId },
+    select: {
+      id: true,
+      roomId: true,
+      senderId: true,
+    },
   });
 
-  if (!message) {
-    throw new AppError("Message not found", 404);
+  if (!existing) {
+    throw new AdminChatError("Message not found.", 404);
   }
 
-  if (message.senderId !== userId) {
-    throw new AppError("You can only delete your own messages", 403);
+  if (existing.senderId !== admin.id) {
+    throw new AdminChatError("You can only delete your own messages.", 403);
   }
 
   await prisma.adminChatMessage.delete({
     where: { id: messageId },
   });
 
-  emit(message.roomId, {
-    type: "adminchat.message.deleted",
-    conversationId: message.roomId,
-    data: { id: messageId },
+  publish(existing.roomId, "adminchat.message.deleted", {
+    messageId,
+    roomId: existing.roomId,
   });
+
+  return { id: messageId };
+}
+
+export async function assertAdminRoomAccess(userId: string, roomId: string) {
+  await requireAdmin(userId);
+  return requireRoom(roomId);
 }

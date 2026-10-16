@@ -12,6 +12,7 @@ import eventRoutes from "./events.js";
 import { aiRoutes } from "./ai.js";
 import { notesRoutes } from "./notes.js";
 import { prisma } from "../plugins/db.js";
+import adminChatEventsRoutes from "./adminchat-events.js";
 
 export default async function routes(app: FastifyInstance) {
   app.get("/", async () => {
@@ -57,4 +58,5 @@ export default async function routes(app: FastifyInstance) {
   app.register(aiRoutes, { prefix: "/ai" });
   app.register(notesRoutes, { prefix: "/notes" });
   app.register(adminChatRoutes, { prefix: "/adminchat" });
+  app.register(adminChatEventsRoutes, { prefix: "/events" });
 }

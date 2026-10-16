@@ -11,6 +11,7 @@ import {
   Menu,
   Settings,
   UserRound,
+  Users,
   X,
 } from "lucide-react";
 import Link from "next/link";
@@ -27,6 +28,7 @@ const navItems = [
   { label: "Progress", href: "/admin/progress", icon: ChartPie },
   { label: "Data Center", href: "/admin/data-center", icon: Database },
   { label: "Settings", href: "/admin/settings", icon: Settings },
+  { label: "Team", href: "/admin/team", icon: Users },
 ];
 
 export default function Sidebar() {
@@ -183,7 +185,7 @@ function SidebarContent({ onNavigate }: { onNavigate: () => void }) {
                 onClick={onNavigate}
                 className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[12px] font-semibold transition-all ${
                   isActive
-                    ? "bg-[var(--accent)] text-white shadow-[0_5px_18px_rgba(0,0,0,0.08)]"
+                    ? "bg-[var(--accent)] text-white! shadow-[0_5px_18px_rgba(0,0,0,0.08)]"
                     : "text-[var(--text-tertiary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
                 }`}
               >
