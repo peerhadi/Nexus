@@ -2,12 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowDown,
   CheckCheck,
   ChevronLeft,
   Hash,
   LoaderCircle,
-  MessageCircle,
   MoreHorizontal,
   Pencil,
   Plus,
@@ -21,7 +19,6 @@ import {
   X,
   Sparkles,
   MessagesSquare,
-  Circle,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -247,6 +244,7 @@ export default function AdminChatPage() {
   const reconnectAttemptRef = useRef(0);
   const activeRef = useRef(true);
   const loadingRoomRef = useRef("");
+  const processedCreatedMessageIdsRef = useRef(new Set<string>());
 
   const selectedRoom = rooms.find((room) => room.id === selectedRoomId);
 
@@ -286,15 +284,15 @@ export default function AdminChatPage() {
     }
   }, []);
 
-  const loadMessages = useCallback(async (roomId: string) => {
+  const loadMessages = useCallback(async (roomId: string, silent = false) => {
     if (!roomId) {
       setMessages([]);
       return;
     }
 
     loadingRoomRef.current = roomId;
-    setLoadingMessages(true);
-    setError("");
+    if (!silent) setLoadingMessages(true);
+    if (!silent) setError("");
 
     try {
       const data = await api<Message[]>(
@@ -305,13 +303,13 @@ export default function AdminChatPage() {
 
       setMessages(data);
     } catch (cause) {
-      if (activeRef.current && loadingRoomRef.current === roomId) {
+      if (!silent && activeRef.current && loadingRoomRef.current === roomId) {
         setError(
           cause instanceof Error ? cause.message : "Could not load messages.",
         );
       }
     } finally {
-      if (activeRef.current && loadingRoomRef.current === roomId) {
+      if (!silent && activeRef.current && loadingRoomRef.current === roomId) {
         setLoadingMessages(false);
       }
     }
@@ -363,7 +361,10 @@ export default function AdminChatPage() {
       try {
         const ticketResponse = await api<{ ticket?: string; token?: string }>(
           "/auth/ws-ticket",
-          { method: "POST" },
+          {
+            method: "POST",
+            body: JSON.stringify({}),
+          },
         );
 
         if (disposed) return;
@@ -384,6 +385,10 @@ export default function AdminChatPage() {
           if (disposed) return;
           reconnectAttemptRef.current = 0;
           setConnected(true);
+          setError("");
+          // Resync after every connection/reconnection so events missed while
+          // offline are recovered without requiring a manual refresh.
+          void loadMessages(selectedRoomId, true);
         };
 
         socket.onmessage = (event) => {
@@ -397,22 +402,42 @@ export default function AdminChatPage() {
             return;
           }
 
-          const eventRoomId = payload.conversationId || payload.data?.roomId;
+          const data = payload.data as
+            | (StreamEvent["data"] & {
+                id?: string;
+                content?: string;
+                sender?: Admin;
+                senderId?: string;
+                createdAt?: string;
+                updatedAt?: string;
+              })
+            | undefined;
+          const eventRoomId =
+            payload.conversationId || data?.roomId || data?.message?.roomId;
           if (eventRoomId && eventRoomId !== selectedRoomId) return;
 
           if (
             payload.type === "adminchat.message.created" ||
             payload.type === "adminchat.message.updated"
           ) {
-            const message = payload.data?.message;
-            if (!message) return;
+            // Accept both { data: { message } } and a message-shaped data payload.
+            const message = (data?.message ||
+              (data?.id && data?.content ? data : undefined)) as
+              Message | undefined;
+            if (!message?.id) return;
 
+            const wasAlreadyProcessed =
+              processedCreatedMessageIdsRef.current.has(message.id);
+            if (payload.type === "adminchat.message.created") {
+              processedCreatedMessageIdsRef.current.add(message.id);
+            }
             setMessages((current) => {
-              const exists = current.some((item) => item.id === message.id);
-
-              if (exists) {
+              const wasAlreadyPresent = current.some(
+                (item) => item.id === message.id,
+              );
+              if (wasAlreadyPresent) {
                 return current.map((item) =>
-                  item.id === message.id ? message : item,
+                  item.id === message.id ? { ...item, ...message } : item,
                 );
               }
 
@@ -423,39 +448,33 @@ export default function AdminChatPage() {
                     new Date(b.createdAt).getTime(),
                 );
               }
-
               return current;
             });
 
-            if (payload.type === "adminchat.message.created") {
-              setRooms((current) =>
-                current.map((room) =>
-                  room.id === message.roomId
-                    ? {
-                        ...room,
-                        lastMessage: message,
-                        updatedAt: message.createdAt,
-                        _count: { messages: room._count.messages + 1 },
-                      }
-                    : room,
-                ),
-              );
-            } else {
-              setRooms((current) =>
-                current.map((room) =>
-                  room.id === message.roomId &&
-                  room.lastMessage?.id === message.id
-                    ? { ...room, lastMessage: message }
-                    : room,
-                ),
-              );
-            }
-
+            setRooms((current) =>
+              current.map((room) => {
+                if (room.id !== message.roomId) return room;
+                if (payload.type === "adminchat.message.created") {
+                  return {
+                    ...room,
+                    lastMessage: message,
+                    updatedAt: message.createdAt,
+                    _count: {
+                      messages:
+                        room._count.messages + (wasAlreadyProcessed ? 0 : 1),
+                    },
+                  };
+                }
+                return room.lastMessage?.id === message.id
+                  ? { ...room, lastMessage: message }
+                  : room;
+              }),
+            );
             return;
           }
 
           if (payload.type === "adminchat.message.deleted") {
-            const messageId = payload.data?.messageId;
+            const messageId = data?.messageId || data?.id;
             if (!messageId) return;
 
             setMessages((current) =>
@@ -465,7 +484,13 @@ export default function AdminChatPage() {
             setRooms((current) =>
               current.map((room) =>
                 room.id === selectedRoomId && room.lastMessage?.id === messageId
-                  ? { ...room, lastMessage: null }
+                  ? {
+                      ...room,
+                      lastMessage: null,
+                      _count: {
+                        messages: Math.max(0, room._count.messages - 1),
+                      },
+                    }
                   : room,
               ),
             );
@@ -521,7 +546,7 @@ export default function AdminChatPage() {
       socket?.close();
       setConnected(false);
     };
-  }, [selectedRoomId]);
+  }, [selectedRoomId, loadMessages]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -545,6 +570,10 @@ export default function AdminChatPage() {
       );
 
       setDraft("");
+      const wasAlreadyProcessed = processedCreatedMessageIdsRef.current.has(
+        message.id,
+      );
+      processedCreatedMessageIdsRef.current.add(message.id);
 
       setMessages((current) => {
         if (current.some((item) => item.id === message.id)) return current;
@@ -561,7 +590,10 @@ export default function AdminChatPage() {
                 ...room,
                 lastMessage: message,
                 updatedAt: message.createdAt,
-                _count: { messages: room._count.messages + 1 },
+                _count: {
+                  messages:
+                    room._count.messages + (wasAlreadyProcessed ? 0 : 1),
+                },
               }
             : room,
         ),
@@ -679,11 +711,19 @@ export default function AdminChatPage() {
         </div>
 
         <div
-          className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold ${"border-[var(--success-border)] bg-[var(--success-bg)] text-[var(--success)]"}`}
+          role="status"
+          aria-live="polite"
+          className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold ${
+            connected
+              ? "border-[var(--success-border)] bg-[var(--success-bg)] text-[var(--success)]"
+              : "border-[var(--warning-border)] bg-[var(--warning-bg)] text-[var(--warning)]"
+          }`}
         >
-          <Radio size={14} className={"animate-pulse"} />
-          <span className="hidden sm:inline">Connected live </span>
-          <span className="sm:hidden">Live</span>
+          <Radio size={14} className={connected ? "animate-pulse" : ""} />
+          <span className="hidden sm:inline">
+            {connected ? "Connected live" : "Reconnecting…"}
+          </span>
+          <span className="sm:hidden">{connected ? "Live" : "Offline"}</span>
         </div>
       </header>
 

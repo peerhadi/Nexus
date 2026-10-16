@@ -10,6 +10,7 @@ import {
   Mail,
   Menu,
   Settings,
+  Sparkles,
   UserRound,
   Users,
   X,
@@ -26,9 +27,10 @@ const navItems = [
   { label: "Clients", href: "/admin/clients", icon: UserRound },
   { label: "Archive", href: "/admin/archive", icon: Archive },
   { label: "Progress", href: "/admin/progress", icon: ChartPie },
+  { label: "Team", href: "/admin/team", icon: Users },
+  { label: "Admin AI", href: "/admin/ai", icon: Sparkles },
   { label: "Data Center", href: "/admin/data-center", icon: Database },
   { label: "Settings", href: "/admin/settings", icon: Settings },
-  { label: "Team", href: "/admin/team", icon: Users },
 ];
 
 export default function Sidebar() {

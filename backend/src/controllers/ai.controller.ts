@@ -103,6 +103,7 @@ export async function chatWithAI(
       userId,
       prompt: prompt.trim(),
       conversationId,
+      role: request.user.role,
     });
 
     return reply.send({
