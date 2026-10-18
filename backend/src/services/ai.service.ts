@@ -1,16 +1,15 @@
-import { GoogleGenAI } from "@google/genai";
+import Groq from "groq-sdk";
 import { prisma } from "../plugins/db.js";
 
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = process.env.GROQ_API_KEY;
 
 if (!apiKey) {
-  throw new Error("GEMINI_API_KEY is not configured");
+  throw new Error("GROQ_API_KEY is not configured");
 }
 
-const ai = new GoogleGenAI({ apiKey });
+const ai = new Groq({ apiKey });
 
-const MODEL = "gemini-3.1-flash-lite";
-
+const MODEL = "openai/gpt-oss-20b";
 // ─────────────────────────────────────────────
 // AUTHENTICATED NEXUS AI
 // ─────────────────────────────────────────────
@@ -206,7 +205,6 @@ type PublicGenerateOptions = {
 
 // ─────────────────────────────────────────────
 // AUTHENTICATED CHAT
-// Existing persistent conversation functionality
 // ─────────────────────────────────────────────
 
 export async function generateAIResponse({
@@ -223,7 +221,7 @@ export async function generateAIResponse({
     createdAt: Date;
   };
 }> {
-  if (!prompt || !prompt.trim()) {
+  if (!prompt?.trim()) {
     throw new Error("Prompt is required");
   }
 
@@ -270,25 +268,28 @@ export async function generateAIResponse({
     },
   });
 
-  const contents = history.map((message) => ({
-    role: message.role === "USER" ? "user" : "model",
-    parts: [{ text: message.content }],
+  const messages = history.map((item) => ({
+    role: item.role === "USER" ? ("user" as const) : ("assistant" as const),
+    content: item.content,
   }));
 
-  const response = await ai.models.generateContent({
+  const completion = await ai.chat.completions.create({
     model: MODEL,
-    contents,
-    config: {
-      systemInstruction: role === "ADMIN" ? ADMIN_SYSTEM_PROMPT : SYSTEM_PROMPT,
-      temperature: 0.7,
-      maxOutputTokens: 2048,
-    },
+    messages: [
+      {
+        role: "system",
+        content: role === "ADMIN" ? ADMIN_SYSTEM_PROMPT : SYSTEM_PROMPT,
+      },
+      ...messages,
+    ],
+    temperature: 0.7,
+    max_completion_tokens: 2048,
   });
 
-  const text = response.text?.trim();
+  const text = completion.choices[0]?.message?.content?.trim();
 
   if (!text) {
-    throw new Error("Gemini returned an empty response");
+    throw new Error("Groq returned an empty response");
   }
 
   const assistantMessage = await prisma.aIMessage.create({
@@ -328,7 +329,7 @@ export async function generatePublicAIResponse({
   message,
   history = [],
 }: PublicGenerateOptions): Promise<string> {
-  if (!message || !message.trim()) {
+  if (!message?.trim()) {
     throw new Error("Message is required");
   }
 
@@ -342,36 +343,31 @@ export async function generatePublicAIResponse({
     )
     .slice(-10)
     .map((item) => ({
-      role: item.role === "assistant" ? "model" : "user",
-      parts: [
-        {
-          text: item.content.trim().slice(0, 2000),
-        },
-      ],
+      role: item.role,
+      content: item.content.trim().slice(0, 2000),
     }));
 
-  const contents = [
-    ...safeHistory,
-    {
-      role: "user" as const,
-      parts: [{ text: message.trim() }],
-    },
-  ];
-
-  const response = await ai.models.generateContent({
+  const completion = await ai.chat.completions.create({
     model: MODEL,
-    contents,
-    config: {
-      systemInstruction: PUBLIC_SYSTEM_PROMPT,
-      temperature: 0.8,
-      maxOutputTokens: 1024,
-    },
+    messages: [
+      {
+        role: "system",
+        content: PUBLIC_SYSTEM_PROMPT,
+      },
+      ...safeHistory,
+      {
+        role: "user",
+        content: message.trim(),
+      },
+    ],
+    temperature: 0.8,
+    max_completion_tokens: 1024,
   });
 
-  const text = response.text?.trim();
+  const text = completion.choices[0]?.message?.content?.trim();
 
   if (!text) {
-    throw new Error("Gemini returned an empty public response");
+    throw new Error("Groq returned an empty public response");
   }
 
   return text;
