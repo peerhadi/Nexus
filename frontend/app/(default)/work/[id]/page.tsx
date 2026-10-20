@@ -811,7 +811,7 @@ function TechnologySection({ project }: { project: WorkProject }) {
 function ChallengesSection({ project }: { project: WorkProject }) {
   return (
     <section>
-      <SectionLabel number="07">Challenges and approaches</SectionLabel>
+      <SectionLabel number="06">Challenges and approaches</SectionLabel>
       <div className="mb-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <h2 className="text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl">
           The interesting part is solving the problem.
@@ -867,7 +867,7 @@ function ChallengesSection({ project }: { project: WorkProject }) {
 function FAQSection({ project }: { project: WorkProject }) {
   return (
     <section>
-      <SectionLabel number="08">Frequently asked questions</SectionLabel>
+      <SectionLabel number="07">Frequently asked questions</SectionLabel>
       <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
         <div>
           <h2 className="text-3xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-4xl">

@@ -24,7 +24,7 @@ export function PolicySection({
   return (
     <section
       id={id}
-      className={`rounded-[28px] border ${styles.border} bg-[var(--surface)] p-7 shadow-[0_12px_45px_rgba(15,23,42,0.045)] backdrop-blur sm:p-9`}
+      className={`rounded-[28px] bg-[var(--surface)] p-7 shadow-[0_12px_45px_rgba(15,23,42,0.045)] backdrop-blur sm:p-9`}
     >
       <div className="flex gap-5">
         <div

@@ -12,9 +12,7 @@ export default function Hero() {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.9fr] lg:gap-8">
           <div className="relative z-10">
-            <div
-              className="nexus-rise nexus-fade mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl"
-            >
+            <div className="nexus-rise nexus-fade mb-8 flex w-fit items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 shadow-sm backdrop-blur-xl">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-40" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-500" />
@@ -75,10 +73,10 @@ export default function Hero() {
                 href="build"
                 className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:bg-[var(--surface)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.1)]"
               >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-violet-100 via-fuchsia-100 to-blue-100 transition-transform duration-700 group-hover:translate-x-0" />
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-blue-500 transition-transform duration-700 group-hover:translate-x-0" />
 
                 <span className="relative flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent)] transition-all duration-500 group-hover:rotate-6 group-hover:scale-105">
                     <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
 

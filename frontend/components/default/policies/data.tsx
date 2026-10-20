@@ -175,7 +175,9 @@ export const privacySections: PolicySectionData[] = [
                 className="mt-0.5 shrink-0 text-violet-500"
               />
 
-              <span className="text-sm font-medium text-[var(--text-secondary)]">{item}</span>
+              <span className="text-sm font-medium text-[var(--text-secondary)]">
+                {item}
+              </span>
             </div>
           ))}
         </div>
@@ -403,10 +405,12 @@ export const termsSections: PolicySectionData[] = [
           ].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-3 rounded-2xl border border-cyan-100 bg-cyan-50/60 p-4"
+              className="flex items-center gap-3 rounded-2xl border border-cyan-100 p-4"
             >
               <CheckCircle2 size={16} className="shrink-0 text-cyan-500" />
-              <span className="text-sm font-medium text-[var(--text-secondary)]">{item}</span>
+              <span className="text-sm font-medium text-[var(--text-secondary)]">
+                {item}
+              </span>
             </div>
           ))}
         </div>
@@ -445,7 +449,7 @@ export const termsSections: PolicySectionData[] = [
           the start of a project.
         </p>
 
-        <div className="mt-6 rounded-3xl border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-pink-50 p-6">
+        <div className="mt-6 rounded-3xl p-6">
           <div className="flex items-start gap-4">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-orange-500">
               <CreditCard size={18} />
