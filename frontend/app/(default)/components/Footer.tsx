@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 const navigation = [
@@ -7,22 +7,24 @@ const navigation = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
+  { label: "Guide", href: "/guide" },
 ];
 
 const services = [
-  { label: "Websites", href: "/services" },
-  { label: "Web applications", href: "/services" },
-  { label: "Automation", href: "/services" },
-  { label: "AI systems", href: "/services" },
-  { label: "Integrations", href: "/services" },
+  "Websites",
+  "Web applications",
+  "Automation",
+  "AI systems",
+  "Integrations",
 ];
 
 const resources = [
-  { label: "Build", href: "/build" },
+  { label: "Playground", href: "/playground" },
+  { label: "Design Lab", href: "/design-lab" },
   { label: "Accessibility", href: "/accessibility" },
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Cookie Policy", href: "/cookies" },
+  { label: "Privacy Polcy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Cookie Polcy", href: "/cookies" },
 ];
 
 const socials = [
@@ -48,201 +50,158 @@ const socials = [
   },
 ];
 
+const linkClass =
+  "w-fit text-sm leading-6 text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface-secondary)] rounded-sm";
+
+const headingClass =
+  "mb-4 text-xs font-semibold uppercase tracking-wider text-[var(--text-primary)]";
+
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-[var(--border)] bg-[var(--surface-secondary)]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Main footer */}
-        <div className="grid gap-12 py-14 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-10">
-          {/* Brand */}
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1fr] lg:gap-12 lg:py-14">
           <div className="max-w-sm">
-            <Link href="/" className="group flex w-fit items-center">
-              <span className="h-20 flex items-center justify-center rounded-[11px] transition-all duration-300 group-hover:-rotate-3 group-hover:scale-105">
-                <img
-                  src="/logo.webp"
-                  alt="Nexus"
-                  className="h-auto w-[150px] object-contain"
-                  width={150}
-                  height={150}
-                />
-              </span>
+            <Link
+              href="/"
+              aria-label="Nexus home"
+              className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            >
+              <img
+                src="/logo.webp"
+                alt="Nexus"
+                width={150}
+                height={150}
+                className="h-auto w-[130px] object-contain"
+              />
             </Link>
 
-            <p className="mt-5 max-w-xs text-sm leading-6 text-[var(--text-tertiary)]">
-              We build websites, applications, automations, and custom systems
-              that turn complicated ideas into useful software.
+            <p className="mt-4 max-w-xs text-sm leading-6 text-[var(--text-secondary)]">
+              Websites, applications, automation, and custom software built
+              around the problems you want to solve.
             </p>
 
             <Link
-              href="/build"
-              className="group mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-xs font-semibold text-[var(--text-secondary)] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] hover:shadow-md"
+              href="/work"
+              className={`group mt-5 inline-flex items-center gap-2 font-medium ${linkClass}`}
             >
-              Start a project
-              <ArrowUpRight
-                size={13}
-                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              Explore our work
+              <ArrowRight
+                size={15}
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-x-1"
               />
             </Link>
           </div>
 
-          {/* Navigation */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              Explore
-            </div>
-
-            <nav className="flex flex-col items-start gap-3">
-              {navigation.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="group relative text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
-                >
-                  {link.label}
-
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-black transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+            <h2 className={headingClass}>Explore</h2>
+            <nav aria-label="Explore">
+              <ul className="flex flex-col items-start gap-2.5">
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className={linkClass}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
 
-          {/* Services */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              What we build
-            </div>
-
-            <nav className="flex flex-col items-start gap-3">
-              {services.map((service) => (
-                <Link
-                  key={service.label}
-                  href={service.href}
-                  className="group flex items-center gap-1 text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
-                >
-                  {service.label}
-
-                  <ArrowUpRight
-                    size={11}
-                    className="opacity-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-50"
-                  />
-                </Link>
-              ))}
+            <h2 className={headingClass}>Services</h2>
+            <nav aria-label="Services">
+              <ul className="flex flex-col items-start gap-2.5">
+                {services.map((service) => (
+                  <li key={service}>
+                    <Link href="/services" className={linkClass}>
+                      {service}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
 
-          {/* Resources */}
           <div>
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              Resources
-            </div>
-
-            <nav className="flex flex-col items-start gap-3">
-              {resources.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <h2 className={headingClass}>Resources</h2>
+            <nav aria-label="Resources">
+              <ul className="flex flex-col items-start gap-2.5">
+                {resources.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className={linkClass}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
         </div>
 
-        {/* Connection strip */}
         <div className="border-t border-[var(--border)] py-7">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-[var(--text-secondary)]">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                Open for interesting ideas
-              </div>
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="min-w-0">
+              <h2 className="text-sm font-semibold text-[var(--text-primary)]">
+                Have a project in mind?
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
+                Start with your idea. You don't need a complete brief.
+              </p>
 
               <a
-                href="mailto:hello@nexus.dev"
-                className="group mt-2 flex w-fit items-center gap-2 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
+                href="mailto:nexusdevs.js@gmail.com?subject=Project%20enquiry"
+                className={`mt-3 inline-flex items-center gap-2 break-all ${linkClass}`}
               >
-                <Mail size={14} />
+                <Mail size={15} aria-hidden="true" className="shrink-0" />
                 nexusdevs.js@gmail.com
               </a>
             </div>
 
-            {/* Social links */}
-            <div className="flex flex-wrap items-center gap-2">
-              {socials.map((social) => {
-                const Icon = social.icon;
-
-                return (
-                  <Link
-                    key={social.label}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="group flex h-10 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[var(--text-tertiary)] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] hover:shadow-md"
-                  >
-                    <Icon
-                      size={15}
-                      className="transition-transform duration-300 group-hover:scale-110"
-                    />
-
-                    <span className="text-[10px] font-semibold">
-                      {social.label}
-                    </span>
-                  </Link>
-                );
-              })}
-
-              <Link
-                href="/build"
-                className="group flex h-10 items-center gap-2 rounded-full bg-[var(--accent)] px-4 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--accent)]/85 hover:shadow-lg"
-              >
-                <MessageCircle size={14} className="text-white" />
-
-                <span className="text-[10px] font-bold text-white!">
-                  Talk to us
-                </span>
-
-                <ArrowUpRight
-                  size={12}
-                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 text-white"
-                />
-              </Link>
-            </div>
+            <nav
+              aria-label="Social media"
+              className="flex flex-wrap items-center gap-2"
+            >
+              {socials.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Nexus on ${label}`}
+                  title={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                >
+                  <Icon size={17} aria-hidden="true" />
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col gap-3 border-t border-[var(--border)] py-5 text-xs text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span>© {new Date().getFullYear()} Nexus</span>
+        <div className="flex flex-col gap-4 border-t border-[var(--border)] py-5 text-xs leading-5 text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Nexus. Built with purpose.</p>
 
-            <span className="hidden h-1 w-1 rounded-full bg-[var(--border)] sm:block" />
-
-            <span>Built with curiosity.</span>
-          </div>
-
-          <div className="flex items-center gap-5">
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-[var(--text-secondary)]"
-            >
-              Privacy
-            </Link>
-
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-[var(--text-secondary)]"
-            >
-              Terms
-            </Link>
-
-            <Link
-              href="/cookies"
-              className="transition-colors hover:text-[var(--text-secondary)]"
-            >
-              Cookies
-            </Link>
-          </div>
+          <nav aria-label="Legal information">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
+              <li>
+                <Link href="/privacy" className={linkClass}>
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className={linkClass}>
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookies" className={linkClass}>
+                  Cookies
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>

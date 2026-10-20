@@ -79,7 +79,7 @@ function getSavedTheme() {
 function getSavedAppearance() {
   if (typeof window === "undefined") return "dark";
 
-  return localStorage.getItem("nexus_appearance") === "dark" ? "dark" : "light";
+  return localStorage.getItem("nexus_mode") === "dark" ? "dark" : "light";
 }
 
 function SectionHeading({
@@ -190,7 +190,7 @@ export default function AdminSettingsPage() {
       root.classList.toggle("dark", nextAppearance === "dark");
 
       localStorage.setItem("nexus_theme", nextTheme);
-      localStorage.setItem("nexus_appearance", nextAppearance);
+      localStorage.setItem("nexus_mode", nextAppearance);
 
       setTheme(nextTheme);
       setAppearance(nextAppearance);

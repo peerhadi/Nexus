@@ -7,7 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 export default function FinalCta() {
   return (
     <section className="relative px-5 py-10 sm:px-8 lg:px-12 lg:py-12">
-      <div className="relative mx-auto max-w-[1450px] overflow-hidden rounded-[44px] bg-[var(--gradient-hero)] px-7 py-28 text-center text-white sm:px-12 lg:py-40">
+      <div className="relative mx-auto max-w-[1450px] overflow-hidden rounded-[44px] bg-[var(--gradient-hero)] px-7 py-28 text-center text-[var(--text-primary)] sm:px-12 lg:py-40">
         <motion.div
           animate={{
             x: [0, 70, -50, 0],
@@ -23,7 +23,7 @@ export default function FinalCta() {
         />
 
         <div className="relative">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--text-primary)]/60">
             005 — Your turn
           </p>
 
@@ -32,10 +32,10 @@ export default function FinalCta() {
             <br />
             KNOW EACH
             <br />
-            <span className="text-white/35">OTHER.</span>
+            <span className="text-[var(--text-primary)]/35">OTHER.</span>
           </h2>
 
-          <p className="mx-auto mt-12 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
+          <p className="mx-auto mt-12 max-w-xl text-base leading-7 text-[var(--text-primary)]/65 sm:text-lg">
             You have the idea. We have the questionable amount of enthusiasm.
             Seems like a reasonable arrangement.
           </p>
